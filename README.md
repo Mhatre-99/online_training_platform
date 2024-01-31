@@ -1,6 +1,15 @@
 # CSCI 5709 Grp-05
 
+Group Project link
+[CSCI 5709 Grp-05](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/)
 
+Individiual branch links: 
+- [Shweta Shweta](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/shweta-shweta?ref_type=heads)
+- [Aakash Nandwani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aakash-nandwani?ref_type=heads)
+- [Samit Mhatre](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/samit-mhatre?ref_type=heads)
+- [Krisha Panchamia](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/krisha-panchamia?ref_type=heads)
+- [Gunjan Vazirani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/gunjan-vazirani?ref_type=heads)
+- [Aditya Pattani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aditya-pattani?ref_type=heads)
 
 ## Getting started
 
@@ -84,7 +93,12 @@ For people who want to make changes to your project, it's helpful to have some d
 You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
 ## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- [Shweta Shweta](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/shweta-shweta?ref_type=heads)
+- [Aakash Nandwani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aakash-nandwani?ref_type=heads)
+- [Samit Mhatre](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/samit-mhatre?ref_type=heads)
+- [Krisha Panchamia](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/krisha-panchamia?ref_type=heads)
+- [Gunjan Vazirani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/gunjan-vazirani?ref_type=heads)
+- [Aditya Pattani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aditya-pattani?ref_type=heads)
 
 ## License
 For open source projects, say how it is licensed.
