@@ -33,7 +33,6 @@ export default function ContactForm() {
                 console.log(error.text);
                 console.log("error sending message, try again!")
             });
-        window.location.reload();
     };
     return (
         <Container className="form" >

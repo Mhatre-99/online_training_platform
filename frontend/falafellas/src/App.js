@@ -6,12 +6,13 @@ import NavbarComp from './Components/CommonComponents/Navbar/NavbarComp';
 function App() {
   return (
     <>
+        <NavbarComp/>
       <div className="App">
           <Routes>
               <Route path="/contact" element={<Contact/>}/>
           </Routes>
       </div>
-      <NavbarComp/>
+
     </>
     
   );
