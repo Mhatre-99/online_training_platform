@@ -1,5 +1,5 @@
 .form {
-    max-width: 800px;
+    max-width: 950px;
     margin: 0px auto;
 
 }
@@ -91,8 +91,15 @@
 
 .contact-info-child {
     background: #F26B37;
-
+    margin-top: 4rem;
 }
+
+@media (min-width: 600px) {
+    .contact-info-child {
+        margin-top: 2rem;
+    }
+    }
+
 
 .title {
     font-size: calc(100% + 1vh);
@@ -147,3 +154,10 @@
     border: 2px solid #F26B37;
     border-radius: 4px
 }
+
+.submit-button:hover {
+    background: #f36b37;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+    border-color: #f36b37;
+}
+
