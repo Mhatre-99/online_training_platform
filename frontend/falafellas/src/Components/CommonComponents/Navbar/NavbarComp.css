@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.navbar-custom{
+    background-color: #1c1c1c;
+}
+
+.navbar-elements .nav-link{
+    color: #f36b37 !important;
+    text-transform: uppercase;
+}
+
+.navbar-elements .nav-link:hover{
+    /* font-weight: 600; */
+    color: #F2F2F2 !important;
+}
+
+.brand-name {
+    background: linear-gradient(to right, #f36b37, #F2F2F2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Pacifico', cursive; 
+    font-size: 1.5em; 
+    display: inline-block;
+}
+
+.toggle-custom .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=UTF8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="%23F2F2F2" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>') !important;
+}
+
+
+.toggle-custom.navbar-toggler {
+    border: 2px solid #f36b37;
+}
+
+.navbar-custom .dropdown-menu {
+    left: auto;
+    right: 0; 
+  }
+
+.navbar-custom .nav-link.dropdown-toggle,
+.navbar-custom .nav-link.dropdown-toggle:focus,
+.navbar-custom .nav-link.dropdown-toggle.show {
+    color: #f36b37;
+}
+
+
+
+  
+  
