@@ -1,7 +1,9 @@
-.form {
-    max-width: 950px;
-    margin: 0px auto;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+.form {
+    max-width: 750px;
+    /* max-height: 600px; */
+    /* margin: 0px auto; */
 }
 
 .parent {
@@ -20,8 +22,10 @@
 }
 
 .form-title{
-    font-size: calc(100% + 4vh);
-    font-weight: 600;
+    font-size: calc(100% + 2vh);
+    color: #1c1c1c;
+    font-family: "Poppins", sans-serif;
+    /* font-weight: 600; */
 }
 
 .floating-label-group {
@@ -92,6 +96,8 @@
 .contact-info-child {
     background: #F26B37;
     margin-top: 4rem;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
 }
 
 @media (min-width: 600px) {
@@ -102,15 +108,16 @@
 
 
 .title {
-    font-size: calc(100% + 1vh);
-    margin-top: 2rem;
-    margin-bottom: 0rem;
+    font-size: calc(100% + 1.2vh);
+    margin-top: 4rem;
+    margin-bottom: 2rem;
     color: white;
-    font-weight: bold;
+    font-weight: 450;
+    font-family: "Poppins", sans-serif;
 }
 
 .sub-title {
-    font-size: calc(100% + 1vh);
+    font-size: calc(100%);
     margin-top: 1rem;
     margin-bottom: 0rem;
     color: white;
@@ -160,4 +167,11 @@
     box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
     border-color: #f36b37;
 }
+
+.submit-button:active, .submit-button:focus {
+    background-color: #f36b37; /* The color you want */
+    border: 2px solid #F26B37; /* The color you want */
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+    outline: none; /* Removes the outline */
+  }
 

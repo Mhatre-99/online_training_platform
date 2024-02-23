@@ -3,9 +3,9 @@ import React from 'react';
 export default function ContactInfo(){
 
     return(
-                <div className="contact-info-child">
+            <div className="contact-info-child">
                 <div className="title">
-                    Contact Info
+                    Contact Details
                 </div>
                 <div>
                     <div className="sub-title">
@@ -56,7 +56,6 @@ export default function ContactInfo(){
                         </span>
                     </div>
                 </div>
-
-        </div>
+            </div>
     )
 }
