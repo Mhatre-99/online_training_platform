@@ -1,21 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .navbar-custom{
     background-color: #1c1c1c;
 }
 
 .navbar-elements .nav-link{
-    color: #f36b37 !important;
+    color: #f36b37 !important; 
+    /* color: #F26B37 !important; */
     text-transform: uppercase;
 }
 
 .navbar-elements .nav-link:hover{
     /* font-weight: 600; */
-    color: #F2F2F2 !important;
+    color: #fdf8f3 !important;
 }
 
 .brand-name {
-    background: linear-gradient(to right, #f36b37, #F2F2F2);
+    background: linear-gradient(to right, #f36b37, #fdf8f3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: 'Pacifico', cursive; 
@@ -43,6 +44,18 @@
     color: #f36b37;
 }
 
+.navbar-custom .dropdown-menu{
+    background-color: rgba(28, 28, 28, 0.9)
+    /* background-color: #fdf8f3; */
+}
+
+.navbar-custom .dropdown-menu .dropdown-item{
+    color: #f36b37;
+}
+.navbar-custom .dropdown-menu .dropdown-item:hover{
+    /* background-color: #1c1c1c; */
+    background-color: #fdf8f3;
+}
 
 
   
