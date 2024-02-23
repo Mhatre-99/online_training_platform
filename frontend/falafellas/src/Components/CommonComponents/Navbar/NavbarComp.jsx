@@ -42,7 +42,7 @@ function NavbarComp() {
                   <Nav.Link>Contact Us</Nav.Link>
                 </LinkContainer>
 
-                <Nav.Link href="#link">FAQ</Nav.Link>    
+                <Nav.Link href="/faq">FAQ</Nav.Link>    
             </Nav>
           </Navbar.Collapse>
 
