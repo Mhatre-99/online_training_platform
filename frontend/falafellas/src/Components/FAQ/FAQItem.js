@@ -1,4 +1,5 @@
 import Accordion from 'react-bootstrap/Accordion';
+import './FAQItem.css';
 
 function FAQItem({ id, question, answer }) {
 	return (

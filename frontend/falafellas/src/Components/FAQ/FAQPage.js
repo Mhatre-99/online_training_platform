@@ -43,7 +43,7 @@ function FAQPage() {
 								onChange={handleSearch}/>
 						</div>
 					</div>
-					<Accordion defaultActiveKey="0" className='mt-5'>
+					<Accordion defaultActiveKey="0" className='mt-5 mb-5'>
 						{(filteredFAQs.length === 0 ? FAQs : filteredFAQs).map((item) => (
 							<FAQItem key={item.id} id={item.id} question={item.question} answer={item.answer} />
 						))}
