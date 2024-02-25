@@ -1,6 +1,4 @@
 .footer {
-  bottom: 0;
-  width: 100%;
   background-color: #1c1c1c !important;
 }
 
@@ -46,10 +44,6 @@
 .copyright-font {
   font-size: 0.8rem;
   padding-left: 0.5rem;
-}
-
-.social-space {
-  display: ruby;
 }
 
 .socials {
