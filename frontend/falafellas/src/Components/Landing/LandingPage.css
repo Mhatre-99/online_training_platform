@@ -1,0 +1,73 @@
+body{
+    background-color: black;
+}
+
+/* common.css */
+
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  width: 80%; /* Adjust width as needed */
+}
+
+.container {
+  display: flex;
+  width: 100%; /* Make container full width */
+  height: 100%; /* Make container full height */
+}
+
+.image-container,
+.text-container {
+  flex: 1;
+  position: relative;
+  padding: 20px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding in width calculation */
+  color:#ffffff;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover container */
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.text-container p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.cta-buttons {
+  margin-top: 20px;
+}
+
+.contact-info {
+  margin-top: 20px;
+}
+
+  
