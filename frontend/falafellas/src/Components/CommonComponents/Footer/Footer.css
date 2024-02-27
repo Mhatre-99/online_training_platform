@@ -14,28 +14,28 @@
 .navbar-brand-footer {
   color: #f36b37 !important;
   text-transform: uppercase;
-  display: flex;
   align-items: center;
+  margin-right: none !important;
 }
 
 .divider {
   color: #f36b37;
 }
 
+.hr-falla {
+  margin-top: 0.7rem !important;
+}
 .details-footer {
   font-size: calc(100% + 0.3vh);
   color: #f36b37;
 }
-.me {
-  margin-right: 3rem !important;
+
+.footer-container {
+  display: block !important;
 }
-.mt {
-  margin-top: 3.5rem !important;
-}
+
 .copyright-tag {
   font-size: 0.8rem;
-  margin-top: 0.4rem;
-  margin-bottom: 0.5rem;
   color: #f36b37;
   display: flex;
   justify-content: center;
