@@ -37,6 +37,9 @@
   right: 0;
 }
 
+.locator {
+  padding: 0rem !important;
+}
 .navbar-custom .nav-link.dropdown-toggle,
 .navbar-custom .nav-link.dropdown-toggle:focus,
 .navbar-custom .nav-link.dropdown-toggle.show {

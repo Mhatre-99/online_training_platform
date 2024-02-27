@@ -27,8 +27,8 @@ function Footer() {
                 <hr className="my-2 divider" />
               </Col>
             </Row>
-            <Row className="pt-4">
-              <Col className="d-flex flex-column align-items-center">
+            <Row className="pt-4 pb-3">
+              <Col className="d-flex flex-column">
                 <Row>
                   <Navbar.Brand className="navbar-brand-footer">
                     About Falafellas
@@ -44,7 +44,7 @@ function Footer() {
                   <Nav.Link href="#">News</Nav.Link>
                 </Row>
               </Col>
-              <Col className="d-flex flex-column align-items-center">
+              <Col className="d-flex flex-column">
                 <Row>
                   <Navbar.Brand className="navbar-brand-footer">
                     Customer Service
@@ -55,8 +55,40 @@ function Footer() {
                   <Nav.Link href="/contact">Contact Us</Nav.Link>
                 </Row>
               </Col>
+              <Col className="d-flex flex-column">
+                <Row>
+                  <Navbar.Brand className="navbar-brand-footer">
+                    Find Us
+                  </Navbar.Brand>
+                </Row>
 
-              <Col className="d-flex flex-column align-items-center">
+                <Row>
+                  <Col xs={2} className="text-center locator">
+                    <Nav.Link href="/#" className="socials">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M12 22s-8-5.5-8-12a8 8 0 0 1 16 0c0 6.5-8 12-8 12z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                    </Nav.Link>
+                  </Col>
+                  <Col className="locator">
+                    <Nav.Link href="/#" className="locator">
+                      2155 Monastery Ln, <br></br>Halifax, NS, <br></br>B3L 4P9
+                    </Nav.Link>
+                  </Col>
+                </Row>
+              </Col>
+              <Col className="d-flex flex-column">
                 <Row>
                   <Navbar.Brand className="navbar-brand-footer">
                     Keep in touch
