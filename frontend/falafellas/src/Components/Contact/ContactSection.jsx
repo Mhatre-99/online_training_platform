@@ -72,7 +72,7 @@ export default function ContactForm() {
                                 </Col>
                                 <Col >
                                     <Form.Group class="floating-label-group">
-                                    <input type="number" id="name" autocomplete="on" required />
+                                    <input type="tel" id="name" autocomplete="on" required />
                                     <label for="phone">Phone</label>
                                     </Form.Group>
                                 </Col>
