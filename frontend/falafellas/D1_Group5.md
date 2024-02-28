@@ -24,6 +24,13 @@
 - [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) - Utility based CSS framework which makes writing CSS effortless for developers
 - [Axios](https://github.com/axios/axios) - Promise based HTTP client which helps developers make API calls easily.
 
+## Deployment
+
+- Deployment of the Falafellas App is done using GitHub and Netlify. 
+
+- Github Repo Link (Private-Repository): https://github.com/Mhatre-99/CSCI5709-Group5/
+
+- Netlify Deployed Link: https://falafellas.netlify.app/
 
 ## Sources used
 
@@ -304,14 +311,6 @@ To run this React app locally:
 
 
 
-## Deployment
-
-Our project is deployed using Netlify. We cloned our repository from Gitlab on Github and used the Github respository to deploy the website on Netlify.
-
-- [Netlify](https://www.netlify.com/) - platform on which application deployed
-- [Github](https://github.com/) - platform where source code resides
-
-
 
 ## Acknowledgments
 
@@ -327,5 +326,5 @@ Our project is deployed using Netlify. We cloned our repository from Gitlab on G
 
 [6] "React Bootstarp" React-bootstrap.app. [Online]. Available: https://react-bootstrap.netlify.app/. [Accessed: 27-Feb-2024].
 
-[7]	“Adding images, fonts, and files,” Create-react-app.dev. [Online]. Available: https://create-react-app.dev/docs/adding-images-fonts-and-files/. [Accessed: 28-Feb-2024].
+[7]	“Adding images, fonts, and files,” Create-react-app.dev. [Online]. Available: https://create-react-app.dev/docs/        adding-images-fonts-and-files/. [Accessed: 28-Feb-2024].
 
