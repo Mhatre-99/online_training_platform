@@ -1,5 +1,4 @@
-
-
+/* Default styles */
 .landing-page {
   display: flex;
   justify-content: center;
@@ -10,7 +9,7 @@
 
 .content-wrapper {
   display: flex;
-  width: 80%; 
+  width: 90%; /* Adjust width as needed */
 }
 
 .container {
@@ -23,15 +22,17 @@
 .text-container {
   flex: 1;
   position: relative;
-  padding: 20px; 
-  box-sizing: border-box; 
+  padding: 20px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding in width calculation */
   color: white;
 }
 
 .image-container img {
-  width: 90%;
-  height: 95%;
-  object-fit: cover; 
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Maintain aspect ratio and fit within container */
 }
 
 .image-overlay {
@@ -59,12 +60,28 @@
   line-height: 1.5;
 }
 
-.cta-buttons {
-  margin-top: 20px;
+.submit-button {
+  margin-top: 2rem;
+  background: #B26E1C;
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 211px;
+  height: 56px;
+  cursor: pointer;
+  border: 2px solid #B26E1C;
+  border-radius: 4px;
 }
 
-.contact-info {
-  margin-top: 20px;
+.submit-button:hover {
+  background: #B26E1C;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+  border-color: #B26E1C;
 }
 
 .about-buttons-container {
