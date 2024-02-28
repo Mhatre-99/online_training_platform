@@ -2,6 +2,8 @@ import React from 'react';
 import './../../../src/common.css';
 import './LandingPage.css'
 import LandingPageImage from './LandingPageImage.jpg'
+import About from './About';
+import { Border, BorderAll } from 'react-bootstrap-icons';
 
 function LandingPage() {
   return (
@@ -18,10 +20,11 @@ function LandingPage() {
           </div>
           <div className="image-container">
             <img src={LandingPageImage} alt="Learning Management System" />
-            <div className="image-overlay"></div> {/* Overlay for blending effect */}
+            <div className="image-overlay"></div> 
           </div>
         </div>
       </div>
+      <About/>
     </div>
   );
 }
