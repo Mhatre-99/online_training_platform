@@ -7,12 +7,12 @@
 
 ## Authors
 
-- [Aditya Patani]()
+- [Aditya Pattani](aditya.pattani@dal.ca)
 - [Aakash Nandwani]()
-- [Gunjan Vazrani]()
-- [Krisha Panchamia]()
+- [Gunjan Vazirani](gn745979@dal.ca)
+- [Krisha Panchamia](krisha.panchamia@dal.ca)
 - [Samit Mhatre](sm904139@dal.ca)
-- [Shweta Shweta]()
+- [Shweta Shweta](sh978835@dal.ca)
 
 ## Built With
 
