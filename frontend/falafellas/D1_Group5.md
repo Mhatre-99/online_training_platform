@@ -265,6 +265,34 @@ The code above was created by adapting the codes available in [Bootstrap Form Co
 
 The main purpose of doing this was to create a form allowing users to add modules while simultaneously using the components provided by React Bootstrap.
 
+5. [Home Page](/src/Components/Landing/LandingPage.jsx)
+*Lines 19 - 22*
+```js
+<div className="image-container">
+  <img src={LandingPageImage} alt="Learning Management System" />
+  <div className="image-overlay"></div> {/* Overlay for blending effect */}
+</div>
+```
+
+The code above was created by adapting the codes available in [Adding images, fonts, and files](https://create-react-app.dev/docs/adding-images-fonts-and-files/) as shown below: 
+
+```js
+import React from 'react';
+import logo from './logo.png'; // Tell webpack this JS file uses this image
+
+console.log(logo); // /logo.84287d09.png
+
+function Header() {
+  // Import result is the URL of your image
+  return <img src={logo} alt="Logo" />;
+}
+
+export default Header;
+```
+- Snippet 1 is tailored for a specific use case of displaying an image with an overlay effect, whereas Snippet 2 is a more generic component for displaying a logo image.
+In Snippet 2, the image source (logo) is imported directly, while in Snippet 1, the image source (LandingPageImage) is passed as a prop to the component.
+- Snippet 1 includes additional styling for creating an overlay effect, which is not present in Snippet 2.
+
 ## Getting Started
 
 To run this React app locally:
@@ -298,4 +326,6 @@ Our project is deployed using Netlify. We cloned our repository from Gitlab on G
 [5]	“Create react app,” Create-react-app.dev. [Online]. Available: https://create-react-app.dev/. [Accessed: 27-Feb-2024].
 
 [6] "React Bootstarp" React-bootstrap.app. [Online]. Available: https://react-bootstrap.netlify.app/. [Accessed: 27-Feb-2024].
+
+[7]	“Adding images, fonts, and files,” Create-react-app.dev. [Online]. Available: https://create-react-app.dev/docs/adding-images-fonts-and-files/. [Accessed: 28-Feb-2024].
 
