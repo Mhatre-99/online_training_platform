@@ -52,7 +52,10 @@ function Footer() {
                 </Row>
 
                 <Row>
-                  <Nav.Link href="/contact">Contact Us</Nav.Link>
+                  {/* <Nav.Link href="/contact">Contact Us</Nav.Link> */}
+                  <LinkContainer to="/contact">
+                    <Nav.Link>Contact Us</Nav.Link>
+                  </LinkContainer>
                 </Row>
               </Col>
               <Col className="d-flex flex-column">
