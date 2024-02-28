@@ -27,9 +27,8 @@
 
 ## Sources used
 
-1. [LandingPage.jsx](/src/Components/Landing/LandingPage.jsx)
 
-2. [Contact.jsx](/src/Components/Contact/ContactSection.jsx)
+1. [Contact.jsx](/src/Components/Contact/ContactSection.jsx)
 
 *Lines 60 - 85*
 ```js
@@ -94,7 +93,7 @@ function BasicExample() {
 - The code in [Forms | React Bootstarp](https://react-bootstrap.netlify.app/docs/forms/overview) was used as a reference to create the contact form of my web page. I modified the code to match the theme of our website making the form components modern and clean after carefully examining the original source and comprehending the logic and functionality of it. 
 - [Forms | React Bootstarp](https://react-bootstrap.netlify.app/docs/forms/overview)'s code was used because our goal was to make the form responsive and Bootstrap has components which are build to be responsive. Using well-written code sped up our development process. The code was modified based on the project requirements. The input type and button designs were changed to match the theme of the website.
 
-3. [FAQItem.js](/src/Components/FAQ/FAQItem.js)
+2. [FAQItem.js](/src/Components/FAQ/FAQItem.js)
 *Lines 4 - 13*
 ```js
 function FAQItem({ id, question, answer }) {
@@ -128,7 +127,7 @@ The above code was created by adapting the codes available in [Accordion | React
 We modified the code to use props. Using this, we created a reusable component namely FAQItem to utilize in the FAQPage component where we can create individual elements using a dataset defined in the `constants` directory.
 The primary goal of using these elements from [Accordion | React Bootstrap](https://react-bootstrap.netlify.app/docs/components/accordion/) was to make the UI responsive and use the components provided by the Bootstrap framework.
 
-4. [CourseContentElement.js](/src/Components/LectureAddition/CourseContentElement.js)
+3. [CourseContentElement.js](/src/Components/LectureAddition/CourseContentElement.js)
 *Lines 22 - 44*
 ```js
 <Form.Group controlId="formFile" className="mb-3" style={{ marginRight: '20px' }}>
