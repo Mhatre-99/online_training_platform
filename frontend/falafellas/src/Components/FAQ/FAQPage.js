@@ -16,7 +16,7 @@ function FAQPage() {
 	
 	return (
 		<div className='App'>
-			<Container className='test mt-5'>
+			<Container className='mt-5'>
 				<Row>
 					<Col />
 					<Col xs={8}>
