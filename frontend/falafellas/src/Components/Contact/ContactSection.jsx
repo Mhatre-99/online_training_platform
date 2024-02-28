@@ -81,7 +81,7 @@ export default function ContactForm() {
                                 <textarea className="message" id="message" cols="40" rows="5" required onChange={(e) => setMessage(e.target.value)} ></textarea>
                                 <label for="message">Write your message here ... </label>
                             </Form.Group>
-                            <Button type="submit" className="submit-button">Submit Message</Button>
+                            <Button type="submit" className="submit-button-contact">Submit Message</Button>
                         </Form>
                     </div>
                 </Col>
