@@ -44,7 +44,10 @@ function NavbarComp() {
               <LinkContainer to="/contact">
                 <Nav.Link>Contact Us</Nav.Link>
               </LinkContainer>
-              <Nav.Link href="/faq">FAQ</Nav.Link>
+              <LinkContainer to="/faq">
+                <Nav.Link>FAQ</Nav.Link>
+              </LinkContainer>
+              {/* <Nav.Link href="/faq">FAQ</Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
 
