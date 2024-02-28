@@ -97,4 +97,23 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 20px;
 }  
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+  }
+  
+  .container {
+    width: 100%; /* Make container full width */
+  }
+  
+  .image-container,
+  .text-container {
+    width: 100%; /* Set width to 100% for smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+}
