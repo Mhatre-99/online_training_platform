@@ -2,13 +2,13 @@
 
 * *Date Created*: 27 Feb 2024
 * *Last Modification Date*: 27 Feb 2024
-* *Assignment URL*: 
+* *Assignment URL*: https://5709-group5.netlify.app/
 * *Git URL*: https://git.cs.dal.ca/panchamia/csci-5709-grp-05
 
 ## Authors
 
 - [Aditya Pattani](mailto:aditya.pattani@dal.ca)
-- [Aakash Nandwani]()
+- [Aakash Nandwani](mailto:ak824757@dal.ca)
 - [Gunjan Vazirani](mailto:gn745979@dal.ca)
 - [Krisha Panchamia](mailto:krisha.panchamia@dal.ca)
 - [Samit Mhatre](mailto:sm904139@dal.ca)
