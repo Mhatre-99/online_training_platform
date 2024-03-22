@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const CourseSchema = new Schema({
-    id: Number,
+    _id: String,
     name: String,
     description: String,
     deadline: Number,
@@ -9,7 +10,9 @@ const CourseSchema = new Schema({
     rating: Number,
     reward_points: Number,
     certificate: String
-});
+}, { versionKey: false });
 
-module.exports = mongoose.model;
+const Course = mongoose.model("Course", CourseSchema);
+
+module.exports = Course;
 

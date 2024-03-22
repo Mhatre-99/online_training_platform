@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const QuizSchema = new Schema({
-    id: Number,
+    _id: String,
     name: String,
     questions: Array,
     answers: Array,
@@ -9,7 +10,9 @@ const QuizSchema = new Schema({
     time_limit: Number,
     minimum_marks: Number,
     deadline: Date
-});
+}, { versionKey: false });
 
-module.exports = mongoose.model;
+const Quiz = mongoose.model("Quiz", QuizSchema);
+
+module.exports = Quiz;
 

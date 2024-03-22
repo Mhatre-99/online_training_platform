@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const ModuleSchema = new Schema({
-    id: Number,
+    _id: String,
     title: String,
     description: String,
     author: Number,
@@ -10,7 +11,9 @@ const ModuleSchema = new Schema({
     duration: Number,
     is_mandatory: Boolean,
     reward_points: Number
-});
+}, { versionKey: false });
 
-module.exports = mongoose.model;
+const Module = mongoose.model("Module", ModuleSchema);
+
+module.exports = Module;
 
