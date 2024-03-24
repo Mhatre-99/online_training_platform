@@ -5,6 +5,7 @@ import NavbarComp from './Components/CommonComponents/Navbar/NavbarComp';
 import FAQPage from './Components/FAQ/FAQPage';
 import Footer from "./Components/CommonComponents/Footer/Footer";
 import LandingPage from "./Components/Landing/LandingPage";
+import ModuleTitle from "./Components/Module/ModuleTitle";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
               <Route path="/" element={<LandingPage/>} />
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQPage />} />
+              <Route path="/course"/>
+              <Route path="/module/:id" element={<ModuleTitle/>}/>
           </Routes>
       </div>
       <Footer />
