@@ -2,16 +2,24 @@ import { Container } from "react-bootstrap";
 import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
 import thumbnail from "../../assets/Module/videothumbnail.png";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import Videos from "./Videos";
+import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
 export default function Video({data}) {
-    
+    const videoData = {data};
+    const navigate = useNavigate();
+    const id = {data}.id;
+    function handleOnClick(e){
+        navigate(`video/${videoData.data._id}`, { state: { contentID: videoData.data._id } })
+    }
     
     return (
         <Container className="video">
             <Row className="justify-content-center video-row">
                 <Col sm={3}>
                     
-                        <img src={thumbnail} alt="thumbnail" className="thumbnail"></img>
+                        <img src={thumbnail} alt="thumbnail" className="thumbnail" onClick={handleOnClick}></img>
                     
                 </Col>
                 
@@ -32,7 +40,8 @@ export default function Video({data}) {
                     </div>
 
                 </Col>
-            </Row>    
+            </Row>
+
         </Container>
     )
 }

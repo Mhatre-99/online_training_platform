@@ -29,38 +29,24 @@ import "./module.css"
     }
 ]*/
 
-export default function Videos({videos, quizzes , checkBox}) {
+export default function Videos({mdata , videos, quizzes , checkBox}) {
 
     const [data, setData] = useState([]);
-    const mergedData = (videos || []).concat(quizzes || []);
+    const merged = {mdata}.mdata;
+    console.log("mdata ",merged);
     useEffect(() => {
-        let newMergedData = [];
-        mergedData.forEach(function(data){
-            const newData = {
-                title: data.name || "",
-                description: data.description || " ",
-                status: data.status || "Incomplete",
-                time: data.time_limit? data.time_limit : data.duration,
-                questions: data.questions ? data.questions.length : "",
-                type: data.questions ? "quiz" : "video",
-                contentType: data.questions ? "quiz" : "video"
-            }
-            newMergedData.push(newData);
-        })
-        setData(newMergedData);
-        console.log("data",data);
-    }, [videos, quizzes]);
-
-
+        setData(merged)
+        console.log("DATA ", data);
+    }, [mdata]);
 
 
     return(
 
         <Container fluid className="video-frame">
             {data.filter(function(data){
-                console.log("check video ",checkBox.video);
-                console.log("check quiz ",checkBox.quiz);
-                console.log("check status ",checkBox.status);
+                //console.log("check video ",checkBox.video);
+                //console.log("check quiz ",checkBox.quiz);
+                //console.log("check status ",checkBox.status);
                 if(!(checkBox.video || checkBox.quiz || checkBox.status)){
                     return data;
                 }else{

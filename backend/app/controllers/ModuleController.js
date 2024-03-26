@@ -38,7 +38,7 @@ const addModule = async (req, res) =>{
     videos.forEach(function(video){
         const newVideo = new Video({
             _id: new mongoose.Types.ObjectId(),
-            drive_url: video.url,
+            drive_url: video.drive_url || "",
             description: video.description,
             name: video.name,
             duration: video.duration
