@@ -4,6 +4,7 @@ import SidePanel from "./SidePanel";
 import "../module.css";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import api from "../../../baseUrl";
+import ReactPlayer from "react-player";
 
 
 export default function VideoPlayer({content, callbackSidePanel}){
@@ -71,6 +72,16 @@ export default function VideoPlayer({content, callbackSidePanel}){
     const handleVideoEnd = () => {
         setHasWatched(true);
         console.log('User has completed watching.');
+        api.post("/progress/update/user-progress", {
+            userId: "b3aaf199",
+            moduleId: mId,
+            contentId: videoId
+        }).then(res => {
+            const response = res.data;
+            console.log("Updated the progress ", response)
+        }).catch(error => {
+            console.log("error updating progress ", error);
+        })
     };
 
 
@@ -88,10 +99,11 @@ export default function VideoPlayer({content, callbackSidePanel}){
                 <Col sm={8} className="video-player-content">
                     <Row className="video-player-row">
                         <div>
-                            <video width="100%" controls onEnded={handleVideoEnd}>
+                            {/*<video width="100%" controls onEnded={handleVideoEnd}>
                                 <source src="https://www.youtube.com/watch?v=hZEc4jD0q2c" type="video/mp4" />
                                 Your browser does not support the video tag.
-                            </video>
+                            </video>*/}
+                            <ReactPlayer url={url} controls={true} onEnded={handleVideoEnd} width="100%" />
                         </div>
                     </Row>
                     <Row className="video-description">

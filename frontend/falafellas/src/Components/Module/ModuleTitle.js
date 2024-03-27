@@ -99,7 +99,7 @@ export default function ModuleTitle({userId}) {
 
 
     function call(videoId){
-        navigate(`/module/${id}/video/${videoId}`, { state: { moduleId: id } })
+        navigate(`/module/${id}/video/${videoId}`, { state: { moduleId: id}})
     }
 
     const isVideoPath = location.pathname.includes("/video/");
