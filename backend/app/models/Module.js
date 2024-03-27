@@ -6,8 +6,8 @@ const ModuleSchema = new Schema({
     title: String,
     description: String,
     author: Number,
-    videos_id: Number,
-    quizzes: Number,
+    videos_id: Array,
+    quizzes_id: Array,
     duration: Number,
     is_mandatory: Boolean,
     reward_points: Number
