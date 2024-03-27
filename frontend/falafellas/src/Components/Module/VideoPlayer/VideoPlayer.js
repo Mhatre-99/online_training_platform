@@ -1,27 +1,78 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col, Container} from "react-bootstrap";
-import ReactPlayer from 'react-player';
 import SidePanel from "./SidePanel";
 import "../module.css";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import api from "../../../baseUrl";
 
 
-export default function VideoPlayer({content, moduleId, callbackSidePanel}){
+export default function VideoPlayer({content, callbackSidePanel}){
     const [url, setUrl] = useState("https://www.youtube.com/watch?v=hZEc4jD0q2c");
+    const [hasWatched, setHasWatched] = useState(false);
+    const [videos, setVideos] = useState([]);
+    const [quizzes, setQuizzes] = useState([]);
     const [descriptionText, setDescriptionText] = useState("Description");
     const [videoName, setVideoName] = useState("Video Name");
     const location = useLocation();
     const navigate = useNavigate();
+    const {moduleId} = location.state;
+    const mId = {moduleId}.moduleId;
     const {videoId} = useParams();
-    const contentData = {content};
+    //const contentData={content}.content;
+    const [contentData, setContentData] = useState([]);
+
     console.log("CONtent ID ",videoId);
+    console.log("CONtent data", {content});
+    console.log("Content ", contentData);
+    console.log("module id ",{moduleId}, mId)
+
+
     useEffect(() => {
-        const item = contentData.content.find(item => item._id === videoId);
-        console.log("Item ", item);
-        setDescriptionText(item.description);
-        setVideoName(item.title);
+        api.get(`/module/get/${mId}`).then(res =>{
+            const response = res.data;
+            setVideos( response.module.videos);
+            console.log("response " ,response);
+            setVideos(response.videos);
+            setQuizzes(response.quizzes);
+            let newMergedData = [];
+            const mergedData = (response.videos || []).concat(response.quizzes || []);
+            mergedData.forEach(function(data){
+                const newData = {
+                    _id: data._id,
+                    title: data.name || "",
+                    description: data.description || " ",
+                    status: "",
+                    drive_url:data.drive_url || "",
+                    time: data.time_limit? data.time_limit : data.duration,
+                    questions: data.questions ? data.questions.length : "",
+                    type: data.questions ? "quiz" : "video",
+                    contentType: data.questions ? "quiz" : "video"
+                }
+                newMergedData.push(newData);
+            })
+           setContentData(newMergedData);
+            //console.log("data",newMergedData);
+            const item = newMergedData.find(item => item._id === videoId);
+            //console.log("Item ", item);
+            console.log("Updating title and description");
+            setDescriptionText(item.description);
+            setVideoName(item.title);
+        }).catch( error => {
+            console.log(error);
+        })
+    }, [mId, videoId]);
+
+    useEffect(() => {
+
+
     }, [videoId]);
+
+
+    const handleVideoEnd = () => {
+        setHasWatched(true);
+        console.log('User has completed watching.');
+    };
+
 
 
     return (
@@ -37,7 +88,10 @@ export default function VideoPlayer({content, moduleId, callbackSidePanel}){
                 <Col sm={8} className="video-player-content">
                     <Row className="video-player-row">
                         <div>
-                            <ReactPlayer url={url} controls width="100%"/>
+                            <video width="100%" controls onEnded={handleVideoEnd}>
+                                <source src="https://www.youtube.com/watch?v=hZEc4jD0q2c" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </Row>
                     <Row className="video-description">
@@ -52,8 +106,8 @@ export default function VideoPlayer({content, moduleId, callbackSidePanel}){
                     </Row>
                 </Col>
                 <Col sm={4} className="video-module-content">
-                    {contentData.content.map((item) => (
-                        <SidePanel key={item._id} id={item._id} item={item} moduleId = {moduleId} handleOnClickSidePanel={() => callbackSidePanel(item._id)}/>
+                    {contentData.map((item) => (
+                        <SidePanel key={item._id} id={item._id} item={item} moduleId = {mId} handleOnClickSidePanel={() => callbackSidePanel(item._id)}/>
                 ))}
                 </Col>
 

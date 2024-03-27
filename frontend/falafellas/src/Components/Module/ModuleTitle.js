@@ -8,9 +8,10 @@ import api from "../../baseUrl";
 import {useEffect, useState} from "react";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
-export default function ModuleTitle() {
+export default function ModuleTitle({userId}) {
 
     const [moduleData, setModuleData] = useState({});
+    const [up, setUp] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [videos, setVideos] = useState();
@@ -50,32 +51,55 @@ export default function ModuleTitle() {
             console.log(error);
         })
 
+
     }, [id]);
 
     const [data, setData] = useState([]);
     const mergedData = (videos || []).concat(quizzes || []);
+    let moduleP;
     useEffect(() => {
-        let newMergedData = [];
-        mergedData.forEach(function(data){
-            const newData = {
-                _id: data._id,
-                title: data.name || "",
-                description: data.description || " ",
-                status: data.status || "Incomplete",
-                drive_url:data.drive_url || "",
-                time: data.time_limit? data.time_limit : data.duration,
-                questions: data.questions ? data.questions.length : "",
-                type: data.questions ? "quiz" : "video",
-                contentType: data.questions ? "quiz" : "video"
-            }
-            newMergedData.push(newData);
+        api.post("/progress/get/user-progress",{
+            user_id: "b3aaf199",
+            module_id: id
+        }).then(res => {
+            const response = res.data;
+            moduleP = response.module_progress;
+            console.log("module p", moduleP.progress);
+            setUp(moduleP.progress);
+            let newMergedData = [];
+            mergedData.forEach(function(data){
+                let status = "Incomplete";
+                console.log("in foreach ",moduleP.progress)
+                if (moduleP.progress.includes(data._id)){
+                    console.log("progress found ", data._id)
+                    status = "Complete";
+                }
+                const newData = {
+                    _id: data._id,
+                    title: data.name || "",
+                    description: data.description || " ",
+                    status: status,
+                    drive_url:data.drive_url || "",
+                    time: data.time_limit? data.time_limit : data.duration,
+                    questions: data.questions ? data.questions.length : "",
+                    type: data.questions ? "quiz" : "video",
+                    contentType: data.questions ? "quiz" : "video"
+                }
+                newMergedData.push(newData);
+            })
+            setData(newMergedData);
+            console.log("data",data);
+        }).catch ( error => {
+            console.log("error fetching user progress ",error);
         })
-        setData(newMergedData);
-        console.log("data",data);
+
+
     }, [videos, quizzes]);
 
+
+
     function call(videoId){
-        navigate(`/module/${id}/video/${videoId}`)
+        navigate(`/module/${id}/video/${videoId}`, { state: { moduleId: id } })
     }
 
     const isVideoPath = location.pathname.includes("/video/");
@@ -119,14 +143,14 @@ export default function ModuleTitle() {
                     </Col>
                     <Col className="filter">
 
-                        Module
+                        Course
 
                     </Col>
                 </Row>
 
             </Container>}
             <Routes>
-                <Route path="/" element={<Videos mdata = {data} videos = {videos} quizzes = {quizzes} checkBox={checkBox} />}/>
+                <Route path="/" element={<Videos mdata = {data} videos = {videos} quizzes = {quizzes} checkBox={checkBox} moduleId={{id}}/>}/>
                 <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {id} callbackSidePanel={(videoId)=>call(videoId)}/>}/>
             </Routes>
     </>

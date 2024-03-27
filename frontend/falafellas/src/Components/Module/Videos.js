@@ -29,7 +29,7 @@ import "./module.css"
     }
 ]*/
 
-export default function Videos({mdata , videos, quizzes , checkBox}) {
+export default function Videos({mdata , videos, quizzes , checkBox, moduleId}) {
 
     const [data, setData] = useState([]);
     const merged = {mdata}.mdata;
@@ -73,7 +73,7 @@ export default function Videos({mdata , videos, quizzes , checkBox}) {
                 console.log("rendering");
                 return (
 
-                    <Video data={data}/>
+                    <Video data={data} moduleId={moduleId}/>
 
                 )})
             }

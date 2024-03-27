@@ -6,6 +6,7 @@ require("dotenv").config();
 const userRoutes = require("./app/routes/UserRoutes");
 const courseRoutes = require("./app/routes/CourseRoutes");
 const moduleRoutes = require("./app/routes/ModuleRoutes");
+const userProgressRoutes = require("./app/routes/UserProgressRoutes");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -26,3 +27,4 @@ app.use(express.json());
 app.use('/users/', userRoutes);
 app.use('/courses/', courseRoutes);
 app.use('/module/', moduleRoutes);
+app.use('/progress/', userProgressRoutes);

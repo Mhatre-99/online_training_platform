@@ -6,12 +6,13 @@ import {Route, Routes, useNavigate} from "react-router-dom";
 import Videos from "./Videos";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
-export default function Video({data}) {
+export default function Video({data, moduleId}) {
     const videoData = {data};
     const navigate = useNavigate();
     const id = {data}.id;
+    console.log("module id in video ", moduleId)
     function handleOnClick(e){
-        navigate(`video/${videoData.data._id}`, { state: { contentID: videoData.data._id } })
+        navigate(`video/${videoData.data._id}`, { state: { contentID: videoData.data._id, moduleId:  moduleId.id} })
     }
     
     return (
