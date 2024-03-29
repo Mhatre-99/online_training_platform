@@ -8,6 +8,9 @@ import LandingPage from "./Components/Landing/LandingPage";
 import ModuleTitle from "./Components/Module/ModuleTitle";
 import ModuleAddition from "./Components/LectureAddition/ModuleAddition";
 import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer";
+import UserProfile from "./Components/Profile/UserProfile"
+import Certificates from "./Components/Profile/Certificates"
+// import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer"; 
 
 function App() {
   return (
@@ -19,8 +22,16 @@ function App() {
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/course"/>
-              <Route path="/module/:id/*" element={<ModuleTitle/>} />
+              <Route path="/module/:id/*" element={<ModuleTitle/>}/>
               <Route path="/module/create/" element={<ModuleAddition/>} />
+              {/* <Route path="/profile" element={<TopProfile/>}/> */}
+              <Route path="/profile/:userId" element={
+                <>
+                  <UserProfile/>
+                  <Certificates/>
+                </>
+              }/>
+
           </Routes>
       </div>
       <Footer />
