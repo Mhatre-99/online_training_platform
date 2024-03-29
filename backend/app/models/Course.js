@@ -8,6 +8,7 @@ const CourseSchema = new Schema({
     deadline: Number,
     tutor: String,
     rating: Number,
+    modules: Array,
     reward_points: Number,
     certificate: String
 }, { versionKey: false });
