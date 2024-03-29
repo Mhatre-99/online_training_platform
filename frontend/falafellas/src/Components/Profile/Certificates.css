@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Diphylleia&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+/* Second Navbar  */
+
+.navbar-second{
+    background-color: #1c1c1c;
+    /* background-color: #f36b37; */
+    /* opacity: 0.2; */
+}
+
+.navbar-second-elements{
+    padding-left: 5rem;
+}
+
+.navbar-second-elements .nav-link{
+    padding-left: 5rem;
+    font-size: 18px;
+    color: #f36b37 !important;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .navbar-second-elements{
+        padding-left: 0rem;
+    }
+}
+
+.navbar-second-elements .nav-link:hover,
+.navbar-second-elements .nav-link.active {
+    color: #f36b37; 
+}
+
+/* Table  */
+.custom-table{
+    max-width: 1000px;
+    margin: 2rem auto; 
+    font-family: "Montserrat", sans-serif;
+
+}
+/* To add margin on larger screens */
+@media (min-width: 1000px) {
+    .custom-table {
+      margin-left: 5rem;
+      margin-right: 1rem;
+    }
+}
+
+.custom-table img{
+    width: 10rem; 
+    height: 7rem;
+}
+
+.custom-table thead th {
+    background-color: #f36b37;
+    /* opacity: 0.8; */
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400; 
+    text-align: center;
+  }
+
+  .custom-table tbody td{
+    font-size: 15px;
+    font-weight: 600;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+
