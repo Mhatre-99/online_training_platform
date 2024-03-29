@@ -6,6 +6,7 @@ import FAQPage from './Components/FAQ/FAQPage';
 import Footer from "./Components/CommonComponents/Footer/Footer";
 import LandingPage from "./Components/Landing/LandingPage";
 import ModuleTitle from "./Components/Module/ModuleTitle";
+import ModuleAddition from "./Components/LectureAddition/ModuleAddition";
 import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer";
 
 function App() {
@@ -18,9 +19,8 @@ function App() {
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/course"/>
-              <Route path="/module/:id/*" element={<ModuleTitle/>}>
-
-              </Route>
+              <Route path="/module/:id/*" element={<ModuleTitle/>} />
+              <Route path="/module/create/" element={<ModuleAddition/>} />
           </Routes>
       </div>
       <Footer />

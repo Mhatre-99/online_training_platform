@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const ModuleSchema = new Schema({
     _id: String,
+    numeric_id: Number,
     title: String,
     description: String,
     author: Number,

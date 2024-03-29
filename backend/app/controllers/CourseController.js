@@ -26,28 +26,28 @@ const getCourseById = async (req, res) => {
 };
 
 const addCourse = async (req, res) => {
-    const { name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = req.body;
+    const { name, description, deadline, tutor, rating, modules, reward_points, certificate } = req.body;
 
     try {
-        if (!name || !email) {
-            return res.status(400).json({ error: "Name and Email are required" });
+        if (!name) {
+            return res.status(400).json({ error: "Name is required" });
         }
 
         const hash = crypto.createHash("sha256");
-        hash.update(email);
-        const hashedEmail = hash.digest("hex");
-        const shortEmail = hashedEmail.substring(0, 8)
+        hash.update(name);
+        const hashedName = hash.digest("hex");
+        const shortName = hashedName.substring(0, 8)
 
         const newUser = await Course.create({
-            _id: shortEmail,
+            _id: shortName,
             name,
-            email,
-            phone_number,
-            designation,
-            roles,
-            password,
-            birth_date,
-            rewards_earned
+            description,
+            deadline,
+            tutor,
+            rating,
+            modules,
+            reward_points,
+            certificate
         });
 
         res.status(201).json({ message: "Course added", success: true });
