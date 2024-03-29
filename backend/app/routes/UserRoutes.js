@@ -9,9 +9,6 @@ const rewardController = require("../controllers/RewardController");
 router.get("/get/all", userController.getAllUsers);
 router.get("/get/:id", userController.getUserById)
 
-// fetching rewards by user ID
-// router.get("/rewards/:userId", rewardController.getRewardByUserId);
-
 // PUT methods
 router.put("/update/:id", userController.updateUser);
 

@@ -6,7 +6,6 @@
   color: #fff;
   border-color: #fff;
   border-width: 2px;
-  /* font-size: 22px; */
   font-size: clamp(0.7rem, 2vw, 1rem);
   margin-top: 10px;
 }
@@ -17,9 +16,7 @@
   border-color: #fff;
   border-width: 2px;
 }
-/* .btn:active{
-  background-color: red;
-} */
+
 .btn-secondary{
   --bs-btn-active-border-color: #fff;
   --bs-btn-active-bg: #f36b37;
@@ -31,8 +28,7 @@
 .bg-img {
   display: flex;
   align-items: center;
-  /* justify-content: flex-start; */
-  background-image: url('../../assets/Module/wrap.jpg');
+  background-image: url('../../assets/Profile/wrap.jpg');
   background-size: cover;
   height: 55vh;
   background-position: center;
@@ -46,7 +42,6 @@
   height: 11rem;
   border-radius: 50%;
   object-fit: cover;
-  /* border-image-width: 40px; */
   border: 4px solid #fff;
   margin-bottom: 0.5rem;
   margin-top: 3rem;
@@ -54,9 +49,6 @@
 
 .bio-text {
   color: white;
-  /* padding: 5rem;  */
-  /* padding: 0 5rem; */
-  /* text-align: justify; */
   font-size: clamp(0.7rem, 2vw, 1rem);
   font-family: "Montserrat", sans-serif;
   padding-right: 3rem;
@@ -75,10 +67,7 @@
     text-align: center !important;
     padding-right: 0 !important;
   }
-  /* #brand{
-    padding-left: 2rem;
-    padding-right: 2rem;
-  } */
+
   .bg-img img{
     margin-right: -2rem;
   }
@@ -91,15 +80,12 @@
   height: 11rem;
   border-radius: 50%;
   object-fit: cover;
-  /* border-image-width: 40px; */
   border: 4px solid #fff;
   margin-bottom: 0.5rem;
   margin-top: 3rem;
 }
 @media(min-width: 768px){
   .bg-img img{
-    /* margin-left: 10rem; */
-    /* margin-right: 3rem; */
     margin-top: 0;
   }
 }

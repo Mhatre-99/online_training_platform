@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
-import profile from '../../assets/Module/profile.jpg'
+import profile from '../../assets/Profile/profile.jpg'
 import { Container, Row, Col, Button, Form} from 'react-bootstrap'
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import './UserProfile.css'
 
 function UserProfile() {
   const[isEditing, setIsEditing] = useState(false);
-  const[bio, setBio] = useState("I'm a passionate food lover who believes the way to anyone's heart is through their stomach. I take joy in crafting subs and would make your SUB in a WAY, that would definately make your DAY. Let's make your meal a memorable one!");
+  const[bio, setBio] = useState("I'm a passionate food lover who believes the way to anyone's heart is through their stomach. I take joy in crafting sandwiches and I would make you a great falafel fellas. Let's make your meal a memorable one!");
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -22,11 +21,6 @@ function UserProfile() {
   
   return (
     <>
-      {/* <Navbar className='custom-navbar'>
-          <Navbar.Brand href="#home" id="brand">Pathway To Subway</Navbar.Brand>
-          <Nav className='navbar-elements'>User Profile</Nav>
-      </Navbar> */}
-
       <Container fluid className='bg-img'>
         <Row className="align-items-center">
           <Col xs={12} md={5} lg={5} xl={3} className="profile-img">
