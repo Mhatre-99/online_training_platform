@@ -3,21 +3,13 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Person } from 'react-bootstrap-icons';
 import './NavbarComp.css';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useLocation } from 'react-router-dom';
 
 function NavbarComp() {
-  const location = useLocation();
   const [expanded, setExpanded] = useState(false);
 
   const handleToggleClick = () => {
     setExpanded(!expanded);
   };
-
-  const isLandingPage = location.pathname === '/';
-  const isContactPage = location.pathname === '/contact';
-  const isFAQPage = location.pathname === '/faq';
-
-  const hideUserIcon = isLandingPage || isContactPage || isFAQPage;
 
   return (
     <>
@@ -40,17 +32,26 @@ function NavbarComp() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto navbar-elements">
               <Nav.Link href="#home">Courses</Nav.Link>
-              <Nav.Link href="#link">Rewards</Nav.Link>
+              <LinkContainer to="/profile">
+                <Nav.Link>Rewards</Nav.Link>
+              </LinkContainer>
               <LinkContainer to="/contact">
                 <Nav.Link>Contact Us</Nav.Link>
               </LinkContainer>
-              <Nav.Link href="/faq">FAQ</Nav.Link>
+              <LinkContainer to="/faq">
+                <Nav.Link>FAQ</Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
 
-          {!hideUserIcon && !expanded && (
+          {!expanded && (
+
             <NavDropdown title={<Person size={30} color="#f36b37" />} id="nav-dropdown" alignRight>
-              <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+              <NavDropdown.Item>
+                <LinkContainer to="/profile">
+                  <Nav.Link>Profile</Nav.Link>
+                </LinkContainer>
+              </NavDropdown.Item>
               <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
             </NavDropdown>
           )}
