@@ -11,6 +11,10 @@ import QuizAddition from "./Components/QuizAddition/QuizAddition";
 import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer";
+import UserProfile from "./Components/Profile/UserProfile";
+import Certificates from "./Components/Profile/Certificates";
+
 function App() {
   return (
     <>
@@ -25,8 +29,17 @@ function App() {
           <Route path="/course" />
           <Route path="/add-quiz" element={<QuizAddition />} />
           <Route path="/create-new-question" element={<QuestionAddition />} />
-
-          <Route path="/module/:id/*" element={<ModuleTitle />}></Route>
+          <Route path="/module/:id/*" element={<ModuleTitle />} />
+          {/* <Route path="/profile" element={<TopProfile/>}/> */}
+          <Route
+            path="/profile/:userId"
+            element={
+              <>
+                <UserProfile />
+                <Certificates />
+              </>
+            }
+          />
         </Routes>
       </div>
       <Footer />
