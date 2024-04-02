@@ -3,12 +3,12 @@ const { Schema } = mongoose;
 
 const QuizSchema = new Schema(
   {
-    _id: String,
     name: String,
+    decription: String,
     timeLimit: Number,
     minimumMarks: Number,
-    deadline: Date,
-    courses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+    deadline: Number,
+    questions: [{ type: Schema.Types.ObjectId, ref: "Questions" }],
   },
   { versionKey: false }
 );

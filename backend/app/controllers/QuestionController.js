@@ -2,8 +2,12 @@ const Question = require("../models/Question");
 
 const getAllQuestions = async (req, res) => {
   try {
-    const questions = await Questions.find();
-    res.json({ message: "Questions retrieved", success: true, users: users });
+    const questions = await Question.find();
+    res.json({
+      message: "Questions retrieved",
+      success: true,
+      questions: questions,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -26,26 +30,26 @@ const getQuestionById = async (req, res) => {
   }
 };
 
-const getQuestionsByQuizId = async (req, res) => {
-  const { quiz_id } = req.params;
+// const getQuestionsByQuizId = async (req, res) => {
+//   const { quiz_id } = req.params;
 
-  try {
-    const questions = await Question.find({ quizzes: { $in: [quiz_id] } });
-    if (questions.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No questions found for this quiz" });
-    }
+//   try {
+//     const questions = await Question.find({ quizzes: { $in: [quiz_id] } });
+//     if (questions.length === 0) {
+//       return res
+//         .status(404)
+//         .json({ error: "No questions found for this quiz" });
+//     }
 
-    res.json({ message: "Questions retrieved", success: true, questions });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
+//     res.json({ message: "Questions retrieved", success: true, questions });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
 
 const addQuestion = async (req, res) => {
-  const { question_id, question, options, answer, marks, quiz_id } = req.body;
+  const { question_id, question, options, answer, marks } = req.body;
 
   try {
     if (question_id) {
@@ -84,7 +88,6 @@ const addQuestion = async (req, res) => {
         options,
         answer,
         marks,
-        quizzes: [quiz_id],
       });
 
       return res
@@ -99,13 +102,7 @@ const addQuestion = async (req, res) => {
 
 const updateQuestion = async (req, res) => {
   const { id } = req.params;
-  const {
-    question: updatedQuestion,
-    options,
-    answer,
-    marks,
-    quizzes,
-  } = req.body;
+  const { question: updatedQuestion, options, answer, marks } = req.body;
 
   try {
     const existingQuestion = await Question.findById(id);
@@ -117,7 +114,6 @@ const updateQuestion = async (req, res) => {
     existingQuestion.options = options;
     existingQuestion.answer = answer;
     existingQuestion.marks = marks;
-    existingQuestion.quizzes = quizzes;
 
     await existingQuestion.save();
 
@@ -144,38 +140,36 @@ const deleteQuestionById = async (req, res) => {
   }
 };
 
-const addQuestionToQuiz = async (req, res) => {
-  const { questionId } = req.params;
-  const { quizId } = req.body;
+// const addQuestionToQuiz = async (req, res) => {
+//   const { questionId } = req.params;
+//   const { quizId } = req.body;
 
-  try {
-    const question = await Question.findById(questionId);
-    if (!question) {
-      return res.status(404).json({ error: "Question not found" });
-    }
+//   try {
+//     const question = await Question.findById(questionId);
+//     if (!question) {
+//       return res.status(404).json({ error: "Question not found" });
+//     }
 
-    if (question.quizzes.includes(quizId)) {
-      return res
-        .status(400)
-        .json({ error: "Question already exists in the quiz" });
-    }
+//     if (question.quizzes.includes(quizId)) {
+//       return res
+//         .status(400)
+//         .json({ error: "Question already exists in the quiz" });
+//     }
 
-    question.quizzes.push(quizId);
-    await question.save();
+//     question.quizzes.push(quizId);
+//     await question.save();
 
-    res.json({ message: "Question added to quiz", success: true });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
+//     res.json({ message: "Question added to quiz", success: true });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
 
 module.exports = {
   getQuestionById,
   getAllQuestions,
-  getQuestionsByQuizId,
   addQuestion,
   updateQuestion,
   deleteQuestionById,
-  addQuestionToQuiz,
 };
