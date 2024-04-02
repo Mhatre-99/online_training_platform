@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col, Container} from "react-bootstrap";
 import SidePanel from "./SidePanel";
-import "../module.css";
+import "../../css/module.css";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import api from "../../../baseUrl";
+import api from "../../../../baseUrl";
 import ReactPlayer from "react-player";
 
 

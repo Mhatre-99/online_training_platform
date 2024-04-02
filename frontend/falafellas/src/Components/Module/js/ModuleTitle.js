@@ -3,8 +3,8 @@ import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
 import {Routes, Route, useParams, useLocation, useNavigate} from "react-router-dom";
 import Videos from "./Videos";
-import "./module.css";
-import api from "../../baseUrl";
+import "../css/module.css";
+import api from "../../../baseUrl";
 import {useEffect, useState} from "react";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 

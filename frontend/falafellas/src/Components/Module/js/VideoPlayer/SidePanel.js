@@ -1,6 +1,6 @@
 import React from "react";
 import {Row,Col} from "react-bootstrap";
-import thumbnail from "../../../assets/Module/videothumbnail.png";
+import thumbnail from "../../../../assets/Module/videothumbnail.png";
 import {useNavigate} from "react-router-dom";
 
 export default function SidePanel({item, id, moduleId, handleOnClickSidePanel}){

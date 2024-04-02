@@ -1,12 +1,12 @@
 import { Container } from "react-bootstrap";
 import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
-import thumbnail from "../../assets/Module/videothumbnail.png";
+import thumbnail from "../../../assets/Module/videothumbnail.png";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import Videos from "./Videos";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 import {useEffect, useState} from "react";
-import NotFound from "../CommonComponents/NotFound";
+import NotFound from "../../CommonComponents/NotFound";
 
 export default function Video({data, moduleId}) {
     const videoData = {data};
