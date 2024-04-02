@@ -5,30 +5,46 @@ import thumbnail from "../../assets/Module/videothumbnail.png";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import Videos from "./Videos";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
+import {useEffect, useState} from "react";
+import NotFound from "../CommonComponents/NotFound";
 
 export default function Video({data, moduleId}) {
     const videoData = {data};
     const navigate = useNavigate();
+    const [quizType, setQuizType] = useState(false);
     const id = {data}.id;
+    console.log("video data in video ", videoData);
     console.log("module id in video ", moduleId)
+    useEffect(() => {
+        if(videoData.data.contentType === "quiz") {
+            setQuizType(true);
+        }
+    }, [quizType]);
+
     function handleOnClick(e){
-        navigate(`video/${videoData.data._id}`, { state: { contentID: videoData.data._id, moduleId:  moduleId.id} })
+        if(quizType){
+            navigate("/not-found");
+        } else {
+            navigate(`video/${videoData.data._id}`, { state: { contentID: videoData.data._id, moduleId:  moduleId.id} })
+        }
+
     }
+
     
     return (
         <Container className="video">
-            <Row className="justify-content-center video-row">
+            <Row className="justify-content-center video-row" onClick={handleOnClick}>
                 <Col sm={3}>
-                    
-                        <img src={thumbnail} alt="thumbnail" className="thumbnail" onClick={handleOnClick}></img>
-                    
+
+                        <img src={thumbnail} alt="thumbnail" className="thumbnail" onClick={handleOnClick} hidden={quizType}></img>
+
                 </Col>
                 
                 <Col className="content-text" >
                     <div className="video-title">
                         {data.title}
                     </div>
-                    <div className="video-des">
+                    <div className="video-des" hidden={quizType}>
                            {data.description}
                     </div>
                     <div>

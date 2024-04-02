@@ -2,6 +2,7 @@ import Container from "react-bootstrap/esm/Container";
 import Video from "./Video";
 import {useEffect, useState} from "react";
 import "./module.css"
+import NotFound from "../CommonComponents/NotFound";
 
 /*const data = [{
     title: "What is Lorem Ipsum",

@@ -114,10 +114,10 @@ export default function ModuleTitle({userId}) {
                     {description}
                 </Row>
                 <Row className='filter-tabs '>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/")}}>
                         Home
                     </Col>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2">
                 <span className="check-box">
                     <input type="checkbox" name="video-box" onChange={(e) => callback(e.target.name)}></input>
                 </span>
@@ -125,15 +125,7 @@ export default function ModuleTitle({userId}) {
                     Video
                 </span>
                     </Col>
-                    <Col className="filter">
-                <span className="check-box">
-                    <input type="checkbox" name="quiz-box" onChange={(e) => callback(e.target.name)}></input>
-                </span>
-                        <span>
-                    Quiz
-                </span>
-                    </Col>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2">
                 <span className="check-box">
                     <input type="checkbox" name="incomplete-box" onChange={(e) => callback(e.target.name)}></input>
                 </span>
@@ -141,7 +133,15 @@ export default function ModuleTitle({userId}) {
                     Incomplete
                 </span>
                     </Col>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2">
+                <span className="check-box">
+                    <input type="checkbox" name="quiz-box" onChange={(e) => callback(e.target.name)}></input>
+                </span>
+                        <span>
+                    Quiz
+                </span>
+                    </Col>
+                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/not-found")}}>
 
                         Course
 
