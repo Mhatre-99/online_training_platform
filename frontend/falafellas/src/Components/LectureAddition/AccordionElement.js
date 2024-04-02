@@ -1,5 +1,4 @@
 import { Accordion, Button } from 'react-bootstrap';
-import "../../common.css";
 
 function AccordionElement({ addModule, modules, onClickItem }) {
   return (
@@ -11,7 +10,8 @@ function AccordionElement({ addModule, modules, onClickItem }) {
           }
         `}
       </style>
-      <Accordion className="w-100 p-3" style={{ marginTop: '16px' }}>
+      <b style={{ marginLeft: "30px" }}>Modules:</b>
+      <Accordion className="w-100 p-3">
         {modules.map((module) => (
           <Accordion.Item
             key={module.numeric_id}

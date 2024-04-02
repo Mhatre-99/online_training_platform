@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 import AccordionElement from './AccordionElement';
 import CourseContentElement from './CourseContentElement';
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 
 function ModuleAddition() {
 
@@ -49,25 +51,19 @@ function ModuleAddition() {
     setModules([...modules, newModule]);
   };
 
+  useEffect(() => {
+    console.log(modules);
+  }, [modules]);
+
   const onClickModuleItem = (module) => {
     setSelectedModule(module);
-    console.log(module.fileName)
+    console.log(module)
   };
-
-  const updateModuleDescription = (moduleId, newDescription) => {
+  
+  const updateModuleData = (moduleId, newTitle, addedFile, fileName, newDescription) => {
     const updatedModules = modules.map((module) => {
       if (module.numeric_id === moduleId) {
-        return { ...module, description: newDescription };
-      }
-      return module;
-    });
-    setModules(updatedModules);
-  };
-
-  const updateModuleFile = (moduleId, addedFile, fileName) => {
-    const updatedModules = modules.map((module) => {
-      if (module.numeric_id === moduleId) {
-        return { ...module, videos_id: addedFile, fileName: fileName };
+        return { ...module, title: newTitle, videos_id: addedFile, fileName: fileName, description: newDescription };
       }
       return module;
     });
@@ -82,6 +78,7 @@ function ModuleAddition() {
     }).then((response) => {
       if (response.data.status === 201) {
         console.log("Course Added");
+
       }
     }, (error) => {
       console.log(error);
@@ -94,9 +91,10 @@ function ModuleAddition() {
         data: module
       }).then((response) => {
         if (response.data.status === 201) {
-          console.log("Module Added");
+          toast.success("Module Created !");
         }
       }, (error) => {
+        toast.error("Module failed to upload !");
         console.log(error);
       });
     });
@@ -134,7 +132,7 @@ function ModuleAddition() {
           type="text"
           placeholder="Tutor"
           className="w-25"
-          style={{ display: "inline-block", marginLeft: '40px' }}
+          style={{ marginLeft: '40px', marginTop: '20px' }}
           name="tutor"
           value={courseData.tutor}
           onChange={handleCourseDataChange} />
@@ -143,7 +141,7 @@ function ModuleAddition() {
           type="number"
           placeholder="Days Allowed"
           className="w-25"
-          style={{ display: "inline-block", marginLeft: '10px', marginTop: '20px', marginBottom: '20px' }}
+          style={{ marginLeft: '40px', marginTop: '20px', marginBottom: '20px' }}
           name="deadline"
           value={courseData.deadline}
           onChange={handleCourseDataChange} />
@@ -154,11 +152,10 @@ function ModuleAddition() {
             <AccordionElement modules={modules} addModule={addModule} onClickItem={onClickModuleItem} />
           </Col>
           <Col>
-            <CourseContentElement
-              selectedModule={selectedModule}
-              updateModuleDescription={updateModuleDescription}
-              updateModuleFile={updateModuleFile}
-            />
+          <CourseContentElement
+            selectedModule={selectedModule}
+            updateModuleData={updateModuleData}
+          />
           </Col>
         </Row>
       </div>
@@ -167,6 +164,7 @@ function ModuleAddition() {
           SAVE
         </Button>
       </center>
+      <ToastContainer />
     </div>
   );
 }
