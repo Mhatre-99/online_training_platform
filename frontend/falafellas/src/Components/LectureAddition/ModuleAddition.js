@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import AccordionElement from './AccordionElement';
 import CourseContentElement from './CourseContentElement';
@@ -10,6 +10,8 @@ function ModuleAddition() {
 
   const courseUrl = "http://localhost:5050/courses/add"
   const moduleUrl = "http://localhost:5050/module/add-module"
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const [courseData, setCourseData] = useState({
     name: "",
@@ -57,7 +59,6 @@ function ModuleAddition() {
 
   const onClickModuleItem = (module) => {
     setSelectedModule(module);
-    console.log(module)
   };
   
   const updateModuleData = (moduleId, newTitle, addedFile, fileName, newDescription) => {
@@ -68,9 +69,11 @@ function ModuleAddition() {
       return module;
     });
     setModules(updatedModules);
+    toast.success("Module Saved !");
   };
 
   const handleSave = () => {
+    setIsUploading(true);
     axios({
       method: "post",
       url: courseUrl,
@@ -82,6 +85,8 @@ function ModuleAddition() {
       }
     }, (error) => {
       console.log(error);
+    }).finally(() => {
+      setIsUploading(false);
     });
 
     modules.forEach((module) => {
@@ -160,8 +165,17 @@ function ModuleAddition() {
         </Row>
       </div>
       <center>
-        <Button variant="primary" className="w-50 submit-button-contact" style={{ margin: '10px', marginBottom: "50px" }} onClick={handleSave}>
-          SAVE
+        <Button
+          variant="primary"
+          className="w-50 submit-button-contact"
+          style={{ margin: '10px', marginBottom: "50px" }}
+          onClick={handleSave}
+          disabled={isUploading}>
+            {isUploading ? ( // Render spinner if loading
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
+              "SAVE"
+            )}
         </Button>
       </center>
       <ToastContainer />

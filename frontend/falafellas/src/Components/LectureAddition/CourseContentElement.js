@@ -47,7 +47,7 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
         <Form.Control
             size="md"
             type="text"
-            className="w-25"
+            className="w-50"
             style={{ marginBottom: '20px' }}
             value={title}
             onChange={handleTitleChange} />
