@@ -98,8 +98,12 @@ export default function ModuleTitle({userId}) {
 
 
 
-    function call(videoId){
-        navigate(`/module/${id}/video/${videoId}`, { state: { moduleId: id}})
+    function call(videoId, contentType){
+        if(contentType ==="quiz"){
+            navigate("/not-found")
+        }else {
+            navigate(`/module/${id}/video/${videoId}`, {state: {moduleId: id}})
+        }
     }
 
     const isVideoPath = location.pathname.includes("/video/");
@@ -151,7 +155,7 @@ export default function ModuleTitle({userId}) {
             </Container>}
             <Routes>
                 <Route path="/" element={<Videos mdata = {data} videos = {videos} quizzes = {quizzes} checkBox={checkBox} moduleId={{id}}/>}/>
-                <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {id} callbackSidePanel={(videoId)=>call(videoId)}/>}/>
+                <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {id} callbackSidePanel={(videoId, contentType)=>call(videoId, contentType)}/>}/>
             </Routes>
     </>
     )

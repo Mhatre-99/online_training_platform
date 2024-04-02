@@ -119,7 +119,7 @@ export default function VideoPlayer({content, callbackSidePanel}){
                 </Col>
                 <Col sm={4} className="video-module-content">
                     {contentData.map((item) => (
-                        <SidePanel key={item._id} id={item._id} item={item} moduleId = {mId} handleOnClickSidePanel={() => callbackSidePanel(item._id)}/>
+                        <SidePanel key={item._id} id={item._id} item={item} moduleId = {mId} handleOnClickSidePanel={() => callbackSidePanel(item._id, item.contentType)}/>
                 ))}
                 </Col>
 
