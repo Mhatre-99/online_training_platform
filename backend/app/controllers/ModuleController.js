@@ -32,10 +32,10 @@ const getModuleById = async (req, res) => {
 }
 
 const addModule = async (req, res) =>{
-    const {title, description, author, videos, quizzes, duration, is_mandatory, reward_points} = req.body;
+    const {numeric_id, title, description, author, videos_id, quizzes_id, duration, is_mandatory, reward_points, fileName} = req.body;
     let videoArray = [];
 
-    videos.forEach(function(video){
+    videos_id.forEach(function(video){
         const newVideo = new Video({
             _id: new mongoose.Types.ObjectId(),
             drive_url: video.drive_url || "",
@@ -47,7 +47,7 @@ const addModule = async (req, res) =>{
     })
 
     let quizzesArray = [];
-    quizzes.forEach(function(quiz) {
+    quizzes_id.forEach(function(quiz) {
         const newQuiz = new Quiz({
             _id: new mongoose.Types.ObjectId(),
             name: quiz.name,
@@ -84,7 +84,7 @@ const addModule = async (req, res) =>{
     console.log(quizCreatedId);
 
     try{
-        const newModule = await Module.create({_id:new mongoose.Types.ObjectId(),title, description, author, videos_id: videosCreatedId, quizzes_id: quizCreatedId, duration, is_mandatory, reward_points});
+        const newModule = await Module.create({_id:new mongoose.Types.ObjectId(), numeric_id, title, description, author, videos_id: videosCreatedId, quizzes_id: quizCreatedId, duration, is_mandatory, reward_points});
         res.status(201).json({message:"Success.", doc: newModule});
     } catch(error){
         console.log(error);

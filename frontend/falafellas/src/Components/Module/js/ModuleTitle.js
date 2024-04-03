@@ -3,8 +3,8 @@ import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
 import {Routes, Route, useParams, useLocation, useNavigate} from "react-router-dom";
 import Videos from "./Videos";
-import "./module.css";
-import api from "../../baseUrl";
+import "../css/module.css";
+import api from "../../../baseUrl";
 import {useEffect, useState} from "react";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
@@ -98,8 +98,12 @@ export default function ModuleTitle({userId}) {
 
 
 
-    function call(videoId){
-        navigate(`/module/${id}/video/${videoId}`, { state: { moduleId: id}})
+    function call(videoId, contentType){
+        if(contentType ==="quiz"){
+            navigate("/not-found")
+        }else {
+            navigate(`/module/${id}/video/${videoId}`, {state: {moduleId: id}})
+        }
     }
 
     const isVideoPath = location.pathname.includes("/video/");
@@ -114,10 +118,10 @@ export default function ModuleTitle({userId}) {
                     {description}
                 </Row>
                 <Row className='filter-tabs '>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/")}}>
                         Home
                     </Col>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2">
                 <span className="check-box">
                     <input type="checkbox" name="video-box" onChange={(e) => callback(e.target.name)}></input>
                 </span>
@@ -125,15 +129,7 @@ export default function ModuleTitle({userId}) {
                     Video
                 </span>
                     </Col>
-                    <Col className="filter">
-                <span className="check-box">
-                    <input type="checkbox" name="quiz-box" onChange={(e) => callback(e.target.name)}></input>
-                </span>
-                        <span>
-                    Quiz
-                </span>
-                    </Col>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2">
                 <span className="check-box">
                     <input type="checkbox" name="incomplete-box" onChange={(e) => callback(e.target.name)}></input>
                 </span>
@@ -141,7 +137,15 @@ export default function ModuleTitle({userId}) {
                     Incomplete
                 </span>
                     </Col>
-                    <Col className="filter">
+                    <Col className="filter d-flex align-items-center justify-content-center p-2">
+                <span className="check-box">
+                    <input type="checkbox" name="quiz-box" onChange={(e) => callback(e.target.name)}></input>
+                </span>
+                        <span>
+                    Quiz
+                </span>
+                    </Col>
+                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/not-found")}}>
 
                         Course
 
@@ -151,7 +155,7 @@ export default function ModuleTitle({userId}) {
             </Container>}
             <Routes>
                 <Route path="/" element={<Videos mdata = {data} videos = {videos} quizzes = {quizzes} checkBox={checkBox} moduleId={{id}}/>}/>
-                <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {id} callbackSidePanel={(videoId)=>call(videoId)}/>}/>
+                <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {id} callbackSidePanel={(videoId, contentType)=>call(videoId, contentType)}/>}/>
             </Routes>
     </>
     )

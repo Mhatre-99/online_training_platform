@@ -5,22 +5,17 @@ import NavbarComp from "./Components/CommonComponents/Navbar/NavbarComp";
 import FAQPage from "./Components/FAQ/FAQPage";
 import Footer from "./Components/CommonComponents/Footer/Footer";
 import LandingPage from "./Components/Landing/LandingPage";
-import ModuleTitle from "./Components/Module/ModuleTitle";
-import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer";
-import QuizAddition from "./Components/QuizAddition/QuizAddition";
-import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer";
+import ModuleTitle from "./Components/Module/js/ModuleTitle";
+import ModuleAddition from "./Components/LectureAddition/ModuleAddition";
 import UserProfile from "./Components/Profile/UserProfile";
 import Certificates from "./Components/Profile/Certificates";
-
+import NotFound from "./Components/CommonComponents/NotFound";
+import QuizAddition from "./Components/QuizAddition/QuizAddition";
+import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
 function App() {
   return (
     <>
       <NavbarComp />
-      <ToastContainer />
-
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -30,6 +25,7 @@ function App() {
           <Route path="/add-quiz" element={<QuizAddition />} />
           <Route path="/create-new-question" element={<QuestionAddition />} />
           <Route path="/module/:id/*" element={<ModuleTitle />} />
+          <Route path="/module/create/" element={<ModuleAddition />} />
           {/* <Route path="/profile" element={<TopProfile/>}/> */}
           <Route
             path="/profile/:userId"
@@ -40,6 +36,8 @@ function App() {
               </>
             }
           />
+
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />

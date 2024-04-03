@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col, Container} from "react-bootstrap";
 import SidePanel from "./SidePanel";
-import "../module.css";
+import "../../css/module.css";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import api from "../../../baseUrl";
+import api from "../../../../baseUrl";
 import ReactPlayer from "react-player";
 
 
@@ -119,7 +119,7 @@ export default function VideoPlayer({content, callbackSidePanel}){
                 </Col>
                 <Col sm={4} className="video-module-content">
                     {contentData.map((item) => (
-                        <SidePanel key={item._id} id={item._id} item={item} moduleId = {mId} handleOnClickSidePanel={() => callbackSidePanel(item._id)}/>
+                        <SidePanel key={item._id} id={item._id} item={item} moduleId = {mId} handleOnClickSidePanel={() => callbackSidePanel(item._id, item.contentType)}/>
                 ))}
                 </Col>
 
