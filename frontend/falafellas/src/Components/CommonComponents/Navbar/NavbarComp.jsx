@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from "../../../FirebaseService";
 
 function NavbarComp(props) {
-  const {user} = props;
+  const { user } = props;
   console.log(user);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function NavbarComp(props) {
     setExpanded(!expanded);
   };
 
-  const logOut = () =>{
+  const logOut = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
       navigate('/login');
@@ -24,7 +24,6 @@ function NavbarComp(props) {
       // An error happened.
     });
   }
-  
 
   return (
     <>
@@ -35,7 +34,7 @@ function NavbarComp(props) {
             className='toggle-custom'
             onClick={handleToggleClick}
           />
-          
+
           <LinkContainer to="/">
             <Navbar.Brand>
               <div className="brand-name">
@@ -47,9 +46,6 @@ function NavbarComp(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto navbar-elements">
               <Nav.Link href="#home">Courses</Nav.Link>
-              <LinkContainer to="/profile">
-                <Nav.Link>Rewards</Nav.Link>
-              </LinkContainer>
               <LinkContainer to="/contact">
                 <Nav.Link>Contact Us</Nav.Link>
               </LinkContainer>
@@ -59,8 +55,7 @@ function NavbarComp(props) {
             </Nav>
           </Navbar.Collapse>
 
-          {!expanded && (
-
+          {user && !expanded && (
             <NavDropdown title={<Person size={30} color="#f36b37" />} id="nav-dropdown" alignRight>
               <NavDropdown.Item>
                 <LinkContainer to={`/profile/${user?.uid}`}>

@@ -1,6 +1,8 @@
 import axios from './helper';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth";
 import { auth } from "./FirebaseService";
+import './Components/Authentication/Login.css';
+
 
 const app_url = 'http://localhost:3000'; //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
 
@@ -10,6 +12,21 @@ export const registerUserService = async (user) => {
     //const auth = getAuth();
     // const navigate = useNavigate();
     //debugger;
+    // Validating fields
+    if (!name || !email || !roles || !password) {
+      alert('Name, email, roles, and password are required.');
+      highlightEmptyFields(); // Call a function to highlight empty fields
+      return null;
+    }
+
+    // Validating password
+    const passwordRegex = /^(?=.*[@!/$%#])(?=.*[0-9a-zA-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+        alert('Password must be at least 6 characters long and contain at least one of @!/$%# signs.');
+        highlightPasswordField(); // Call a function to highlight password field
+        return null;
+    }
+
     createUserWithEmailAndPassword(auth, user.email, user.password)
     .then(async (userDetails) => {
         // Signed up 
@@ -99,3 +116,17 @@ export const forgotPassword = (user) => {
     // ..
   });
 }
+
+// Function to highlight empty fields
+const highlightEmptyFields = () => {
+  const emptyFields = document.querySelectorAll('input:required[value=""]');
+  emptyFields.forEach(field => {
+    field.classList.add('empty-field');
+  });
+};
+
+// Function to highlight password field
+const highlightPasswordField = () => {
+  const passwordField = document.querySelector('input[name="password"]');
+  passwordField.classList.add('invalid-password');
+};

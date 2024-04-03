@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import './Login.css';
 import email_image from '../../assets/User/email.png';
 import password_image from '../../assets/User/password.png';
-import { loginUserService } from '../../UserService';
+import { forgotPassword, loginUserService } from '../../UserService';
 
 function LoginForm() {
   const [currentPage, setCurrentPage] = useState("login");
@@ -45,7 +45,7 @@ function LoginForm() {
         <div className="inputs">
           <div className="input">
             <img src={email_image} alt='' />
-            <input type='email' name = "email" placeholder='Email id' onChange={handleChange} />
+            <input type='email' name = "email" placeholder='Email Id' onChange={handleChange} />
           </div>
           <div className="input">
             <img src={password_image} alt='' />
@@ -53,7 +53,7 @@ function LoginForm() {
           </div>
         </div>
         <div className="forgot-password">
-          Forgot Password ? <span>Click here</span>
+          <Link to="/forgot-password" style={{ textDecoration: 'none', color: 'white' }}>Forgot Password ? <span>Click here</span></Link>
         </div>
         <div className="submit-container">
           <div className={currentPage==="login"? "current-button":"submit"} onClick={handleLoginButtonClick}>

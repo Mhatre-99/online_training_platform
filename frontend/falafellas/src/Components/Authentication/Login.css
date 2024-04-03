@@ -89,6 +89,7 @@
 .forgot-password, .login span{
   color: white;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .submit-container{
@@ -103,8 +104,6 @@
   align-items: center;
   width: 220px;
   height: 59px;
-  /* color: black;
-  background: white; */
   background-color: #f36b37;
   color: #fff;
   border-radius: 50px;
@@ -128,3 +127,15 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+/* CSS to highlight empty fields */
+.empty-field {
+  border-color: red; /* Change border color to red */
+}
+
+/* CSS to highlight invalid password field */
+.invalid-password {
+  border-color: red; /* Change border color to red */
+  box-shadow: 0 0 5px red; /* Add red shadow */
+}
+

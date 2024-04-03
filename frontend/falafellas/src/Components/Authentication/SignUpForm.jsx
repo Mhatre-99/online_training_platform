@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 import email_image from '../../assets/User/email.png';
 import password_image from '../../assets/User/password.png';
+import person_image from '../../assets/User/person.png';
+import phone_image from '../../assets/User/phone.png';
+import birthday_image from '../../assets/User/birthday.png';
 import { registerUserService } from '../../UserService'; 
 
 function SignUpForm() {
@@ -49,23 +52,23 @@ function SignUpForm() {
         <div className="underline"></div>
         <div className="inputs">
           <div className="input">
-            <img src="" alt='' />
+            <img src={person_image} alt='' />
             <input type='text' name='name' placeholder="Name" onChange={handleChange} />
           </div>
           <div className="input">
             <img src={email_image} alt='' />
-            <input type='email' name='email' placeholder="Email" onChange={handleChange} />
+            <input type='email' name='email' placeholder="Email Id" onChange={handleChange} />
           </div>
           <div className="input">
-            <img src={email_image} alt='' />
-            <input type='number' name='phone_number' placeholder="Phone Number" onChange={handleChange}/>
+            <img src={phone_image} alt='' />
+            <input type='tel' name='phone_number' placeholder="Phone Number" onChange={handleChange}/>
           </div>
             <div className="input input-half">
-              <img src={email_image} alt='' />
+              <img src={person_image} alt='' />
               <input type='text' name='designation' placeholder="Designation" onChange={handleChange}/>
             </div>
             <div className="input input-half">
-              <img src={email_image} alt='' />
+              <img src={person_image} alt='' />
               <input type='text' name='roles' placeholder="Roles" onChange={handleChange}/>
             </div>
           <div className="input">
@@ -73,12 +76,13 @@ function SignUpForm() {
             <input type='password' name='password' placeholder="Password" onChange={handleChange}/>
           </div>
           <div className="input">
-            <img src={email_image} alt='' />
+            <img src={birthday_image} alt='' />
             <input type='date' name='birth_date' placeholder="Birth Date" onChange={handleChange}/>
           </div>
         </div>
         <div className="forgot-password">
-          Existing User ? <span>Login</span>
+        <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}> Existing User ? <span>Login</span></Link>
+          
         </div>
         <div className="submit-container">
           <div className={currentPage==="signup"? "current-button":"submit"} onClick={handleSignUpButtonClick}>
@@ -94,5 +98,3 @@ function SignUpForm() {
 }
 
 export default SignUpForm;
-
-//name, email, phone_number, designation, roles, password, birth_date,

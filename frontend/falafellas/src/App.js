@@ -7,6 +7,7 @@ import Footer from "./Components/CommonComponents/Footer/Footer";
 import LandingPage from "./Components/Landing/LandingPage";
 import LoginForm from "./Components/Authentication/LoginForm";
 import SignUpForm from "./Components/Authentication/SignUpForm";
+import ForgotPassword from "./Components/Authentication/ForgotPassword";
 import ModuleTitle from "./Components/Module/js/ModuleTitle";
 import ModuleAddition from "./Components/LectureAddition/ModuleAddition";
 import UserProfile from "./Components/Profile/UserProfile";
@@ -16,6 +17,7 @@ import QuizAddition from "./Components/QuizAddition/QuizAddition";
 import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
 import { useEffect, useState } from "react";
 import { auth } from "./FirebaseService";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [userState, setUserState] = useState(null);
@@ -39,20 +41,23 @@ function App() {
               <Route path="/" element={<LandingPage/>} />
               <Route path="/login" element={<LoginForm/>} />
               <Route path="/signup" element={<SignUpForm/>} />
+              <Route path="/forgot-password" element={<ForgotPassword/>} />
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQPage />} />
-              <Route path="/course"/>
-              <Route path="/module/:id/*" element={<ModuleTitle/>}/>
-              <Route path="/add-quiz" element={<QuizAddition />} />
-              <Route path="/create-new-question" element={<QuestionAddition />} />
-              <Route path="/module/create/" element={<ModuleAddition />} />
-              {/* <Route path="/profile" element={<TopProfile/>}/> */}
-              <Route path="/profile/:userId" element={
-                <>
-                  <UserProfile/>
-                  <Certificates/>
-                </>
-              }/>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/course"/>
+                <Route path="/module/:id/*" element={<ModuleTitle/>}/>
+                <Route path="/add-quiz" element={<QuizAddition />} />
+                <Route path="/create-new-question" element={<QuestionAddition />} />
+                <Route path="/module/create/" element={<ModuleAddition />} />
+                {/* <Route path="/profile" element={<TopProfile/>}/> */}
+                <Route path="/profile/:userId" element={
+                  <>
+                    <UserProfile/>
+                    <Certificates/>
+                  </>
+                }/>
+              </Route>
               <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </div>
