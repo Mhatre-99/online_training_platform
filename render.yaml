@@ -12,7 +12,7 @@ services:
     # Add other environment variables as needed
 
   # Frontend service configuration
-  - type: static-site
+  - type: web
     name: my-app-frontend
     buildCommand: npm install --prefix frontend/falafellas && npm run build --prefix frontend/falafellas
     staticPublishPath: ./frontend/falafellas/build
