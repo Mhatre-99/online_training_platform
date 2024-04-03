@@ -5,6 +5,7 @@ import './CoursesPage.css'
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     // Fetch courses from the API
@@ -17,13 +18,26 @@ const CoursesPage = () => {
       });
   }, []);
 
+  // Filter courses based on search query
+  const filteredCourses = courses.filter(course =>
+    course.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <main className="container mt-5">
-      <header>
-        <h1 className="mb-4">Library</h1>
+      <header className="text-center">
+        <h1 className="mb-4 heading">Library</h1>
+        <div className="search-bar text-center mb-4">
+          <input
+            type="text"
+            placeholder="Search for courses..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
+        </div>
       </header>
       <section className="row">
-        {courses && courses.map(course => (
+        {filteredCourses.map(course => (
           <article className="col-md-6" key={course._id}>
             <section className="card mb-4">
               <section className="card-body d-flex flex-column">
