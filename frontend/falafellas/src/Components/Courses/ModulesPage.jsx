@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import api from "../../baseUrl";
 import './CoursesPage.css';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
-const ModulesPage = ({ match }) => {
+const ModulesPage = () => {
   const { courseId } = useParams();
   const [modules, setModules] = useState([]);
   const [courseTitle, setCourseTitle] = useState('');
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -30,6 +32,17 @@ const ModulesPage = ({ match }) => {
     fetchModules();
   }, [courseId]);
 
+  const handleClick = (moduleId) => {
+    navigate(`/module/${moduleId}`); 
+  };
+
+  const shortenDescription = (description) => {
+    if (description.length > 120) {
+      return description.substring(0, 120) + '...';
+    }
+    return description;
+  };
+
   return (
     <main className="container mt-5">
       <header className="text-center">
@@ -43,8 +56,18 @@ const ModulesPage = ({ match }) => {
                 <h2 className="card-title mb-2 text-center">{module.title}</h2>
                 <br />
                 <p className="card-text mb-2">
-                  <b className="font-weight-bold">Reward Points:</b> {module.reward_points}
+                  <b className="font-weight-bold">Description:</b> {shortenDescription(module.description)}
                 </p>
+                <div className="d-flex justify-content-between align-items-center">
+                    <p className="card-text mb-2">
+                    <b className="font-weight-bold">Reward Points:</b> {module.reward_points}
+                    </p>
+                    <button className="btn modulesButton" onClick={() => handleClick(module._id)}>Know more</button>
+
+
+                </div>
+
+                
                 <div className="d-flex justify-content-between align-items-center">
                   <p className="card-text mb-0">
                     {/* <b className="font-weight-bold">Module Status:</b> {module.opened ? 'Opened' : 'Not Opened'} */}

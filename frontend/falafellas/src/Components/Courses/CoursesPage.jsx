@@ -9,7 +9,6 @@ const CoursesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Fetch courses from the API
     api.get('/courses/get/all')
       .then(response => {
         setCourses(response.data.courses);
@@ -20,7 +19,6 @@ const CoursesPage = () => {
       });
   }, []);
 
-  // Filter courses based on search query
   const filteredCourses = courses.filter(course =>
     course.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

@@ -1,5 +1,5 @@
 .modulesButton{
-    background-color: #fff;
+    background-color: #f36b37;
     opacity: 0.8;
     color: #0d0202;
     border-color: #fff;
@@ -16,9 +16,15 @@
   }
 
   .card {
-    background-color: #ec4300;
-    color: #fff;
-  }
+    background-color: #fff;
+    color: #f36b37;
+    border-radius: 25px;
+    border: 2px solid #ced4da;
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075); 
+    font-family: sans-serif; 
+    }
+
+
   .heading{
     color: #f36b37;
   }
