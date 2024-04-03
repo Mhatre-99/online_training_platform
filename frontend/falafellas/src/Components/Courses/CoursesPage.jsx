@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 import api from "../../baseUrl";
 import './CoursesPage.css'
+import { Link } from 'react-router-dom';
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
@@ -12,6 +13,7 @@ const CoursesPage = () => {
     api.get('/courses/get/all')
       .then(response => {
         setCourses(response.data.courses);
+        console.log(response.data.courses);
       })
       .catch(error => {
         console.error('Error fetching courses:', error);
@@ -26,7 +28,7 @@ const CoursesPage = () => {
   return (
     <main className="container mt-5">
       <header className="text-center">
-        <h1 className="mb-4 heading">Library</h1>
+        <h1 className="mb-4 heading">Course Library</h1>
         <div className="search-bar text-center mb-4">
           <input
             type="text"
@@ -53,7 +55,7 @@ const CoursesPage = () => {
                   <p className="card-text mb-0">
                     <b className="font-weight-bold">Deadline:</b> {course.deadline}
                   </p>
-                  <button className="btn btn-primary modulesButton">View Modules</button>
+                  <Link to={`/courses/${course._id}/modules`} className="btn btn-primary modulesButton">View Modules</Link>
                 </div>
               </section>
             </section>
