@@ -31,6 +31,8 @@ const getModuleById = async (req, res) => {
     }
 }
 
+
+
 const addModule = async (req, res) =>{
     const {numeric_id, title, description, author, videos_id, quizzes_id, duration, is_mandatory, reward_points, fileName} = req.body;
     let videoArray = [];

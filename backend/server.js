@@ -23,7 +23,7 @@ mongoose
   })
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my API" });
+  res.json({ message: "Welcome to Falafellas" });
 });
 
 app.use(cors());

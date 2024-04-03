@@ -8,6 +8,8 @@ import VideoPlayer from "./VideoPlayer/VideoPlayer";
 import {useEffect, useState} from "react";
 import NotFound from "../../CommonComponents/NotFound";
 
+
+// Content Component
 export default function Video({data, moduleId}) {
     const videoData = {data};
     const navigate = useNavigate();
