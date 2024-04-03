@@ -1,3 +1,11 @@
+/*
+This code creates the main ModuleAddition page for our application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,8 +16,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function ModuleAddition() {
 
-  const courseUrl = "http://localhost:5050/courses/add"
-  const moduleUrl = "http://localhost:5050/module/add-module"
+  const baseUrl = "https://csci5709-group5.onrender.com";
+  const courseUrl = baseUrl + "/courses/add";
+  const moduleUrl = baseUrl + "/module/add-module";
 
   const [isUploading, setIsUploading] = useState(false);
 
