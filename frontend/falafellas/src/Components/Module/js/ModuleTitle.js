@@ -8,6 +8,8 @@ import api from "../../../baseUrl";
 import {useEffect, useState} from "react";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
+
+//Main module component
 export default function ModuleTitle({userId}) {
 
     const [moduleData, setModuleData] = useState({});

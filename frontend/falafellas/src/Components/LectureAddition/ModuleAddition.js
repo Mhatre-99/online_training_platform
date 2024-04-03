@@ -1,3 +1,11 @@
+/*
+This code creates the main ModuleAddition page for our application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,8 +16,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function ModuleAddition() {
 
-  const courseUrl = "http://localhost:5050/courses/add"
-  const moduleUrl = "http://localhost:5050/module/add-module"
+  const baseUrl = "https://csci5709-group5.onrender.com";
+  const courseUrl = baseUrl + "/courses/add";
+  const moduleUrl = baseUrl + "/module/add-module";
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -19,7 +28,8 @@ function ModuleAddition() {
     tutor: "",
     deadline: "",
     modules: [],
-    certificate: ""
+    certificate: "",
+    reward_points: 0
   });
 
   const [modules, setModules] = useState([{
@@ -53,10 +63,6 @@ function ModuleAddition() {
     setModules([...modules, newModule]);
   };
 
-  useEffect(() => {
-    console.log(modules);
-  }, [modules]);
-
   const onClickModuleItem = (module) => {
     setSelectedModule(module);
   };
@@ -74,36 +80,60 @@ function ModuleAddition() {
 
   const handleSave = () => {
     setIsUploading(true);
-    axios({
-      method: "post",
-      url: courseUrl,
-      data: courseData
-    }).then((response) => {
-      if (response.data.status === 201) {
-        console.log("Course Added");
-
-      }
-    }, (error) => {
-      console.log(error);
-    }).finally(() => {
-      setIsUploading(false);
-    });
-
-    modules.forEach((module) => {
-      axios({
+    var modulesArray = [];
+    
+    // Create an array to store promises for each module upload
+    const uploadPromises = modules.map((module) => {
+      return axios({
         method: "post",
         url: moduleUrl,
         data: module
       }).then((response) => {
-        if (response.data.status === 201) {
-          toast.success("Module Created !");
+        if (response.status === 201) {
+          // Push the moduleId to modulesArray
+          modulesArray.push(response.data.doc._id);
         }
-      }, (error) => {
-        toast.error("Module failed to upload !");
+      }).catch((error) => {
+        toast.error(`Module with title ${module.title} failed to upload !`);
         console.log(error);
       });
     });
+  
+    // Use Promise.all to wait for all module upload promises to resolve
+    Promise.all(uploadPromises)
+      .then(() => {
+        // All modules are successfully uploaded
+        toast.success("Modules Created Successfully !");
+        // Update courseData with moduleIds
+        setCourseData((prevCourseData) => ({
+          ...prevCourseData,
+          modules: modulesArray
+        }));
+    
+        // After updating courseData with moduleIds, make the request to add the course
+        return axios({
+          method: "post",
+          url: courseUrl,
+          data: {
+            ...courseData, // Use the updated courseData
+            modules: modulesArray // Ensure modules array is updated
+          }
+        });
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success("Course added !");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error in adding course !");
+      })
+      .finally(() => {
+        setIsUploading(false);
+      });
   };
+  
 
   const handleCourseDataChange = (event) => {
     const { name, value } = event.target;

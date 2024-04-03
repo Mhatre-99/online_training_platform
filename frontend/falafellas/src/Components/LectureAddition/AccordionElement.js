@@ -1,3 +1,11 @@
+/*
+This code creates the Accordion component for our application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
 import { Accordion, Button } from 'react-bootstrap';
 
 function AccordionElement({ addModule, modules, onClickItem }) {

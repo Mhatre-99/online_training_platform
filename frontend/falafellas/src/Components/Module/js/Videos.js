@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import "../css/module.css"
 import NotFound from "../../CommonComponents/NotFound";
 
+
+
 /*const data = [{
     title: "What is Lorem Ipsum",
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
@@ -29,6 +31,8 @@ import NotFound from "../../CommonComponents/NotFound";
         type:"MCQs"
     }
 ]*/
+
+//Component that displays video and quizzes in the module
 
 export default function Videos({mdata , videos, quizzes , checkBox, moduleId}) {
 

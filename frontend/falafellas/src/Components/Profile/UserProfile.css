@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Diphylleia&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-.editButton{
+.editButton, .deleteButton{
   background-color: #f36b37;
   opacity: 0.8;
   color: #fff;
@@ -8,6 +8,7 @@
   border-width: 2px;
   font-size: clamp(0.7rem, 2vw, 1rem);
   margin-top: 10px;
+  margin-right: 10px;
 }
 
 .editButton:hover{
@@ -15,6 +16,14 @@
   color: #f36b37;
   border-color: #fff;
   border-width: 2px;
+}
+
+.deleteButton:hover{
+  background-color: #fff;
+  color: #f36b37;
+  border-color: #fff;
+  border-width: 2px;
+  
 }
 
 .btn-secondary{
