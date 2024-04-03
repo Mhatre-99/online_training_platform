@@ -1,0 +1,25 @@
+.modulesButton{
+    background-color: #fff;
+    opacity: 0.8;
+    color: #0d0202;
+    border-color: #fff;
+    border-width: 2px;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    margin-top: 10px;
+  }
+  
+  .modulesButton:hover{
+    background-color: #080000;
+    color: #fff;
+    border-color: #080000;
+    border-width: 2px;
+  }
+
+  .card {
+    background-color: #f36b37;
+    color: #fff;
+  }
+  .header .h1{
+    color: #f36b37;
+  }
+  
