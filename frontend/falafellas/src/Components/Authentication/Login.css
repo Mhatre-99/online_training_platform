@@ -1,0 +1,141 @@
+/* body{
+  height: 100vh;
+  background: linear-gradient(#2A00B7, #42006C);
+} */
+
+.login-container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  /* margin-top: 200px; */
+  background-color: black;
+  padding-top: 100px;
+  padding-bottom: 30px;
+  /* width: 600px; */
+}
+
+.login-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.text{
+  color: white;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.underline{
+  width: 61px;
+  height: 6px;
+  background: white;
+  border-radius: 9px;
+}
+
+.inputs{
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input{
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 480px;
+  height: 80px;
+  background: #eaeaea;
+  border-radius: 6px;
+}
+
+.input img{
+  margin: 0px 30px;
+}
+
+.input input{
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 19px;
+}
+
+.input .input-half{
+  height: 50px;
+  width: calc(50% - 10px); /* Adjust the width as needed */
+  margin-right: 20px; /* Adjust the margin as needed */
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 9px;
+}
+
+.forgot-password {
+  padding-left: 62px;
+  margin-top: 27px;
+  color: #797979;
+  font-size: 18px;
+}
+
+
+.forgot-password, .login span{
+  color: white;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.submit-container{
+  display: flex;
+  gap: 30px;
+  margin: 60px auto;
+}
+
+.current-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  background-color: #f36b37;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  /* color: black;
+  background: white; */
+  background-color: white;
+  color: black;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* CSS to highlight empty fields */
+.empty-field {
+  border-color: red; /* Change border color to red */
+}
+
+/* CSS to highlight invalid password field */
+.invalid-password {
+  border-color: red; /* Change border color to red */
+  box-shadow: 0 0 5px red; /* Add red shadow */
+}
+
