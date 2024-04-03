@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import AccordionElement from './AccordionElement';
-import CourseContentElement from './CourseContentElement';
+import { useEffect, useState } from "react";
+import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import AccordionElement from "./AccordionElement";
+import CourseContentElement from "./CourseContentElement";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
 function ModuleAddition() {
-
-  const courseUrl = "http://localhost:5050/courses/add"
-  const moduleUrl = "http://localhost:5050/module/add-module"
+  const courseUrl = "http://localhost:5050/courses/add";
+  const moduleUrl = "http://localhost:5050/module/add-module";
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -19,10 +18,11 @@ function ModuleAddition() {
     tutor: "",
     deadline: "",
     modules: [],
-    certificate: ""
+    certificate: "",
   });
 
-  const [modules, setModules] = useState([{
+  const [modules, setModules] = useState([
+    {
       numeric_id: 1,
       title: "Module 1",
       description: "Description for Module 1",
@@ -32,7 +32,7 @@ function ModuleAddition() {
       duration: 0,
       is_mandatory: true,
       reward_points: 5,
-      fileName: ""
+      fileName: "",
     },
   ]);
   const [selectedModule, setSelectedModule] = useState(modules[0]);
@@ -48,7 +48,7 @@ function ModuleAddition() {
       duration: 0,
       is_mandatory: true,
       reward_points: 5,
-      fileName: ""
+      fileName: "",
     };
     setModules([...modules, newModule]);
   };
@@ -60,11 +60,23 @@ function ModuleAddition() {
   const onClickModuleItem = (module) => {
     setSelectedModule(module);
   };
-  
-  const updateModuleData = (moduleId, newTitle, addedFile, fileName, newDescription) => {
+
+  const updateModuleData = (
+    moduleId,
+    newTitle,
+    addedFile,
+    fileName,
+    newDescription
+  ) => {
     const updatedModules = modules.map((module) => {
       if (module.numeric_id === moduleId) {
-        return { ...module, title: newTitle, videos_id: addedFile, fileName: fileName, description: newDescription };
+        return {
+          ...module,
+          title: newTitle,
+          videos_id: addedFile,
+          fileName: fileName,
+          description: newDescription,
+        };
       }
       return module;
     });
@@ -77,31 +89,38 @@ function ModuleAddition() {
     axios({
       method: "post",
       url: courseUrl,
-      data: courseData
-    }).then((response) => {
-      if (response.data.status === 201) {
-        console.log("Course Added");
-
-      }
-    }, (error) => {
-      console.log(error);
-    }).finally(() => {
-      setIsUploading(false);
-    });
+      data: courseData,
+    })
+      .then(
+        (response) => {
+          if (response.data.status === 201) {
+            console.log("Course Added");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+      .finally(() => {
+        setIsUploading(false);
+      });
 
     modules.forEach((module) => {
       axios({
         method: "post",
         url: moduleUrl,
-        data: module
-      }).then((response) => {
-        if (response.data.status === 201) {
-          toast.success("Module Created !");
+        data: module,
+      }).then(
+        (response) => {
+          if (response.data.status === 201) {
+            toast.success("Module Created !");
+          }
+        },
+        (error) => {
+          toast.error("Module failed to upload !");
+          console.log(error);
         }
-      }, (error) => {
-        toast.error("Module failed to upload !");
-        console.log(error);
-      });
+      );
     });
   };
 
@@ -118,49 +137,67 @@ function ModuleAddition() {
           type="text"
           placeholder="Course Name"
           className="w-25"
-          style={{ fontSize: "24px", height: "80px", marginLeft: '40px', marginTop: '20px', marginBottom: '20px' }}
+          style={{
+            fontSize: "24px",
+            height: "80px",
+            marginLeft: "40px",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
           name="name"
           value={courseData.name}
-          onChange={handleCourseDataChange} />
+          onChange={handleCourseDataChange}
+        />
         <Form.Control
           size="lg"
           type="text"
           placeholder="Course Description"
           className="w-50"
-          style={{ marginLeft: '40px' }}
+          style={{ marginLeft: "40px" }}
           name="description"
           value={courseData.description}
-          onChange={handleCourseDataChange} />
-    
+          onChange={handleCourseDataChange}
+        />
+
         <Form.Control
           size="lg"
           type="text"
           placeholder="Tutor"
           className="w-25"
-          style={{ marginLeft: '40px', marginTop: '20px' }}
+          style={{ marginLeft: "40px", marginTop: "20px" }}
           name="tutor"
           value={courseData.tutor}
-          onChange={handleCourseDataChange} />
+          onChange={handleCourseDataChange}
+        />
         <Form.Control
           size="lg"
           type="number"
           placeholder="Days Allowed"
           className="w-25"
-          style={{ marginLeft: '40px', marginTop: '20px', marginBottom: '20px' }}
+          style={{
+            marginLeft: "40px",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
           name="deadline"
           value={courseData.deadline}
-          onChange={handleCourseDataChange} />
+          onChange={handleCourseDataChange}
+        />
       </Form.Group>
-      <div style={{ marginLeft: '20px', marginTop: '20px' }}>
-        <Row style={{ marginRight: '0px' }}>
+      <div style={{ marginLeft: "20px", marginTop: "20px" }}>
+        <Row style={{ marginRight: "0px" }}>
           <Col>
-            <AccordionElement modules={modules} addModule={addModule} onClickItem={onClickModuleItem} />
+            <AccordionElement
+              modules={modules}
+              addModule={addModule}
+              onClickItem={onClickModuleItem}
+            />
           </Col>
           <Col>
-          <CourseContentElement
-            selectedModule={selectedModule}
-            updateModuleData={updateModuleData}
-          />
+            <CourseContentElement
+              selectedModule={selectedModule}
+              updateModuleData={updateModuleData}
+            />
           </Col>
         </Row>
       </div>
@@ -168,14 +205,21 @@ function ModuleAddition() {
         <Button
           variant="primary"
           className="w-50 submit-button-contact"
-          style={{ margin: '10px', marginBottom: "50px" }}
+          style={{ margin: "10px", marginBottom: "50px" }}
           onClick={handleSave}
-          disabled={isUploading}>
-            {isUploading ? ( // Render spinner if loading
-              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-            ) : (
-              "SAVE"
-            )}
+          disabled={isUploading}
+        >
+          {isUploading ? ( // Render spinner if loading
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          ) : (
+            "SAVE"
+          )}
         </Button>
       </center>
       <ToastContainer />
