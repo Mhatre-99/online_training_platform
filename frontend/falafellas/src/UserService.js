@@ -1,5 +1,5 @@
 import axios from './helper';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth";
 import { auth } from "./FirebaseService";
 
 const app_url = 'http://localhost:3000'; //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
@@ -83,4 +83,19 @@ export const loginUserService = async (user) => {
         const errorMessage = error.message;
         return null;
     });
+}
+
+
+export const forgotPassword = (user) => {
+  sendPasswordResetEmail(auth, user.email)
+  .then(() => {
+    // Password reset email sent!
+    // ..
+    window.location.href = `${app_url}/login`;
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
 }

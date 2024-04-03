@@ -10,19 +10,20 @@ function AccordionElement({ addModule, modules, onClickItem }) {
           }
         `}
       </style>
-      <Accordion className="w-100 p-3" style={{ marginTop: '16px' }}>
+      <b style={{ marginLeft: "30px" }}>Modules:</b>
+      <Accordion className="w-100 p-3">
         {modules.map((module) => (
           <Accordion.Item
-            key={module.id}
-            eventKey={module.id.toString()}
+            key={module.numeric_id}
+            eventKey={module.numeric_id.toString()}
             className="w-100 p-3"
             onClick={() => onClickItem(module)}>
-            <Accordion.Header>{module.name}</Accordion.Header>
+            <Accordion.Header><b style={{ fontSize: "18px" }}>{module.title}</b></Accordion.Header>
           </Accordion.Item>
         ))}
         <center>
-          <Button onClick={addModule} className="w-75 p-3" style={{ marginTop: '20px' }}>
-            Add a Module
+          <Button onClick={addModule} className="w-75 submit-button-contact" style={{ marginTop: "20px", marginBottom: "40px" }}>
+            + ADD A MODULE
           </Button>
         </center>
       </Accordion>

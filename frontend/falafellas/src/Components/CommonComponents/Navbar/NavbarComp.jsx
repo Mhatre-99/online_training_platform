@@ -7,7 +7,9 @@ import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from "../../../FirebaseService";
 
-function NavbarComp() {
+function NavbarComp(props) {
+  const {user} = props;
+  console.log(user);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const handleToggleClick = () => {
@@ -61,7 +63,7 @@ function NavbarComp() {
 
             <NavDropdown title={<Person size={30} color="#f36b37" />} id="nav-dropdown" alignRight>
               <NavDropdown.Item>
-                <LinkContainer to="/profile">
+                <LinkContainer to={`/profile/${user?.uid}`}>
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>

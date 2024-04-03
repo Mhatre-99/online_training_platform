@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 import profile from '../../assets/Profile/profile.jpg'
 import { Container, Row, Col, Button, Form} from 'react-bootstrap'
 import './UserProfile.css'
+import { useParams } from 'react-router-dom'
 
 function UserProfile() {
+  const {userId} = useParams();
   const[isEditing, setIsEditing] = useState(false);
   const[bio, setBio] = useState("I'm a passionate food lover who believes the way to anyone's heart is through their stomach. I take joy in crafting sandwiches and I would make you a great falafel fellas. Let's make your meal a memorable one!");
 

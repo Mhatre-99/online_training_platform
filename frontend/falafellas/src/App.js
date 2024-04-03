@@ -1,19 +1,20 @@
 import "./App.css";
 import Contact from "./Components/Contact/Contact";
-import {Routes, Route} from "react-router-dom";
-import NavbarComp from './Components/CommonComponents/Navbar/NavbarComp';
-import FAQPage from './Components/FAQ/FAQPage';
+import { Routes, Route } from "react-router-dom";
+import NavbarComp from "./Components/CommonComponents/Navbar/NavbarComp";
+import FAQPage from "./Components/FAQ/FAQPage";
 import Footer from "./Components/CommonComponents/Footer/Footer";
 import LandingPage from "./Components/Landing/LandingPage";
-import ModuleTitle from "./Components/Module/ModuleTitle";
-// import VideoPlayer from "./Components/Module/VideoPlayer/VideoPlayer"; 
-import UserProfile from "./Components/Profile/UserProfile";
-import Certificates from "./Components/Profile/Certificates";
 import LoginForm from "./Components/Authentication/LoginForm";
 import SignUpForm from "./Components/Authentication/SignUpForm";
+import ModuleTitle from "./Components/Module/js/ModuleTitle";
+import ModuleAddition from "./Components/LectureAddition/ModuleAddition";
+import UserProfile from "./Components/Profile/UserProfile";
+import Certificates from "./Components/Profile/Certificates";
+import NotFound from "./Components/CommonComponents/NotFound";
+import QuizAddition from "./Components/QuizAddition/QuizAddition";
+import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
 import { useEffect, useState } from "react";
-
-import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseService";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
 
   return (
     <>
-      <NavbarComp/>
+      <NavbarComp user={userState}/>
       <div className="App">
           <Routes>
               <Route path="/" element={<LandingPage/>} />
@@ -42,6 +43,9 @@ function App() {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/course"/>
               <Route path="/module/:id/*" element={<ModuleTitle/>}/>
+              <Route path="/add-quiz" element={<QuizAddition />} />
+              <Route path="/create-new-question" element={<QuestionAddition />} />
+              <Route path="/module/create/" element={<ModuleAddition />} />
               {/* <Route path="/profile" element={<TopProfile/>}/> */}
               <Route path="/profile/:userId" element={
                 <>
@@ -49,8 +53,8 @@ function App() {
                   <Certificates/>
                 </>
               }/>
-
-          </Routes>
+              <Route path="/not-found" element={<NotFound />} />
+        </Routes>
       </div>
       <Footer />
     </>
