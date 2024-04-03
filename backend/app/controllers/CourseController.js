@@ -33,13 +33,8 @@ const addCourse = async (req, res) => {
             return res.status(400).json({ error: "Name is required" });
         }
 
-        const hash = crypto.createHash("sha256");
-        hash.update(name);
-        const hashedName = hash.digest("hex");
-        const shortName = hashedName.substring(0, 8)
-
         const newUser = await Course.create({
-            _id: shortName,
+            _id: new mongoose.Types.ObjectId(),
             name,
             description,
             deadline,
