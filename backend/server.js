@@ -21,7 +21,7 @@ mongoose.connect(`${mongoURI}${databaseName}`)
   })
   .catch(err => console.error("Error connecting to MongoDB:", err));
 
-app.use(cors());
+app.use(cors({origin: 'https://csci5709-group5-1.onrender.com/'}));
 app.use(express.json());
 
 app.use('/users/', userRoutes);
