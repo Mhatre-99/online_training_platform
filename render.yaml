@@ -13,6 +13,7 @@ services:
 
   # Frontend service configuration
   - type: web
+    runtime: static
     name: my-app-frontend
     buildCommand: npm install --prefix frontend/falafellas && npm run build --prefix frontend/falafellas
     staticPublishPath: ./frontend/falafellas/build
