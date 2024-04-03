@@ -3,13 +3,26 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Person } from 'react-bootstrap-icons';
 import './NavbarComp.css';
 import { LinkContainer } from 'react-router-bootstrap';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from "../../../FirebaseService";
 
 function NavbarComp() {
   const [expanded, setExpanded] = useState(false);
-
+  const navigate = useNavigate();
   const handleToggleClick = () => {
     setExpanded(!expanded);
   };
+
+  const logOut = () =>{
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      navigate('/login');
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+  
 
   return (
     <>
@@ -52,7 +65,7 @@ function NavbarComp() {
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="#" onClick={logOut}>Logout</NavDropdown.Item>
             </NavDropdown>
           )}
         </Container>
