@@ -20,6 +20,9 @@ mongoose.connect(`${mongoURI}${databaseName}`)
     app.listen(port, () => console.log(`Server running on port ${port}`));
   })
   .catch(err => console.error("Error connecting to MongoDB:", err));
+app.get('/', (req, res) => {
+    res.json({ message: 'Welcome to my API' });
+});
 
 app.use(cors());
 app.use(express.json());
