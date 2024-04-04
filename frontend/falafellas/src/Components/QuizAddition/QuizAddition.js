@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./QuizAddition.css";
 import { toast } from "react-toastify";
 import api from "../../baseUrl";
@@ -12,6 +12,8 @@ const QuizAddition = () => {
   const [deadline, setDeadline] = useState("");
   const [timeLimit, setTimeLimit] = useState("");
   const [minimumMarks, setMinimumMarks] = useState("");
+
+  const location = useLocation();
 
   //const [personName, setPersonName] = useState([]);
   const [existingQuestions, setExistingQuestions] = useState([]);
