@@ -1,10 +1,10 @@
 // LoginForm.js
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Login.css';
 import email_image from '../../assets/User/email.png';
 import password_image from '../../assets/User/password.png';
-import { forgotPassword, loginUserService } from '../../UserService';
+import { loginUserService } from '../../UserService';
 
 function LoginForm() {
   const [currentPage, setCurrentPage] = useState("login");
@@ -28,6 +28,14 @@ function LoginForm() {
 
   const handleLoginButtonClick = async () => {
     try {
+      // Validate fields before attempting login
+      if (!user.email || !user.password) {
+        alert('Please enter both email and password.');
+        return;
+      }else if(!user.email.includes('@')){
+        alert('Entered email is incorrect.');
+        return;
+      }
       // Call the loginUserService method
       await loginUserService(user);
     } catch (error) {

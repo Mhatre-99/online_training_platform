@@ -1,17 +1,10 @@
-/* body{
-  height: 100vh;
-  background: linear-gradient(#2A00B7, #42006C);
-} */
-
 .login-container{
   display: flex;
   flex-direction: column;
   margin: auto;
-  /* margin-top: 200px; */
   background-color: black;
   padding-top: 100px;
   padding-bottom: 30px;
-  /* width: 600px; */
 }
 
 .login-header{
@@ -67,17 +60,6 @@
   font-size: 19px;
 }
 
-.input .input-half{
-  height: 50px;
-  width: calc(50% - 10px); /* Adjust the width as needed */
-  margin-right: 20px; /* Adjust the margin as needed */
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #797979;
-  font-size: 9px;
-}
-
 .forgot-password {
   padding-left: 62px;
   margin-top: 27px;
@@ -127,15 +109,3 @@
   font-weight: 700;
   cursor: pointer;
 }
-
-/* CSS to highlight empty fields */
-.empty-field {
-  border-color: red; /* Change border color to red */
-}
-
-/* CSS to highlight invalid password field */
-.invalid-password {
-  border-color: red; /* Change border color to red */
-  box-shadow: 0 0 5px red; /* Add red shadow */
-}
-
