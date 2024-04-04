@@ -37,8 +37,8 @@ const ModulesPage = () => {
   };
 
   const shortenDescription = (description) => {
-    if (description.length > 120) {
-      return description.substring(0, 120) + '...';
+    if (description.length > 300) {
+      return description.substring(0, 300) + '...';
     }
     return description;
   };
@@ -52,9 +52,9 @@ const ModulesPage = () => {
         {modules.map(module => (
           <article className="col-md-6" key={module._id}>
             <section className="card mb-4">
-              <section className="card-body d-flex flex-column">
+              <section className="card-body d-flex flex-column justify-content-between">
                 <h2 className="card-title mb-2 text-center">{module.title}</h2>
-                <br />
+                {/* <br /> */}
                 <p className="card-text mb-2">
                   <b className="font-weight-bold">Description:</b> {shortenDescription(module.description)}
                 </p>

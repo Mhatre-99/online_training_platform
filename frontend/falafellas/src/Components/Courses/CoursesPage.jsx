@@ -23,6 +23,14 @@ const CoursesPage = () => {
     course.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const shortenDescription = (description) => {
+    if (description.length > 300) {
+      return description.substring(0, 300) + '...';
+    }
+    return description;
+  };
+
+
   return (
     <main className="container mt-5">
       <header className="text-center">
@@ -44,7 +52,7 @@ const CoursesPage = () => {
                 <h2 className="card-title mb-2 text-center">{course.name}</h2>
                 <br />
                 <p className="card-text mb-2">
-                  <b className="font-weight-bold">Description:</b> {course.description}
+                  <b className="font-weight-bold">Description:</b> {shortenDescription(course.description)}
                 </p>
                 <p className="card-text mb-2">
                   <b className="font-weight-bold">Tutor:</b> {course.tutor}

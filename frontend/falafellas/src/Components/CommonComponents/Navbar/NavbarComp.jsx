@@ -45,7 +45,9 @@ function NavbarComp(props) {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto navbar-elements">
-              <Nav.Link href="#home">Courses</Nav.Link>
+              <LinkContainer to="/course">
+                <Nav.Link>Courses</Nav.Link>
+              </LinkContainer>
               <LinkContainer to="/contact">
                 <Nav.Link>Contact Us</Nav.Link>
               </LinkContainer>
