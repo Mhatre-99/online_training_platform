@@ -1,3 +1,12 @@
+/*
+This code defines the functions for our Express application.
+================================
+Author: Aditya Pattani, Samit Mhatre
+Last Updated: 03-04-2024
+================================
+*/
+
+
 const Course = require("../models/Course"); 
 const crypto = require('crypto');
 const mongoose = require("mongoose");
