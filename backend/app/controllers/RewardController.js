@@ -6,7 +6,7 @@ const ProcessedModules = require("../models/ProcessedModules");
 const generateCertificateId = () => {
     return `c${Math.floor(Math.random() * 1000) + 1}`;
 };
-
+// Get Modules completed by user
 const getProgressByUserID = async (req, res) => {
     const { userId } = req.params;
     try {
@@ -64,6 +64,7 @@ const getProgressByUserID = async (req, res) => {
 
         const rewards = await Reward.find({ user_id: userId });
 
+        // Set up return format as expected by the frontend
         const formattedRewards = rewards.map(reward => ({
             module_name: reward.module_name,
             certificate: reward.certificate
