@@ -36,11 +36,45 @@ function SignUpForm() {
 
   const handleSignUpButtonClick = async () => {
     try {
-      // Call the registerUserService method
-      await registerUserService(user);
-    } catch (error) {
-      console.error('Error signing up:', error);
-    }
+        // Validate fields before attempting signup
+        if (!user.email || !user.password || !user.name || !user.roles) {
+          alert('Name, email, roles, and password fields are required.');
+          return;
+        }
+
+        //Validating email
+        if(!user.email.includes('@')){
+            alert('Entered email is incorrect.');
+            return;
+        }
+    
+        // Validating password
+        const passwordRegex = /^(?=.*[@!/$%#])(?=.*[0-9a-zA-Z]).{6,}$/;
+        if (!passwordRegex.test(user.password)) {
+          alert('Password must be at least 6 characters long and contain at least one of @!/$%# signs.');
+          return;
+        }
+
+        // Validate birth date
+        const today = new Date();
+        const inputDate = new Date(user.birth_date);
+        const minAgeDate = new Date();
+        minAgeDate.setFullYear(minAgeDate.getFullYear() - 18); // Calculating minimum age should be 18 years.
+        if (inputDate >= today) {
+        alert('Birth date cannot be a future date.');
+        return;
+        }
+
+        if (inputDate > minAgeDate) {
+        alert('You must be at least 18 years old to sign up.');
+        return;
+        }
+    
+        // Call the registerUserService method
+        await registerUserService(user);
+      } catch (error) {
+        console.error('Error signing up:', error);
+      }
   };
 
   return (
@@ -63,11 +97,11 @@ function SignUpForm() {
             <img src={phone_image} alt='' />
             <input type='tel' name='phone_number' placeholder="Phone Number" onChange={handleChange}/>
           </div>
-            <div className="input input-half">
+            <div className="input">
               <img src={person_image} alt='' />
               <input type='text' name='designation' placeholder="Designation" onChange={handleChange}/>
             </div>
-            <div className="input input-half">
+            <div className="input">
               <img src={person_image} alt='' />
               <input type='text' name='roles' placeholder="Roles" onChange={handleChange}/>
             </div>

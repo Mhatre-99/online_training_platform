@@ -100,10 +100,10 @@ export default function VideoPlayer({content, callbackSidePanel}){
                     <Row className="video-player-row">
                         <div>
                             {/*<video width="100%" controls onEnded={handleVideoEnd}>
-                                <source src="https://www.youtube.com/watch?v=hZEc4jD0q2c" type="video/mp4" />
+                                <source src="https://drive.google.com/file/d/1a5p7sj4uiYOWwtszq958Qti5aUV6NaMt/view?usp=sharing" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>*/}
-                            <ReactPlayer url={url} controls={true} onEnded={handleVideoEnd} width="100%" />
+                            {<ReactPlayer url={url} controls={true} onEnded={handleVideoEnd} width="100%" />}
                         </div>
                     </Row>
                     <Row className="video-description">

@@ -8,7 +8,7 @@ const getModuleById = async (req, res) => {
     try{
         const module = await Module.findById(id);
         if (!module) {
-            return res.status(404).json({ error: "Course not found" });
+            return res.status(404).json({ error: "Module not found" });
         }
         const videos = module.videos_id || [];
         const quizzes = module.quizzes_id || [];

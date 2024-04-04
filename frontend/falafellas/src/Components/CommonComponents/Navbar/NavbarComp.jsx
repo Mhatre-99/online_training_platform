@@ -64,7 +64,11 @@ function NavbarComp(props) {
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#" onClick={logOut}>Logout</NavDropdown.Item>
+              <NavDropdown.Item onClick={logOut}>
+              <LinkContainer to={"/login"}>
+                  <Nav.Link>Logout</Nav.Link>
+                </LinkContainer>
+              </NavDropdown.Item>
             </NavDropdown>
           )}
         </Container>
