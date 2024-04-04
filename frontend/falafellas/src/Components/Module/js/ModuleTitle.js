@@ -165,7 +165,7 @@ export default function ModuleTitle({userId}) {
                     Quiz
                 </span>
                     </Col>
-                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/not-found")}}>
+                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/course")}}>
 
                         Course
 
