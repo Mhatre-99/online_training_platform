@@ -8,25 +8,6 @@ const app_url = 'http://localhost:3000'; //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
 
 export const registerUserService = async (user) => {
     const { name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = user;
-    //firebase code - sign up
-    //const auth = getAuth();
-    // const navigate = useNavigate();
-    //debugger;
-    // Validating fields
-    if (!name || !email || !roles || !password) {
-      alert('Name, email, roles, and password are required.');
-      highlightEmptyFields(); // Call a function to highlight empty fields
-      return null;
-    }
-
-    // Validating password
-    const passwordRegex = /^(?=.*[@!/$%#])(?=.*[0-9a-zA-Z]).{6,}$/;
-    if (!passwordRegex.test(password)) {
-        alert('Password must be at least 6 characters long and contain at least one of @!/$%# signs.');
-        highlightPasswordField(); // Call a function to highlight password field
-        return null;
-    }
-
     createUserWithEmailAndPassword(auth, user.email, user.password)
     .then(async (userDetails) => {
         // Signed up 
@@ -35,7 +16,6 @@ export const registerUserService = async (user) => {
         sessionStorage.setItem("token", firebaseUser.accessToken);
         sessionStorage.setItem("id", firebaseUser.uid);
         
-        // /users/add call
          // Call your backend route to add user
          return axios.post('/users/add', { _id: firebaseUser.uid , name, email, phone_number, designation, roles: roles.toLowerCase(), password, birth_date, rewards_earned })
          .then(response => {
@@ -54,19 +34,13 @@ export const registerUserService = async (user) => {
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.error(`Error Code ${errorCode}: ${errorMessage}`);
         return null;
         // ..
     });
 }
 
 export const loginUserService = async (user) => {
-  //const auth = getAuth();
-  //const navigate = useNavigate(); 
-    //validate field here
-    if (!user.email || !user.password) {
-      alert('Please enter both email and password');
-      return;
-    }
     signInWithEmailAndPassword(auth, user.email, user.password)
     .then((userCredential) => {
         // Signed in 
@@ -74,8 +48,7 @@ export const loginUserService = async (user) => {
         sessionStorage.setItem("token", firebaseUser.accessToken);
         sessionStorage.setItem("id", firebaseUser.uid);
         //return {token: firebaseUser.accessToken, _id: firebaseUser.uid};
-        // ...
-         // Check user role
+        // Check user role
         return axios.get(`/users/get/${firebaseUser.uid}`)
         .then(response => {
           debugger;
@@ -98,6 +71,7 @@ export const loginUserService = async (user) => {
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.error(`Error Code ${errorCode}: ${errorMessage}`);
         return null;
     });
 }
@@ -106,27 +80,11 @@ export const loginUserService = async (user) => {
 export const forgotPassword = (user) => {
   sendPasswordResetEmail(auth, user.email)
   .then(() => {
-    // Password reset email sent!
-    // ..
     window.location.href = `${app_url}/login`;
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    // ..
+    console.error(`Error Code ${errorCode}: ${errorMessage}`);
   });
 }
-
-// Function to highlight empty fields
-const highlightEmptyFields = () => {
-  const emptyFields = document.querySelectorAll('input:required[value=""]');
-  emptyFields.forEach(field => {
-    field.classList.add('empty-field');
-  });
-};
-
-// Function to highlight password field
-const highlightPasswordField = () => {
-  const passwordField = document.querySelector('input[name="password"]');
-  passwordField.classList.add('invalid-password');
-};

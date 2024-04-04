@@ -1,6 +1,5 @@
 // LoginForm.js
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
 import './Login.css';
 import email_image from '../../assets/User/email.png';
 import { forgotPassword } from '../../UserService';
@@ -21,12 +20,20 @@ function ForgotPassword() {
 
   const handleForgotPassword = async () => {
     try {
-      // Call the loginUserService method
-      await forgotPassword(user);
-    } catch (error) {
-      console.error('Error logging in:', error);
-    }
-  };
+        // Validate fields before attempting login
+        if (!user.email) {
+          alert('Email field is required.');
+          return;
+        }else if(!user.email.includes('@')){
+            alert('Entered email is incorrect.');
+            return;
+        }
+        // Call the loginUserService method
+        await forgotPassword(user);
+      } catch (error) {
+        console.error('Error logging in:', error);
+      }
+    };
 
   return (
     <div className='login-container'>
@@ -38,7 +45,7 @@ function ForgotPassword() {
         <div className="inputs">
           <div className="input">
             <img src={email_image} alt='' />
-            <input type='email' name = "email" placeholder='Email Id' onChange={handleChange} required />
+            <input type='email' name = "email" placeholder='Email Id' onChange={handleChange} />
           </div>
         </div>
         <div className="submit-container">
