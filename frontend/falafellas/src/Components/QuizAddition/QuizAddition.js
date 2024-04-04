@@ -1,3 +1,11 @@
+/*
+This code creates the main Quiz Addition page for our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 import React, { useState, useEffect } from "react";
 import { Autocomplete, TextField, Select, MenuItem } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
