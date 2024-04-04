@@ -31,18 +31,27 @@
 
 - On Render backend deploy link: https://csci5709-group5.onrender.com/
 
-- My feature can be found at Link: https://falafellas.netlify.app/module/660c7532123d02faaef51140
+- My feature can be found at Link: https://falafellas.netlify.app/module/660d8987dced2306614b3581
 
-- The link to my features backend: https://csci5709-group5.onrender.com/module/get/660c7532123d02faaef51140 
+- The link to my features backend API: https://csci5709-group5.onrender.com/module/get/660d8987dced2306614b3581 
 
 ## Instructions
 
 - The feature that I have worked on is *Modules*.
 - A module is a part of a course which can be accessed through that course.
-- It contains video lectures and quizzes.
-- It allows users to access these videos and quizzes.
-- *To attempt the quizzes there is another feature 'Quiz Attempt'.*
-- The progress of the module is tracked by tracking the progress(status) of each content within that module.
+
+- Task achieved:
+  - Display Videos and Quizzes
+    - It contains video lectures and quizzes. It allows users to access (displays) these videos and quizzes.
+  - Play Videos
+    - The video can be played by clicking on videos.
+    - *To attempt the quizzes there is another feature 'Quiz Attempt' that is yet to be developed.*
+  - Track the completion of module.
+    - It also tracks the progress of the completion of the module.
+    - The progress of the module is tracked by tracking the progress(status) of each content within that module.
+    - The status of video changes to completed if the video is played till the end.
+    - The completed content (video/quiz) is updated in the user progress schema.
+  
 - The Files created as part of these features are:
   - *Backend*
     - *Controller* 
@@ -60,11 +69,11 @@
   - *Frontend*
     - Everything within the [Module directory](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/samit-mhatre/frontend/falafellas/src/Components/Module?ref_type=heads) which is within the [Components](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/samit-mhatre/frontend/falafellas/src/Components?ref_type=heads) directory was created for this feature.
 
-- If the course feature is not developed, to access my feature you can directly go to this [link](https://falafellas.netlify.app/module/660c7532123d02faaef51140) as modules are meant to be accessed through the courses.
+- If the course feature is not developed, to access my feature you can directly go to this [link](https://falafellas.netlify.app/module/660d8987dced2306614b3581) as modules are meant to be accessed through the courses.
 - The link takes you directly to one of the modules and you can see the sample videos.
 - For the videos we have used a Dalhousie Youtube video for showing the functionality.
 - Quiz may or may not be present depending on the module you are trying to access.
-- In case you click on a quiz and it is giving 404, it is because the attempting quiz is part of another feature Quiz Attempt.
+- In case you click on a quiz and it is giving 404, it is because attempting quiz is part of another feature Quiz Attempt.
 - This feature may not be developed yet hence it is showing 404 not found.
 - *The backend which is deployed on Render shuts down when there are no requests. It takes upto 50 secs to spin up and you may not be able to see the contents during that time.*
 
