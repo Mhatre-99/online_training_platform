@@ -1,0 +1,41 @@
+.modulesButton{
+    background-color: #f36b37;
+    opacity: 0.8;
+    color: #0d0202;
+    border-color: #fff;
+    border-width: 2px;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    margin-top: 10px;
+  }
+  
+  .modulesButton:hover{
+    background-color: #080000;
+    color: #fff;
+    border-color: #080000;
+    border-width: 2px;
+  }
+
+  .card {
+    background-color: #fff;
+    color: #f36b37;
+    border-radius: 25px;
+    border: 2px solid #ced4da;
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075); 
+    font-family: sans-serif; 
+    }
+
+
+  .heading{
+    color: #f36b37;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    max-width: 600px; 
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  

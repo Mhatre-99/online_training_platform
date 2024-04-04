@@ -18,6 +18,8 @@ import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
 import { useEffect, useState } from "react";
 import { auth } from "./FirebaseService";
 import ProtectedRoute from "./ProtectedRoute";
+import CoursesPage from "./Components/Courses/CoursesPage";
+import ModulesPage from "./Components/Courses/ModulesPage";
 
 function App() {
   const [userState, setUserState] = useState(null);
@@ -44,8 +46,10 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword/>} />
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQPage />} />
+              
               <Route element={<ProtectedRoute />}>
-                <Route path="/course"/>
+                <Route path="/course" element={<CoursesPage />}/>
+                <Route path="/courses/:courseId/modules" element={<ModulesPage />} />
                 <Route path="/module/:id/*" element={<ModuleTitle/>}/>
                 <Route path="/add-quiz" element={<QuizAddition />} />
                 <Route path="/create-new-question" element={<QuestionAddition />} />
