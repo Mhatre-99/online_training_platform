@@ -1,3 +1,11 @@
+/*
+This code creates the controllers for our quiz creation feature for our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 const Quiz = require("../models/Quiz");
 const Question = require("../models/Question");
 

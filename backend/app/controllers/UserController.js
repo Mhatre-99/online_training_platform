@@ -1,3 +1,11 @@
+/*
+This code defines the functions for our Express application.
+================================
+Author: Aditya Pattani, Samit Mhatre
+Last Updated: 03-04-2024
+================================
+*/
+
 const User = require("../models/User"); 
 const crypto = require('crypto');
 

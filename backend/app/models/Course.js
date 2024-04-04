@@ -1,3 +1,11 @@
+/*
+This code defines the Course model for our Express application.
+================================
+Author: Aditya Pattani, Samit Mhatre
+Last Updated: 03-04-2024
+================================
+*/
+
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 

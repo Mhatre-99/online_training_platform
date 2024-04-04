@@ -1,3 +1,11 @@
+/*
+This code creates the routes for quiz CRUD our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 const { Router } = require("express");
 const router = Router();
 const quizController = require("../controllers/QuizController");

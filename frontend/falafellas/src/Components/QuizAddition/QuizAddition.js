@@ -1,12 +1,15 @@
+/*
+This code creates the main Quiz Addition page for our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 import React, { useState, useEffect } from "react";
-import { Autocomplete, TextField } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { Autocomplete, TextField, Select, MenuItem } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
-import { InputLabel, Select, MenuItem, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios for making HTTP requests
+import { useNavigate, useLocation } from "react-router-dom";
 import "./QuizAddition.css";
 import { toast } from "react-toastify";
 import api from "../../baseUrl";
@@ -17,21 +20,43 @@ const QuizAddition = () => {
   const [deadline, setDeadline] = useState("");
   const [timeLimit, setTimeLimit] = useState("");
   const [minimumMarks, setMinimumMarks] = useState("");
+  // const [selectedModule, setSelectedModule] = useState({});
 
-  const [personName, setPersonName] = useState([]);
+  const location = useLocation();
+  // console.log(location.state?.courseId);
+  //const [personName, setPersonName] = useState([]);
   const [existingQuestions, setExistingQuestions] = useState([]);
-  //const [existingQuestions, setExistingQuestions] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  //const [questions, setQuestions] = useState([]);
+  // const [modules, setModules] = useState([]);
 
   const [existingQuestionsSelected, setExistingQuestionsSelected] =
     useState(false);
   const navigate = useNavigate();
-
+  // var courseId = "660d8987dced2306614b3589";
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const response = await api.get("/question/get/all"); // Fetch all questions
+        const response = await api.get("/question/get/all");
+        setExistingQuestions(response.data.questions);
+        //const getCourse = await api.get(`/courses/get/${courseId}`);
+        //var modulesFromCourse = getCourse.data?.course?.modules;
+        //console.log(modulesFromCourse);
+        // const modulesArray = [];
+        // const modulePromises = modulesFromCourse.map((moduleId) =>
+        //   api.get(`/module/get/${moduleId}`)
+        // );
+
+        // Promise.all(modulePromises)
+        //   .then((responses) => {
+        //     const modulesArray = responses.map((response) => response.data);
+        //     console.log(modulesArray);
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error fetching modules:", error);
+        //   });
+        // setModules(...modulesArray);
+
+        //console.log(modules);
         setExistingQuestions(response.data.questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -39,10 +64,9 @@ const QuizAddition = () => {
     }
     fetchQuestions();
   }, []);
-
   const handleChange = (event, value) => {
     console.log("Selected questions:", value);
-    setSelectedQuestions(value); // Update selectedQuestions state with new value
+    setSelectedQuestions(value);
     setExistingQuestionsSelected(value.length > 0);
   };
 
@@ -66,7 +90,6 @@ const QuizAddition = () => {
         minimumMarks,
         questions: combinedQuestions,
       });
-      // Post the updated state to the server
 
       navigate("/associate-module");
       toast.success("Quiz and Questions added successfully.", {
@@ -82,7 +105,6 @@ const QuizAddition = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Send a POST request to add quiz
       const response = await api.post("/quiz/add", {
         name,
         description,
@@ -91,15 +113,13 @@ const QuizAddition = () => {
         minimumMarks,
       });
 
-      // Assuming response.data contains the newly created quiz ID
-      const quizId = response.data._id;
+      //const quizId = response.data._id;
 
-      // Update the relevant questions with the quiz reference
-      await Promise.all(
-        personName.map(async (question) => {
-          await api.post(`/question/${question._id}/addQuiz`, { quizId });
-        })
-      );
+      // await Promise.all(
+      //   personName.map(async (question) => {
+      //     await api.post(`/question/${question._id}/addQuiz`, { quizId });
+      //   })
+      // );
 
       // navigate("/associate-module");
     } catch (error) {
@@ -107,6 +127,10 @@ const QuizAddition = () => {
     }
   };
 
+  const handleModuleChange = (event) => {
+    const value = event.target.value;
+    // setSelectedModule(value);
+  };
   const handleCreateNew = (event) => {
     const form = event.currentTarget.form;
 
@@ -138,6 +162,19 @@ const QuizAddition = () => {
       <form onSubmit={handleSubmit} className="create-quiz-form">
         <div className="align">
           <div className="left-half">
+            {/* <Select
+              labelId="module-label"
+              id="module-select"
+              value={selectedModule}
+              label="Module"
+              onChange={handleModuleChange}
+            >
+              {modules.map((module) => (
+                <MenuItem key={module.numeric_id} value={module.title}>
+                  {module.title}
+                </MenuItem>
+              ))}
+            </Select> */}
             <TextField
               label="Name"
               className="input-field "
@@ -197,7 +234,7 @@ const QuizAddition = () => {
                 getOptionLabel={(option) => option.question}
                 onChange={(event, newValue) => {
                   setSelectedQuestions(newValue);
-                  setExistingQuestionsSelected(newValue.length > 0); // Update state here
+                  setExistingQuestionsSelected(newValue.length > 0);
                 }}
                 value={selectedQuestions}
                 renderInput={(params) => (

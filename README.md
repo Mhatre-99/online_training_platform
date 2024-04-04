@@ -1,9 +1,10 @@
-# CSCI 5709 Grp-05
+## CSCI 5709 Grp-05
 
 Group Project link
 [CSCI 5709 Grp-05](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/)
 
-Individiual branch links: 
+## Individiual branch links:
+
 - [Shweta Shweta](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/shweta-shweta?ref_type=heads)
 - [Aakash Nandwani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aakash-nandwani?ref_type=heads)
 - [Samit Mhatre](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/samit-mhatre?ref_type=heads)
@@ -11,97 +12,155 @@ Individiual branch links:
 - [Gunjan Vazirani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/gunjan-vazirani?ref_type=heads)
 - [Aditya Pattani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aditya-pattani?ref_type=heads)
 
-## Getting started
+## Features
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The following are the features of our application
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Must Have
 
-## Add your files
+- Authentication
+- User Profile & Rewards
+- Course details
+- Course addition
+- User dashboard
+- Quiz addition
+- Contact Page & FAQ
+- Administrator Reporting
+- Quiz Attempt
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Nice to have
+
+- Review
+- Progress Tracking
+- Discussion Channel
+
+## Folder Structure
+
+Our approach of arranging projects into folder structures is intended to improve the efficiency of code administration, maintenance, and reuse. By organizing relevant files into separate directories, we create a modular and integrated codebase. This segmentation enables focused development on individual components or features, resulting in a more agile development process.
+
+In frontend development, using a tiered folder structure makes it easier to organize and access resources such as CSS, JavaScript, pictures, and fonts. This technique promotes a clear separation of different frontend parts, which improves code clarity and facilitates team cooperation.
+
+Furthermore, a properly structured folder architecture promotes code reuse throughout the project. This allows for the smooth integration of reusable components in different portions of the application.
+
+Please find the folder structure below for our frontend application:
 
 ```
-cd existing_repo
-git remote add origin https://git.cs.dal.ca/panchamia/csci-5709-grp-05.git
-git branch -M main
-git push -uf origin main
+frontend/
+└── falafellas/
+    ├── public/
+    │   ├── index.html
+    │   └── manifest.json
+    ├── src/
+    │   ├── Components/
+    │   │   └── <Folders for different components in the app>
+    │   ├── assets/
+    │   │   └── <Folders for assets used as per components>
+    │   ├── App.js
+    │   ├── App.css
+    │   ├── common.css
+    │   ├── index.css
+    │   └── index.js
+    └── README.md
 ```
 
-## Integrate with your tools
+Please find the folder structure below for our backend application:
 
-- [ ] [Set up project integrations](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/settings/integrations)
+```
+backend/
+├── package.json
+├── server.js
+└── app/
+    ├── controllers/
+    │   ├── <JS files for different controllers>
+    ├── models/
+    │   ├── <JS files for different models>
+    ├── routes/
+    │   ├── <JS files for different routes>
+    └── services/
+        ├── <JS files for different services>
+```
 
-## Collaborate with your team
+## Prerequisites
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+To have this project up and running on your local machine, you will first need to install the following software.
 
-## Test and Deploy
+- Node.js(v20.11.0)
 
-Use the built-in continuous integration in GitLab.
+See the following section for detailed step-by-step instructions on how to install this software.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Installing
 
-***
+Download and Install Node.js for your Operating System from https://nodejs.org/en/download.
 
-# Editing this README
+Check if Node.js is successfully installed by checking it's version on the terminal.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```
+node --version
+```
 
-## Suggestions for a good README
+Confirm if the version is the same as the one downloaded.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+v20.11.0
 
-## Name
-Choose a self-explaining name for your project.
+## Deployment
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Install the required dependencies
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```
+npm i
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+To run the development server use start script
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+npm run
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+To deploy in production environment
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```
+npm build
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Deployment
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+# Frontend
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+To deploy our project environment, we utilized Netlify. Here's a summary of the deployment process we followed:
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+- Setting Up the Netlify Account
+- Connecting to Git Repository
+- Configuring Build Settings
+- Continuous Deployment
+- Monitoring and Analytics
 
-## Authors and acknowledgment
-- [Shweta Shweta](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/shweta-shweta?ref_type=heads)
-- [Aakash Nandwani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aakash-nandwani?ref_type=heads)
-- [Samit Mhatre](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/samit-mhatre?ref_type=heads)
-- [Krisha Panchamia](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/krisha-panchamia?ref_type=heads)
-- [Gunjan Vazirani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/gunjan-vazirani?ref_type=heads)
-- [Aditya Pattani](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/-/tree/aditya-pattani?ref_type=heads)
+# Backend
 
-## License
-For open source projects, say how it is licensed.
+To deploy our project environment, we utilized Render. Here's a summary of the deployment process we followed:
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- Creating a Render Account
+- Deploying Backend Services
+- Configuring Environment Variables
+- Setting Up Continuous Deployment
+
+## Testing
+
+In the context of my application, the end-to-end tests & coding style tests which I went through are described below:
+
+1. Testing Responsiveness
+
+- Test: Resize the browser window to different screen sizes or use a responsive design testing tool to emulate various devices.
+
+- Expectation: Verify that the website layout and components adapt appropriately to different screen sizes, ensuring readability and usability across devices. Elements should resize, reposition, or hide as necessary.
+
+## Built With
+
+- [Node.js](https://nodejs.org/en/download) - To provide the runtime environment and for Dependency Management.
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) - For installing and managing packages for the React app.
+- [React](https://react.dev/learn/installation) - For building the user interface for the app.
+- [ReactRouter](https://reactrouter.com/en/main) - Router for react
+- [Express](https://expressjs.com/) - Web Framework for NodeJS
+- [MongoDB](https://www.mongodb.com/) - Data Storage using NoSQL
+- [Mongoose](https://mongoosejs.com/) - Object Modelling for NodeJS
+
+NOTE: We need to have Node.js installed, which includes npm, in order to install and use React and Material-UI in our project.
