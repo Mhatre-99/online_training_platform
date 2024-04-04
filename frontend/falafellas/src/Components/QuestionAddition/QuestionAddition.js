@@ -1,3 +1,11 @@
+/*
+This code creates the main Question Addition page for our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../baseUrl";
