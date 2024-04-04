@@ -7,7 +7,7 @@ const rewardController = require("../controllers/RewardController");
 
 // GET methods
 router.get("/get/all", userController.getAllUsers);
-router.get("/get/:id", userController.getUserById)
+router.get("/get/:id", userController.getUserById);
 
 // PUT methods
 router.put("/update/:id", userController.updateUser);

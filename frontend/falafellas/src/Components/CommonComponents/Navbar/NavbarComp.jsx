@@ -3,13 +3,27 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Person } from 'react-bootstrap-icons';
 import './NavbarComp.css';
 import { LinkContainer } from 'react-router-bootstrap';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from "../../../FirebaseService";
 
-function NavbarComp() {
+function NavbarComp(props) {
+  const { user } = props;
+  console.log(user);
   const [expanded, setExpanded] = useState(false);
-
+  const navigate = useNavigate();
   const handleToggleClick = () => {
     setExpanded(!expanded);
   };
+
+  const logOut = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      navigate('/login');
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
 
   return (
     <>
@@ -20,7 +34,7 @@ function NavbarComp() {
             className='toggle-custom'
             onClick={handleToggleClick}
           />
-          
+
           <LinkContainer to="/">
             <Navbar.Brand>
               <div className="brand-name">
@@ -31,12 +45,7 @@ function NavbarComp() {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto navbar-elements">
-              <LinkContainer to="/course">
-                <Nav.Link>Courses</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/profile">
-                <Nav.Link>Rewards</Nav.Link>
-              </LinkContainer>
+              <Nav.Link href="#home">Courses</Nav.Link>
               <LinkContainer to="/contact">
                 <Nav.Link>Contact Us</Nav.Link>
               </LinkContainer>
@@ -46,15 +55,14 @@ function NavbarComp() {
             </Nav>
           </Navbar.Collapse>
 
-          {!expanded && (
-
+          {user && !expanded && (
             <NavDropdown title={<Person size={30} color="#f36b37" />} id="nav-dropdown" alignRight>
               <NavDropdown.Item>
-                <LinkContainer to="/profile">
+                <LinkContainer to={`/profile/${user?.uid}`}>
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="#" onClick={logOut}>Logout</NavDropdown.Item>
             </NavDropdown>
           )}
         </Container>

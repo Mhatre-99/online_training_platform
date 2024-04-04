@@ -1,5 +1,6 @@
 const Course = require("../models/Course"); 
 const crypto = require('crypto');
+const mongoose = require("mongoose");
 
 const getAllCourses = async (req, res) => {
     try {
@@ -33,13 +34,8 @@ const addCourse = async (req, res) => {
             return res.status(400).json({ error: "Name is required" });
         }
 
-        const hash = crypto.createHash("sha256");
-        hash.update(name);
-        const hashedName = hash.digest("hex");
-        const shortName = hashedName.substring(0, 8)
-
-        const newUser = await Course.create({
-            _id: shortName,
+        const newCourse = await Course.create({
+            _id: new mongoose.Types.ObjectId(),
             name,
             description,
             deadline,
@@ -50,7 +46,7 @@ const addCourse = async (req, res) => {
             certificate
         });
 
-        res.status(201).json({ message: "Course added", success: true });
+        res.status(201).json({ message: "Course added", success: true, courseId: newCourse._id });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
