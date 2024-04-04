@@ -1,12 +1,31 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import api from "../../baseUrl";
 import './CoursesPage.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const [open, setOpen] = React.useState(false);
+
+  const navigate = useNavigate();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     api.get('/courses/get/all')
@@ -43,7 +62,81 @@ const CoursesPage = () => {
             onChange={e => setSearchQuery(e.target.value)}
           />
         </div>
+        <Button variant="primary" className='add-course-button-courses' onClick={handleClickOpen}>
+          + ADD COURSE
+        </Button>
       </header>
+
+      <React.Fragment>   
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            component: 'form',
+            onSubmit: (event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              const formJson = Object.fromEntries(formData.entries());
+              const username = formJson.username;
+              const password = formJson.password;
+
+              if (username === password && username === "admin") {
+                navigate("/module/create");
+              } else {
+                toast.error("Invalid credentials")
+              }
+              console.log(username);
+              console.log(password);
+              handleClose();
+            },
+          }}
+        >
+          <DialogTitle>Login as Admin</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Only admins can add courses. Please enter the admin credentials below to open the "Create Course" page
+            </DialogContentText>
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="name"
+              name="username"
+              label="Username"
+              type="username"
+              fullWidth
+              variant="standard"
+              InputLabelProps={{
+                style: { color: '#f36b37' },
+              }}
+              InputProps={{
+                style: { borderBottom: '1px solid #f36b37' },
+              }}
+            />
+            <TextField
+              required
+              margin="dense"
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              fullWidth
+              variant="standard"
+              InputLabelProps={{
+                style: { color: '#f36b37' },
+              }}
+              InputProps={{
+                style: { borderBottom: '1px solid #f36b37' },
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} style={{ color: '#f36b37' }}>Cancel</Button>
+            <Button type="submit" style={{ color: '#f36b37' }}>Proceed</Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+
       <section className="row">
         {filteredCourses.map(course => (
           <article className="col-md-6" key={course._id}>
@@ -68,6 +161,7 @@ const CoursesPage = () => {
           </article>
         ))}
       </section>
+      <ToastContainer />
     </main>
   );
 };
