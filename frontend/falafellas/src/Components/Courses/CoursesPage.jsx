@@ -106,6 +106,12 @@ const CoursesPage = () => {
               type="username"
               fullWidth
               variant="standard"
+              InputLabelProps={{
+                style: { color: '#f36b37' },
+              }}
+              InputProps={{
+                style: { borderBottom: '1px solid #f36b37' },
+              }}
             />
             <TextField
               required
@@ -116,11 +122,17 @@ const CoursesPage = () => {
               type="password"
               fullWidth
               variant="standard"
+              InputLabelProps={{
+                style: { color: '#f36b37' },
+              }}
+              InputProps={{
+                style: { borderBottom: '1px solid #f36b37' },
+              }}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Proceed</Button>
+            <Button onClick={handleClose} style={{ color: '#f36b37' }}>Cancel</Button>
+            <Button type="submit" style={{ color: '#f36b37' }}>Proceed</Button>
           </DialogActions>
         </Dialog>
       </React.Fragment>
