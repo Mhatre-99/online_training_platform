@@ -1,3 +1,11 @@
+/*
+This code defines the functions for our Express application.
+================================
+Author: Aditya Pattani, Samit Mhatre
+Last Updated: 03-04-2024
+================================
+*/
+
 const User = require("../models/User"); 
 const crypto = require('crypto');
 
@@ -26,20 +34,14 @@ const getUserById = async (req, res) => {
 };
 
 const addUser = async (req, res) => {
-    const { name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = req.body;
-
+    const {_id, name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = req.body;
     try {
-        if (!name || !email) {
-            return res.status(400).json({ error: "Name and Email are required" });
-        }
-
-        const hash = crypto.createHash("sha256");
-        hash.update(email);
-        const hashedEmail = hash.digest("hex");
-        const shortEmail = hashedEmail.substring(0, 8)
+        // if (!name || !email) {
+        //     return res.status(400).json({ error: "Name and Email are required" });
+        // }
 
         const newUser = await User.create({
-            _id: shortEmail,
+            _id,
             name,
             email,
             phone_number,

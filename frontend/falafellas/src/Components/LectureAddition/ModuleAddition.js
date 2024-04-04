@@ -1,14 +1,27 @@
-import { useEffect, useState } from "react";
-import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
-import AccordionElement from "./AccordionElement";
-import CourseContentElement from "./CourseContentElement";
+/*
+This code creates the main ModuleAddition page for our application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import AccordionElement from './AccordionElement';
+import CourseContentElement from './CourseContentElement';
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import api from '../../baseUrl';
 
 function ModuleAddition() {
-  const courseUrl = "http://localhost:5050/courses/add";
-  const moduleUrl = "http://localhost:5050/module/add-module";
+
+  const courseUrl = api.defaults.baseURL + "courses/add";
+  const moduleUrl = api.defaults.baseURL + "module/add-module";
+
+  const navigate = useNavigate();
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -19,10 +32,10 @@ function ModuleAddition() {
     deadline: "",
     modules: [],
     certificate: "",
+    reward_points: 0
   });
 
-  const [modules, setModules] = useState([
-    {
+  const [modules, setModules] = useState([{
       numeric_id: 1,
       title: "Module 1",
       description: "Description for Module 1",
@@ -32,7 +45,7 @@ function ModuleAddition() {
       duration: 0,
       is_mandatory: true,
       reward_points: 5,
-      fileName: "",
+      fileName: ""
     },
   ]);
   const [selectedModule, setSelectedModule] = useState(modules[0]);
@@ -48,35 +61,19 @@ function ModuleAddition() {
       duration: 0,
       is_mandatory: true,
       reward_points: 5,
-      fileName: "",
+      fileName: ""
     };
     setModules([...modules, newModule]);
   };
 
-  useEffect(() => {
-    console.log(modules);
-  }, [modules]);
-
   const onClickModuleItem = (module) => {
     setSelectedModule(module);
   };
-
-  const updateModuleData = (
-    moduleId,
-    newTitle,
-    addedFile,
-    fileName,
-    newDescription
-  ) => {
+  
+  const updateModuleData = (moduleId, newTitle, addedFile, fileName, newDescription) => {
     const updatedModules = modules.map((module) => {
       if (module.numeric_id === moduleId) {
-        return {
-          ...module,
-          title: newTitle,
-          videos_id: addedFile,
-          fileName: fileName,
-          description: newDescription,
-        };
+        return { ...module, title: newTitle, videos_id: addedFile, fileName: fileName, description: newDescription };
       }
       return module;
     });
@@ -84,44 +81,65 @@ function ModuleAddition() {
     toast.success("Module Saved !");
   };
 
-  const handleSave = () => {
+  const handleSave = (exitFlag) => {
     setIsUploading(true);
-    axios({
-      method: "post",
-      url: courseUrl,
-      data: courseData,
-    })
-      .then(
-        (response) => {
-          if (response.data.status === 201) {
-            console.log("Course Added");
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-      .finally(() => {
-        setIsUploading(false);
-      });
-
-    modules.forEach((module) => {
-      axios({
+    var modulesArray = [];
+    
+    // Create an array to store promises for each module upload
+    const uploadPromises = modules.map((module) => {
+      return axios({
         method: "post",
         url: moduleUrl,
-        data: module,
-      }).then(
-        (response) => {
-          if (response.data.status === 201) {
-            toast.success("Module Created !");
-          }
-        },
-        (error) => {
-          toast.error("Module failed to upload !");
-          console.log(error);
+        data: module
+      }).then((response) => {
+        if (response.status === 201) {
+          // Push the moduleId to modulesArray
+          modulesArray.push(response.data.doc._id);
         }
-      );
+      }).catch((error) => {
+        toast.error(`Module with title ${module.title} failed to upload !`);
+        console.log(error);
+      });
     });
+
+    var courseId = "";
+  
+    // Use Promise.all to wait for all module upload promises to resolve
+    Promise.all(uploadPromises)
+      .then(() => {
+        // All modules are successfully uploaded
+        // Update courseData with moduleIds
+        setCourseData((prevCourseData) => ({
+          ...prevCourseData,
+          modules: modulesArray
+        }));
+    
+        // After updating courseData with moduleIds, make the request to add the course
+        return axios({
+          method: "post",
+          url: courseUrl,
+          data: {
+            ...courseData, // Use the updated courseData
+            modules: modulesArray // Ensure modules array is updated
+          }
+        });
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          courseId = response.data.courseId;
+          toast.success("Course added !");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error in adding course !");
+      })
+      .finally(() => {
+        setIsUploading(false);
+        if (exitFlag) {
+          navigate("/add-quiz", {state: {courseId: courseId}})
+        }
+      });
   };
 
   const handleCourseDataChange = (event) => {
@@ -137,67 +155,49 @@ function ModuleAddition() {
           type="text"
           placeholder="Course Name"
           className="w-25"
-          style={{
-            fontSize: "24px",
-            height: "80px",
-            marginLeft: "40px",
-            marginTop: "20px",
-            marginBottom: "20px",
-          }}
+          style={{ fontSize: "24px", height: "80px", marginLeft: '40px', marginTop: '20px', marginBottom: '20px' }}
           name="name"
           value={courseData.name}
-          onChange={handleCourseDataChange}
-        />
+          onChange={handleCourseDataChange} />
         <Form.Control
           size="lg"
           type="text"
           placeholder="Course Description"
           className="w-50"
-          style={{ marginLeft: "40px" }}
+          style={{ marginLeft: '40px' }}
           name="description"
           value={courseData.description}
-          onChange={handleCourseDataChange}
-        />
-
+          onChange={handleCourseDataChange} />
+    
         <Form.Control
           size="lg"
           type="text"
           placeholder="Tutor"
           className="w-25"
-          style={{ marginLeft: "40px", marginTop: "20px" }}
+          style={{ marginLeft: '40px', marginTop: '20px' }}
           name="tutor"
           value={courseData.tutor}
-          onChange={handleCourseDataChange}
-        />
+          onChange={handleCourseDataChange} />
         <Form.Control
           size="lg"
           type="number"
           placeholder="Days Allowed"
           className="w-25"
-          style={{
-            marginLeft: "40px",
-            marginTop: "20px",
-            marginBottom: "20px",
-          }}
+          style={{ marginLeft: '40px', marginTop: '20px', marginBottom: '20px' }}
           name="deadline"
           value={courseData.deadline}
-          onChange={handleCourseDataChange}
-        />
+          onChange={handleCourseDataChange} />
       </Form.Group>
-      <div style={{ marginLeft: "20px", marginTop: "20px" }}>
-        <Row style={{ marginRight: "0px" }}>
+      <div style={{ marginLeft: '20px', marginTop: '20px' }}>
+        <Row style={{ marginRight: '0px' }}>
           <Col>
-            <AccordionElement
-              modules={modules}
-              addModule={addModule}
-              onClickItem={onClickModuleItem}
-            />
+            <AccordionElement modules={modules} addModule={addModule} onClickItem={onClickModuleItem} />
           </Col>
           <Col>
-            <CourseContentElement
-              selectedModule={selectedModule}
-              updateModuleData={updateModuleData}
-            />
+          <CourseContentElement
+            selectedModule={selectedModule}
+            updateModuleData={updateModuleData}
+          />
           </Col>
         </Row>
       </div>
@@ -205,21 +205,27 @@ function ModuleAddition() {
         <Button
           variant="primary"
           className="w-50 submit-button-contact"
-          style={{ margin: "10px", marginBottom: "50px" }}
-          onClick={handleSave}
-          disabled={isUploading}
-        >
-          {isUploading ? ( // Render spinner if loading
-            <Spinner
-              as="span"
-              animation="border"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
-          ) : (
-            "SAVE"
-          )}
+          style={{ display: "inline-block", margin: '10px', marginBottom: "50px" }}
+          onClick={() => handleSave(false)}
+          disabled={isUploading}>
+            {isUploading ? ( // Render spinner if loading
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
+              "SAVE"
+            )}
+        </Button>
+
+        <Button
+          variant="primary"
+          className="w-50 submit-button-contact"
+          style={{ display: "inline-block", margin: '10px', marginBottom: "50px" }}
+          onClick={() => handleSave(true)}
+          disabled={isUploading}>
+            {isUploading ? ( // Render spinner if loading
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
+              "SAVE & ADD QUIZ"
+            )}
         </Button>
       </center>
       <ToastContainer />

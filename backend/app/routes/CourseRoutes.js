@@ -1,3 +1,11 @@
+/*
+This code defines the routes for Course Controller for our Express application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
 const { Router } = require("express");
 
 const router = Router();

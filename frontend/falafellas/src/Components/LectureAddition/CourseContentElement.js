@@ -1,3 +1,11 @@
+/*
+This code creates the Course Content component for our application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
 import { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import "./ModuleAddition.css";
@@ -15,24 +23,29 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
     setFileName(selectedModule.fileName);
 	}, [selectedModule]);
 
+  // Handle any title changes made to the course module
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
 
+  // Handle any description changes made to the course module
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
 
+  // Handle any file changes made to the course module
 	const handleFileChange = (event) => {
 		const file = event.target.files[0];
 		setFile(file);
     setFileName(file.name);
 	};
 	
+  // Call the save function passed from the ModuleAddition component
   const handleSave = () => {
     updateModuleData(selectedModule.numeric_id, title, file, fileName, description);
   };
 
+  // Function to handle custom button interaction to upload file
   const handleFileSelect = () => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -66,9 +79,6 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
         <center>
         <Button variant="primary" onClick={handleSave} className="save-button-module" style={{ width: "200px", margin: '10px' }}>
             SAVE MODULE
-          </Button>
-          <Button variant="primary" className="save-button-module" style={{ width: "200px", margin: '10px' }}>
-            ADD A QUIZ
           </Button>
         </center>
       </Form.Group>

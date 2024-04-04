@@ -1,3 +1,11 @@
+/*
+This code defines the routes for User Controller for our Express application.
+================================
+Author: Aditya Pattani
+Last Updated: 03-04-2024
+================================
+*/
+
 const { Router } = require("express");
 
 const router = Router();
@@ -7,7 +15,7 @@ const rewardController = require("../controllers/RewardController");
 
 // GET methods
 router.get("/get/all", userController.getAllUsers);
-router.get("/get/:id", userController.getUserById)
+router.get("/get/:id", userController.getUserById);
 
 // PUT methods
 router.put("/update/:id", userController.updateUser);

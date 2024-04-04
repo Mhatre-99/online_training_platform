@@ -8,6 +8,8 @@ import api from "../../../baseUrl";
 import {useEffect, useState} from "react";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
+
+//Main module component
 export default function ModuleTitle({userId}) {
 
     const [moduleData, setModuleData] = useState({});
@@ -46,6 +48,7 @@ export default function ModuleTitle({userId}) {
             setVideos(response.module.videos);
             console.log(response);
             setVideos(response.videos);
+            console.log(response.videos);
             setQuizzes(response.quizzes);
         }).catch( error => {
             console.log(error);
@@ -56,13 +59,30 @@ export default function ModuleTitle({userId}) {
 
     const [data, setData] = useState([]);
     const mergedData = (videos || []).concat(quizzes || []);
+    console.log('merged data ', mergedData )
     let moduleP;
     useEffect(() => {
         api.post("/progress/get/user-progress",{
             user_id: "b3aaf199",
             module_id: id
         }).then(res => {
-            const response = res.data;
+            let response = res.data;
+            console.log(response)
+            if (response.module_progress == null){
+                api.post("/progress/add/user-progress", {
+                    userId: "b3aaf199",
+                    courseId: "1223",
+                    moduleId: id
+                }).then(res => {
+                    const resp = res.data
+                    api.post("/progress/get/user-progress",{
+                        user_id: "b3aaf199",
+                        module_id: id
+                }).then(res => {
+                    response = res.data;
+                })
+                })
+            }
             moduleP = response.module_progress;
             console.log("module p", moduleP.progress);
             setUp(moduleP.progress);
@@ -145,7 +165,7 @@ export default function ModuleTitle({userId}) {
                     Quiz
                 </span>
                     </Col>
-                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/not-found")}}>
+                    <Col className="filter d-flex align-items-center justify-content-center p-2" onClick={(e)=>{navigate("/course")}}>
 
                         Course
 
