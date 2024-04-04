@@ -1,3 +1,12 @@
+/*
+This code defines the functions for our Express application.
+================================
+Author: Aditya Pattani, Samit Mhatre
+Last Updated: 03-04-2024
+================================
+*/
+
+
 const Module = require("../models/Module");
 const Video = require("../models/Video");
 const Quiz = require("../models/Quiz");
