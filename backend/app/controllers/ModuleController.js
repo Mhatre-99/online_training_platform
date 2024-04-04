@@ -8,7 +8,7 @@ const getModuleById = async (req, res) => {
     try{
         const module = await Module.findById(id);
         if (!module) {
-            return res.status(404).json({ error: "Course not found" });
+            return res.status(404).json({ error: "Module not found" });
         }
         const videos = module.videos_id || [];
         const quizzes = module.quizzes_id || [];
@@ -30,6 +30,8 @@ const getModuleById = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+
 
 const addModule = async (req, res) =>{
     const {numeric_id, title, description, author, videos_id, quizzes_id, duration, is_mandatory, reward_points, fileName} = req.body;
