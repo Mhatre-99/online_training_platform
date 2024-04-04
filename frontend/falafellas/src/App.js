@@ -12,9 +12,13 @@ import Certificates from "./Components/Profile/Certificates";
 import NotFound from "./Components/CommonComponents/NotFound";
 import QuizAddition from "./Components/QuizAddition/QuizAddition";
 import QuestionAddition from "./Components/QuestionAddition/QuestionAddition";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
+      <ToastContainer />
+
       <NavbarComp />
       <div className="App">
         <Routes>
