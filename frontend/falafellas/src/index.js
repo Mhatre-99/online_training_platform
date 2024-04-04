@@ -5,10 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import './common.css';
-// import { initializeFirebase } from './FirebaseService';
-
-// // Initialize Firebase
-// initializeFirebase();
 
 
 
