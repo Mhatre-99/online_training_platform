@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios"; // Import Axios library
 import { toast } from "react-toastify";
 import api from "../../baseUrl";
 
@@ -31,7 +30,7 @@ const QuestionAddition = () => {
       const newQuestion = {
         question: question,
         options: options,
-        answer: answer, // Add logic to capture answer based on question type
+        answer: answer,
         marks: defaultPoints,
       };
 
@@ -44,7 +43,6 @@ const QuestionAddition = () => {
         });
         return;
       }
-      // Update the state to include the current question
       const updatedState = {
         ...location.state,
         questions: location.state
@@ -52,7 +50,6 @@ const QuestionAddition = () => {
           : [newQuestion],
       };
 
-      // Post the updated state to the server
       api.post("/quiz/add", updatedState);
       navigate("/associate-module");
       toast.success("Quiz and Questions successfully added", {
@@ -66,45 +63,8 @@ const QuestionAddition = () => {
     }
   };
 
-  // const handleSaveAndNew = () => {
-  //   try {
-  //     setQuestionType("");
-  //     setQuestion("");
-  //     setOptions([]);
-  //     setDefaultPoints("");
-  //     setAnswer("");
-
-  //     let existingQuestions = [];
-  //     if (location.state && location.state.questions) {
-  //       existingQuestions = location.state.questions;
-  //     }
-  //     const newQuestion = {
-  //       question: question,
-  //       options: options,
-  //       answer: answer, // Add logic to capture answer based on question type
-  //       marks: defaultPoints,
-  //     };
-  //     const updatedQuestions = [...existingQuestions, newQuestion];
-  //     navigate("/create-new-question", {
-  //       state: {
-  //         ...location.state,
-  //         questions: updatedQuestions,
-  //       },
-  //     });
-  //     toast.success("Question added to the Quiz", {
-  //       autoClose: 3000,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error adding question:", error);
-  //     toast.error("Failed to add question. Please try again later.", {
-  //       autoClose: 3000,
-  //     });
-  //   }
-  // };
-
   const handleSaveAndNew = (event) => {
     try {
-      // Check if the answer is provided
       const form = event.currentTarget.form;
 
       if (!form.checkValidity()) {
@@ -119,7 +79,6 @@ const QuestionAddition = () => {
         return;
       }
 
-      // Check if all options are filled
       const areAllOptionsFilled = options.every(
         (option) => option.optionString.trim() !== ""
       );
@@ -129,7 +88,6 @@ const QuestionAddition = () => {
         return;
       }
 
-      // Reset all form fields
       setQuestionType("");
       setQuestion("");
       setOptions([]);
@@ -143,7 +101,7 @@ const QuestionAddition = () => {
       const newQuestion = {
         question: question,
         options: options,
-        answer: answer, // Add logic to capture answer based on question type
+        answer: answer,
         marks: defaultPoints,
       };
       const updatedQuestions = [...existingQuestions, newQuestion];

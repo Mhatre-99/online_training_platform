@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import { InputLabel, Select, MenuItem, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios for making HTTP requests
 import "./QuizAddition.css";
 import { toast } from "react-toastify";
 import api from "../../baseUrl";
@@ -18,11 +13,9 @@ const QuizAddition = () => {
   const [timeLimit, setTimeLimit] = useState("");
   const [minimumMarks, setMinimumMarks] = useState("");
 
-  const [personName, setPersonName] = useState([]);
+  //const [personName, setPersonName] = useState([]);
   const [existingQuestions, setExistingQuestions] = useState([]);
-  //const [existingQuestions, setExistingQuestions] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  //const [questions, setQuestions] = useState([]);
 
   const [existingQuestionsSelected, setExistingQuestionsSelected] =
     useState(false);
@@ -31,7 +24,7 @@ const QuizAddition = () => {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const response = await api.get("/question/get/all"); // Fetch all questions
+        const response = await api.get("/question/get/all");
         setExistingQuestions(response.data.questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -42,7 +35,7 @@ const QuizAddition = () => {
 
   const handleChange = (event, value) => {
     console.log("Selected questions:", value);
-    setSelectedQuestions(value); // Update selectedQuestions state with new value
+    setSelectedQuestions(value);
     setExistingQuestionsSelected(value.length > 0);
   };
 
@@ -66,7 +59,6 @@ const QuizAddition = () => {
         minimumMarks,
         questions: combinedQuestions,
       });
-      // Post the updated state to the server
 
       navigate("/associate-module");
       toast.success("Quiz and Questions added successfully.", {
@@ -82,7 +74,6 @@ const QuizAddition = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Send a POST request to add quiz
       const response = await api.post("/quiz/add", {
         name,
         description,
@@ -91,15 +82,13 @@ const QuizAddition = () => {
         minimumMarks,
       });
 
-      // Assuming response.data contains the newly created quiz ID
-      const quizId = response.data._id;
+      //const quizId = response.data._id;
 
-      // Update the relevant questions with the quiz reference
-      await Promise.all(
-        personName.map(async (question) => {
-          await api.post(`/question/${question._id}/addQuiz`, { quizId });
-        })
-      );
+      // await Promise.all(
+      //   personName.map(async (question) => {
+      //     await api.post(`/question/${question._id}/addQuiz`, { quizId });
+      //   })
+      // );
 
       // navigate("/associate-module");
     } catch (error) {
@@ -197,7 +186,7 @@ const QuizAddition = () => {
                 getOptionLabel={(option) => option.question}
                 onChange={(event, newValue) => {
                   setSelectedQuestions(newValue);
-                  setExistingQuestionsSelected(newValue.length > 0); // Update state here
+                  setExistingQuestionsSelected(newValue.length > 0);
                 }}
                 value={selectedQuestions}
                 renderInput={(params) => (
