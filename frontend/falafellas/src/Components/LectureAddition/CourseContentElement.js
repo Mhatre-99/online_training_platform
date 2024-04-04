@@ -80,9 +80,6 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
         <Button variant="primary" onClick={handleSave} className="save-button-module" style={{ width: "200px", margin: '10px' }}>
             SAVE MODULE
           </Button>
-          <Button variant="primary" className="save-button-module" style={{ width: "200px", margin: '10px' }}>
-            ADD A QUIZ
-          </Button>
         </center>
       </Form.Group>
     </div>

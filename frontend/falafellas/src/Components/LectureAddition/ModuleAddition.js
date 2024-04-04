@@ -6,19 +6,22 @@ Last Updated: 03-04-2024
 ================================
 */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import AccordionElement from './AccordionElement';
 import CourseContentElement from './CourseContentElement';
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import api from '../../baseUrl';
 
 function ModuleAddition() {
 
-  const baseUrl = "https://csci5709-group5.onrender.com";
-  const courseUrl = baseUrl + "/courses/add";
-  const moduleUrl = baseUrl + "/module/add-module";
+  const courseUrl = api.defaults.baseURL + "courses/add";
+  const moduleUrl = api.defaults.baseURL + "module/add-module";
+
+  const navigate = useNavigate();
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -78,7 +81,7 @@ function ModuleAddition() {
     toast.success("Module Saved !");
   };
 
-  const handleSave = () => {
+  const handleSave = (exitFlag) => {
     setIsUploading(true);
     var modulesArray = [];
     
@@ -98,12 +101,13 @@ function ModuleAddition() {
         console.log(error);
       });
     });
+
+    var courseId = "";
   
     // Use Promise.all to wait for all module upload promises to resolve
     Promise.all(uploadPromises)
       .then(() => {
         // All modules are successfully uploaded
-        toast.success("Modules Created Successfully !");
         // Update courseData with moduleIds
         setCourseData((prevCourseData) => ({
           ...prevCourseData,
@@ -122,6 +126,7 @@ function ModuleAddition() {
       })
       .then((response) => {
         if (response.status === 201) {
+          courseId = response.data.courseId;
           toast.success("Course added !");
         }
       })
@@ -131,9 +136,11 @@ function ModuleAddition() {
       })
       .finally(() => {
         setIsUploading(false);
+        if (exitFlag) {
+          navigate("/add-quiz", {state: {courseId: courseId}})
+        }
       });
   };
-  
 
   const handleCourseDataChange = (event) => {
     const { name, value } = event.target;
@@ -198,13 +205,26 @@ function ModuleAddition() {
         <Button
           variant="primary"
           className="w-50 submit-button-contact"
-          style={{ margin: '10px', marginBottom: "50px" }}
-          onClick={handleSave}
+          style={{ display: "inline-block", margin: '10px', marginBottom: "50px" }}
+          onClick={() => handleSave(false)}
           disabled={isUploading}>
             {isUploading ? ( // Render spinner if loading
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             ) : (
               "SAVE"
+            )}
+        </Button>
+
+        <Button
+          variant="primary"
+          className="w-50 submit-button-contact"
+          style={{ display: "inline-block", margin: '10px', marginBottom: "50px" }}
+          onClick={() => handleSave(true)}
+          disabled={isUploading}>
+            {isUploading ? ( // Render spinner if loading
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
+              "SAVE & ADD QUIZ"
             )}
         </Button>
       </center>
