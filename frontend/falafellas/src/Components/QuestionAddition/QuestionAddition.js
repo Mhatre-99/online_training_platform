@@ -24,7 +24,6 @@ const QuestionAddition = () => {
   const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-
   const handleSaveAndNext = (event) => {
     try {
       const newQuestion = {
