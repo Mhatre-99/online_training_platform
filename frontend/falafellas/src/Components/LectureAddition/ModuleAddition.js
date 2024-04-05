@@ -94,6 +94,13 @@ function ModuleAddition() {
 
   // This function handles the video upload first, then it uploads modules, then courses
   const handleSave = (exitFlag) => {
+
+    // Checking if all values are entered
+    if (!courseData.name || !courseData.description || !courseData.tutor || !courseData.deadline) {
+      toast.error("Please fill in all course details.");
+      return; // Exit function early if any field is missing
+    }
+
     setIsUploading(true);
     var modulesArray = [];
     var courseId = "";
