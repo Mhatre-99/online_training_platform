@@ -15,10 +15,6 @@ const CoursesPage = (props) => {
 
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   useEffect(() => {
     console.log("userId",userId);
     api.get('/courses/get/all')
