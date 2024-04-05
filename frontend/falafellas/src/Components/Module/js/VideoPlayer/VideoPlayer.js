@@ -8,7 +8,7 @@ import ReactPlayer from "react-player";
 
 
 export default function VideoPlayer({content, callbackSidePanel}){
-    const [url, setUrl] = useState("https://www.youtube.com/watch?v=hZEc4jD0q2c");
+    const [url, setUrl] = useState();
     const [hasWatched, setHasWatched] = useState(false);
     const [videos, setVideos] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
@@ -16,16 +16,20 @@ export default function VideoPlayer({content, callbackSidePanel}){
     const [videoName, setVideoName] = useState("Video Name");
     const location = useLocation();
     const navigate = useNavigate();
-    const {moduleId} = location.state;
+    const userId = sessionStorage.getItem('id');
+
+    const {courseId, moduleId,videoId} = useParams();
+    /*const {moduleId} = location.state;
+
     const mId = {moduleId}.moduleId;
-    const {videoId} = useParams();
+    const {videoId} = useParams();*/
     //const contentData={content}.content;
     const [contentData, setContentData] = useState([]);
-
+    const mId = moduleId;
     console.log("CONtent ID ",videoId);
     console.log("CONtent data", {content});
     console.log("Content ", contentData);
-    console.log("module id ",{moduleId}, mId)
+    console.log("module id ",moduleId)
 
 
     useEffect(() => {
@@ -58,6 +62,8 @@ export default function VideoPlayer({content, callbackSidePanel}){
             console.log("Updating title and description");
             setDescriptionText(item.description);
             setVideoName(item.title);
+            setUrl(item.drive_url);
+            console.log("url ,",item.drive_url)
         }).catch( error => {
             console.log(error);
         })
@@ -73,7 +79,7 @@ export default function VideoPlayer({content, callbackSidePanel}){
         setHasWatched(true);
         console.log('User has completed watching.');
         api.post("/progress/update/user-progress", {
-            userId: "b3aaf199",
+            userId: userId,
             moduleId: mId,
             contentId: videoId
         }).then(res => {
@@ -99,11 +105,13 @@ export default function VideoPlayer({content, callbackSidePanel}){
                 <Col sm={8} className="video-player-content">
                     <Row className="video-player-row">
                         <div>
-                            {/*<video width="100%" controls onEnded={handleVideoEnd}>
-                                <source src="https://drive.google.com/file/d/1a5p7sj4uiYOWwtszq958Qti5aUV6NaMt/view?usp=sharing" type="video/mp4" />
+                            {url ?(<video width="100%" controls onEnded={handleVideoEnd}>
+                                <source src={url} type="video/mp4" />
                                 Your browser does not support the video tag.
-                            </video>*/}
-                            {<ReactPlayer url={url} controls={true} onEnded={handleVideoEnd} width="100%" />}
+                            </video>):(
+                                <div style={{color:"white"}}>No Video Found</div>
+                            )}
+                            {/*<ReactPlayer url={url} controls={true} onEnded={handleVideoEnd} width="100%" />*/}
                         </div>
                     </Row>
                     <Row className="video-description">

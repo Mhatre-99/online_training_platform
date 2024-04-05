@@ -1,22 +1,17 @@
+//File created by Aakash Nandwani
+
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import api from "../../baseUrl";
-import './CoursesPage.css'
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import './css/CoursesPage.css';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 
 const CoursesPage = (props) => {
   const {user} = props;
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-
-  const [open, setOpen] = React.useState(false);
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('user_id');
+  console.log("user ",userId);
 
   const navigate = useNavigate();
 
@@ -25,6 +20,7 @@ const CoursesPage = (props) => {
   };
 
   useEffect(() => {
+    console.log("userId",userId);
     api.get('/courses/get/all')
       .then(response => {
         setCourses(response.data.courses);
@@ -35,17 +31,18 @@ const CoursesPage = (props) => {
       });
   }, []);
 
+  // Filter courses based on search query
   const filteredCourses = courses.filter(course =>
     course.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Function to shorten description to maximum 300 characters
   const shortenDescription = (description) => {
     if (description.length > 300) {
       return description.substring(0, 300) + '...';
     }
     return description;
   };
-
 
   return (
     <main className="container mt-5">
@@ -61,76 +58,10 @@ const CoursesPage = (props) => {
         </div>
       </header>
 
-      <React.Fragment>   
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          PaperProps={{
-            component: 'form',
-            onSubmit: (event) => {
-              event.preventDefault();
-              const formData = new FormData(event.currentTarget);
-              const formJson = Object.fromEntries(formData.entries());
-              const username = formJson.username;
-              const password = formJson.password;
 
-              if (username === password && username === "admin") {
-                navigate("/module/create");
-              } else {
-                toast.error("Invalid credentials")
-              }
-              console.log(username);
-              console.log(password);
-              handleClose();
-            },
-          }}
-        >
-          <DialogTitle>Login as Admin</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Only admins can add courses. Please enter the admin credentials below to open the "Create Course" page
-            </DialogContentText>
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="name"
-              name="username"
-              label="Username"
-              type="username"
-              fullWidth
-              variant="standard"
-              InputLabelProps={{
-                style: { color: '#f36b37' },
-              }}
-              InputProps={{
-                style: { borderBottom: '1px solid #f36b37' },
-              }}
-            />
-            <TextField
-              required
-              margin="dense"
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              variant="standard"
-              InputLabelProps={{
-                style: { color: '#f36b37' },
-              }}
-              InputProps={{
-                style: { borderBottom: '1px solid #f36b37' },
-              }}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} style={{ color: '#f36b37' }}>Cancel</Button>
-            <Button type="submit" style={{ color: '#f36b37' }}>Proceed</Button>
-          </DialogActions>
-        </Dialog>
-      </React.Fragment>
-
+      {filteredCourses.length === 0 ? (
+        <h3 className="text-center">No courses found</h3>
+      ) : (
       <section className="row">
         {filteredCourses.map(course => (
           <article className="col-md-6" key={course._id}>
@@ -148,14 +79,14 @@ const CoursesPage = (props) => {
                   <p className="card-text mb-0">
                     <b className="font-weight-bold">Deadline:</b> {course.deadline}
                   </p>
-                  <Link to={`/courses/${course._id}/modules`} className="btn btn-primary modulesButton">View Modules</Link>
+                  <Link to={{pathname: `/courses/${course._id}/modules`, state: { userId: userId }}} className="btn btn-primary modulesButton">View Modules</Link>
                 </div>
               </section>
             </section>
           </article>
         ))}
       </section>
-      <ToastContainer />
+      )}
     </main>
   );
 };
