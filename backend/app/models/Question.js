@@ -1,3 +1,11 @@
+/*
+This code creates the model for our question schema for our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 

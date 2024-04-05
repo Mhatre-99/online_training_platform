@@ -1,3 +1,11 @@
+/*
+This code creates the controllers for our question creation feature for our application.
+================================
+Author: Gunjan Vazirani
+Last Updated: 04-04-2024
+================================
+*/
+
 const Question = require("../models/Question");
 
 const getAllQuestions = async (req, res) => {
