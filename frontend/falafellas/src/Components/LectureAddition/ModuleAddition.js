@@ -15,6 +15,7 @@ import CourseContentElement from './CourseContentElement';
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import api from '../../baseUrl';
+import { getStorage, ref } from 'firebase/storage';
 
 function ModuleAddition() {
 
@@ -40,7 +41,7 @@ function ModuleAddition() {
       title: "Module 1",
       description: "Description for Module 1",
       author: "",
-      videos_id: ["abc.mp4"],
+      videos_id: [],
       quizzes_id: [],
       duration: 0,
       is_mandatory: true,
@@ -56,7 +57,7 @@ function ModuleAddition() {
       title: `Module ${modules.length + 1}`,
       description: `Description for Module ${modules.length + 1}`,
       author: "",
-      videos_id: ["abc.mp4"],
+      videos_id: [],
       quizzes_id: [],
       duration: 0,
       is_mandatory: true,
