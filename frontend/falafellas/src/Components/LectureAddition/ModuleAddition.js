@@ -108,6 +108,12 @@ function ModuleAddition() {
     const storage = getStorage();
   
     const uploadPromises = modules.map((module) => {
+
+      if (!module.file) {
+        // If module.file is empty, skip the file upload process
+        return Promise.resolve(null);
+      }
+
       // Upload the video file
       const storageRef = ref(storage, 'module-videos/' + module.file.name);
       return uploadBytes(storageRef, module.file)
