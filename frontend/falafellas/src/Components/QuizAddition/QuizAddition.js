@@ -33,23 +33,24 @@ const QuizAddition = () => {
     useState(false);
   const navigate = useNavigate();
   var courseId = "660d8987dced2306614b3589";
+
   useEffect(() => {
-    async function fetchQuestions() {
-      try {
-        const response = await api.get("/question/get/all");
-        setExistingQuestions(response.data.questions);
-        const getCourse = await api.get(`/courses/get/${courseId}`);
-        var modulesFromCourse = getCourse.data?.course?.modules;
-        console.log(modulesFromCourse);
-        //const modulesArray = [];
-        // setModules(...modulesArray);
+    function fetchQuestions() {
+      api.get("/question/get/all")
+          .then((response) => {
+            setExistingQuestions(response.data.questions);
+            return api.get(`/courses/get/${courseId}`);
+          })
+          .then((getCourse) => {
+            const modulesFromCourse = getCourse.data?.course?.modules;
+            console.log(modulesFromCourse);
 
-        const modulePromises = modulesFromCourse.map((moduleId) =>
-          api.get(`/module/get/${moduleId}`)
-        );
-        var modulesArray = [];
+            const modulePromises = modulesFromCourse.map((moduleId) =>
+                api.get(`/module/get/${moduleId}`)
+            );
 
-        Promise.all(modulePromises)
+            return Promise.all(modulePromises);
+          })
           .then((responses) => {
             const modulesArray = responses.map((response) => response.data);
             console.log("inside promise" + modulesArray);
@@ -58,16 +59,15 @@ const QuizAddition = () => {
           .catch((error) => {
             console.error("Error fetching modules:", error);
           });
-
-        console.log("modulesArray:" + modulesArray);
-        console.log(modules);
-        setExistingQuestions(response.data.questions);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
     }
     fetchQuestions();
   }, []);
+
+
+  useEffect(() => {
+    // This will run after `modules` is updated
+    console.log("Modules state has been updated:", modules);
+  }, [modules]);
   const handleChange = (event, value) => {
     console.log("Selected questions:", value);
     setSelectedQuestions(value);
@@ -134,7 +134,7 @@ const QuizAddition = () => {
   const handleModuleChange = (event) => {
     const value = event.target.value;
     setSelectedModule(value);
-    console.log(selectedModule);
+    console.log("selected modules ",selectedModule);
   };
   const handleCreateNew = (event) => {
     const form = event.currentTarget.form;
@@ -174,10 +174,10 @@ const QuizAddition = () => {
               label="Module"
               onChange={handleModuleChange}
             >
-              {modules.map((modules) => (
-                <MenuItem key={module.numeric_id} value={module.title}>
-                  {module.title}
-                </MenuItem>
+              {modules && modules.map((item) => (
+                  <MenuItem key={item.module.numeric_id} value={item.module.title}>
+                    {item.module.title}
+                  </MenuItem>
               ))}
             </Select>
             <TextField
