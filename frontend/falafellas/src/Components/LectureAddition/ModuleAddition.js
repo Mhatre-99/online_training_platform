@@ -15,6 +15,7 @@ import CourseContentElement from './CourseContentElement';
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import api from '../../baseUrl';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function ModuleAddition() {
 
@@ -40,7 +41,7 @@ function ModuleAddition() {
       title: "Module 1",
       description: "Description for Module 1",
       author: "",
-      videos_id: ["abc.mp4"],
+      videos_id: [],
       quizzes_id: [],
       duration: 0,
       is_mandatory: true,
@@ -56,7 +57,7 @@ function ModuleAddition() {
       title: `Module ${modules.length + 1}`,
       description: `Description for Module ${modules.length + 1}`,
       author: "",
-      videos_id: ["abc.mp4"],
+      videos_id: [],
       quizzes_id: [],
       duration: 0,
       is_mandatory: true,
@@ -71,9 +72,19 @@ function ModuleAddition() {
   };
   
   const updateModuleData = (moduleId, newTitle, addedFile, fileName, newDescription) => {
+    console.log(addedFile)
     const updatedModules = modules.map((module) => {
       if (module.numeric_id === moduleId) {
-        return { ...module, title: newTitle, videos_id: addedFile, fileName: fileName, description: newDescription };
+        return { ...module,
+          title: newTitle,
+          videos_id: [{
+            description: newDescription,
+            name: fileName,
+            duration: 10
+          }],
+          file: addedFile,
+          fileName: fileName,
+          description: newDescription };
       }
       return module;
     });
@@ -81,30 +92,66 @@ function ModuleAddition() {
     toast.success("Module Saved !");
   };
 
+  // This function handles the video upload first, then it uploads modules, then courses
   const handleSave = (exitFlag) => {
+
+    // Checking if all values are entered
+    if (!courseData.name || !courseData.description || !courseData.tutor || !courseData.deadline) {
+      toast.error("Please fill in all course details.");
+      return; // Exit function early if any field is missing
+    }
+
     setIsUploading(true);
     var modulesArray = [];
-    
-    // Create an array to store promises for each module upload
-    const uploadPromises = modules.map((module) => {
-      return axios({
-        method: "post",
-        url: moduleUrl,
-        data: module
-      }).then((response) => {
-        if (response.status === 201) {
-          // Push the moduleId to modulesArray
-          modulesArray.push(response.data.doc._id);
-        }
-      }).catch((error) => {
-        toast.error(`Module with title ${module.title} failed to upload !`);
-        console.log(error);
-      });
-    });
-
     var courseId = "";
   
-    // Use Promise.all to wait for all module upload promises to resolve
+    const storage = getStorage();
+  
+    const uploadPromises = modules.map((module) => {
+      // Upload the video file
+      const storageRef = ref(storage, 'module-videos/' + module.file.name);
+      return uploadBytes(storageRef, module.file)
+        .then((snapshot) => {
+          console.log("File uploaded!");
+  
+          // Get the download URL of the uploaded file
+          return getDownloadURL(storageRef)
+            .then((downloadURL) => {
+              console.log("File download URL:", downloadURL);
+              toast.success("File uploaded !")
+              return downloadURL;
+            });
+        })
+        .then((fileUrl) => {
+          // Update the module object with the download URL
+          const updatedModule = {
+            ...module,
+            videos_id: [{
+              description: module.description,
+              name: module.fileName,
+              drive_url: fileUrl
+            }]
+          };
+  
+          // Upload the module object
+          return axios({
+            method: "post",
+            url: moduleUrl,
+            data: updatedModule
+          })
+          .then((response) => {
+            if (response.status === 201) {
+              modulesArray.push(response.data.doc._id);
+            }
+          });
+        })
+        .catch((error) => {
+          toast.error(`Module with title ${module.title} failed to upload!`);
+          console.error(error);
+        });
+    });
+  
+    // Wait for all video uploads and module uploads to finish
     Promise.all(uploadPromises)
       .then(() => {
         // All modules are successfully uploaded
@@ -113,14 +160,14 @@ function ModuleAddition() {
           ...prevCourseData,
           modules: modulesArray
         }));
-    
-        // After updating courseData with moduleIds, make the request to add the course
+  
+        // Upload the course
         return axios({
           method: "post",
           url: courseUrl,
           data: {
-            ...courseData, // Use the updated courseData
-            modules: modulesArray // Ensure modules array is updated
+            ...courseData,
+            modules: modulesArray
           }
         });
       })
@@ -131,16 +178,17 @@ function ModuleAddition() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         toast.error("Error in adding course !");
       })
       .finally(() => {
         setIsUploading(false);
         if (exitFlag) {
-          navigate("/add-quiz", {state: {courseId: courseId}})
+          navigate("/add-quiz", { state: { courseId: courseId } });
         }
       });
   };
+  
 
   const handleCourseDataChange = (event) => {
     const { name, value } = event.target;

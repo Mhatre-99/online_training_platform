@@ -8,6 +8,8 @@ router.get("/get/:id", moduleController.getModuleById);
 
 router.post("/add-module", moduleController.addModule);
 
+router.put("/update/:id", moduleController.updateModule);
+
 
 
 module.exports = router;
