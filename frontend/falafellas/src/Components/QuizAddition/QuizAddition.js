@@ -36,33 +36,33 @@ const QuizAddition = () => {
 
   useEffect(() => {
     function fetchQuestions() {
-      api.get("/question/get/all")
-          .then((response) => {
-            setExistingQuestions(response.data.questions);
-            return api.get(`/courses/get/${courseId}`);
-          })
-          .then((getCourse) => {
-            const modulesFromCourse = getCourse.data?.course?.modules;
-            console.log(modulesFromCourse);
+      api
+        .get("/question/get/all")
+        .then((response) => {
+          setExistingQuestions(response.data.questions);
+          return api.get(`/courses/get/${courseId}`);
+        })
+        .then((getCourse) => {
+          const modulesFromCourse = getCourse.data?.course?.modules;
+          console.log(modulesFromCourse);
 
-            const modulePromises = modulesFromCourse.map((moduleId) =>
-                api.get(`/module/get/${moduleId}`)
-            );
+          const modulePromises = modulesFromCourse.map((moduleId) =>
+            api.get(`/module/get/${moduleId}`)
+          );
 
-            return Promise.all(modulePromises);
-          })
-          .then((responses) => {
-            const modulesArray = responses.map((response) => response.data);
-            console.log("inside promise" + modulesArray);
-            setModules(modulesArray); // Set modules state here
-          })
-          .catch((error) => {
-            console.error("Error fetching modules:", error);
-          });
+          return Promise.all(modulePromises);
+        })
+        .then((responses) => {
+          const modulesArray = responses.map((response) => response.data);
+          console.log("inside promise" + modulesArray);
+          setModules(modulesArray); // Set modules state here
+        })
+        .catch((error) => {
+          console.error("Error fetching modules:", error);
+        });
     }
     fetchQuestions();
   }, []);
-
 
   useEffect(() => {
     // This will run after `modules` is updated
@@ -86,7 +86,7 @@ const QuizAddition = () => {
       return;
     }
     try {
-      api.post("/quiz/add", {
+      var response = api.post("/quiz/add", {
         name,
         description,
         timeLimit,
@@ -95,7 +95,11 @@ const QuizAddition = () => {
         questions: combinedQuestions,
       });
 
-      navigate("/associate-module");
+      api.put(`/module/${selectedModule.id}`, {
+        $push: { quizzes_id: response._id },
+      });
+
+      navigate("/course");
       toast.success("Quiz and Questions added successfully.", {
         autoClose: 3000,
       });
@@ -117,7 +121,7 @@ const QuizAddition = () => {
         minimumMarks,
       });
 
-      //const quizId = response.data._id;
+      // const quizId = response.data._id;
 
       // await Promise.all(
       //   personName.map(async (question) => {
@@ -134,7 +138,7 @@ const QuizAddition = () => {
   const handleModuleChange = (event) => {
     const value = event.target.value;
     setSelectedModule(value);
-    console.log("selected modules ",selectedModule);
+    console.log(selectedModule._id);
   };
   const handleCreateNew = (event) => {
     const form = event.currentTarget.form;
@@ -157,6 +161,7 @@ const QuizAddition = () => {
         deadline: deadline,
         minimumMarks: minimumMarks,
         questions: selectedQuestions,
+        module: selectedModule,
       },
     });
   };
@@ -170,15 +175,20 @@ const QuizAddition = () => {
             <Select
               labelId="module-label"
               id="module-select"
-              value={selectedModule}
+              value={selectedModule.id}
               label="Module"
               onChange={handleModuleChange}
             >
-              {modules && modules.map((item) => (
-                  <MenuItem key={item.module.numeric_id} value={item.module.title}>
+              {modules &&
+                modules.map((item) => (
+                  <MenuItem
+                    key={item.module.id}
+                    value={item.module}
+                    eventKey={item.module.id}
+                  >
                     {item.module.title}
                   </MenuItem>
-              ))}
+                ))}
             </Select>
             <TextField
               label="Name"
