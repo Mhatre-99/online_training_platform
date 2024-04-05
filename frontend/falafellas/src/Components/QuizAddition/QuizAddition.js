@@ -7,7 +7,13 @@ Last Updated: 04-04-2024
 */
 
 import React, { useState, useEffect } from "react";
-import { Autocomplete, TextField, Select, MenuItem } from "@mui/material";
+import {
+  Autocomplete,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./QuizAddition.css";
@@ -172,24 +178,28 @@ const QuizAddition = () => {
       <form onSubmit={handleSubmit} className="create-quiz-form">
         <div className="align">
           <div className="left-half">
-            <Select
-              labelId="module-label"
-              id="module-select"
-              value={selectedModule.id}
-              label="Module"
-              onChange={handleModuleChange}
-            >
-              {modules &&
-                modules.map((item) => (
-                  <MenuItem
-                    key={item.module.id}
-                    value={item.module}
-                    eventKey={item.module.id}
-                  >
-                    {item.module.title}
-                  </MenuItem>
-                ))}
-            </Select>
+            <FormControl className="input-field-dropdown">
+              <InputLabel id="module-label">Module</InputLabel>
+
+              <Select
+                label="Module"
+                labelId="module-label"
+                id="module-select"
+                value={selectedModule.id}
+                onChange={handleModuleChange}
+              >
+                {modules &&
+                  modules.map((item) => (
+                    <MenuItem
+                      key={item.module.id}
+                      value={item.module}
+                      eventKey={item.module.id}
+                    >
+                      {item.module.title}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
             <TextField
               label="Name"
               className="input-field "
@@ -204,7 +214,7 @@ const QuizAddition = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               multiline
-              rows={4}
+              rows={1}
             />
           </div>
           <div className="right-half">

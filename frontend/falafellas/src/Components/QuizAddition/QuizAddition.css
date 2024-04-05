@@ -45,6 +45,13 @@ Last Updated: 04-04-2024
   margin-top: 3px;
 }
 
+.input-field-dropdown {
+  width: 100%;
+  padding-bottom: 20px !important;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 .des-height {
   height: 150px;
 }
