@@ -27,6 +27,7 @@ export default function VideoPlayer({content, callbackSidePanel}){
     const [contentData, setContentData] = useState([]);
     const mId = moduleId;
     console.log("CONtent ID ",videoId);
+    console.log("User id ", userId)
     console.log("CONtent data", {content});
     console.log("Content ", contentData);
     console.log("module id ",moduleId)
@@ -84,7 +85,9 @@ export default function VideoPlayer({content, callbackSidePanel}){
             contentId: videoId
         }).then(res => {
             const response = res.data;
+
             console.log("Updated the progress ", response)
+            console.log("for user ",userId)
         }).catch(error => {
             console.log("error updating progress ", error);
         })

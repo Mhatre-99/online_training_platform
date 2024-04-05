@@ -22,7 +22,16 @@ const getProgressByUserIDandModuleID = async (req, res) => {
 
 const addUserProgress = async (req, res) =>{
     const {userId, courseId, moduleId} = req.body;
-    try{
+    try {
+        const existingUP = await UserProgress.findOne({
+            user_id: userId,
+            course_id: courseId,
+            module_id: moduleId
+        });
+
+        if (existingUP) {
+            return res.status(409).json({ message: "User progress already exists." });
+        }
         const addedUP = await UserProgress.create({
             user_id: userId,
             course_id: courseId,
