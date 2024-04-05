@@ -3,15 +3,19 @@
 import React, { useState, useEffect } from 'react';
 import api from "../../baseUrl";
 import './css/CoursesPage.css';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('user_id');
+  console.log("user ",userId);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("userId",userId);
     api.get('/courses/get/all')
       .then(response => {
         setCourses(response.data.courses);
@@ -70,7 +74,7 @@ const CoursesPage = () => {
                   <p className="card-text mb-0">
                     <b className="font-weight-bold">Deadline:</b> {course.deadline}
                   </p>
-                  <Link to={`/courses/${course._id}/modules`} className="btn btn-primary modulesButton">View Modules</Link>
+                  <Link to={{pathname: `/courses/${course._id}/modules`, state: { userId: userId }}} className="btn btn-primary modulesButton">View Modules</Link>
                 </div>
               </section>
             </section>
