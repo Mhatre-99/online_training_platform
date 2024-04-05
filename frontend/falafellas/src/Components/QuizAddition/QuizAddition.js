@@ -20,43 +20,47 @@ const QuizAddition = () => {
   const [deadline, setDeadline] = useState("");
   const [timeLimit, setTimeLimit] = useState("");
   const [minimumMarks, setMinimumMarks] = useState("");
-  // const [selectedModule, setSelectedModule] = useState({});
-
+  const [selectedModule, setSelectedModule] = useState({});
+  var modulesArray1 = [];
   const location = useLocation();
   // console.log(location.state?.courseId);
   //const [personName, setPersonName] = useState([]);
   const [existingQuestions, setExistingQuestions] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  // const [modules, setModules] = useState([]);
-
+  const [modules, setModules] = useState([]);
+  //const [modulesArray, setModulesArray] = useState([]);
   const [existingQuestionsSelected, setExistingQuestionsSelected] =
     useState(false);
   const navigate = useNavigate();
-  // var courseId = "660d8987dced2306614b3589";
+  var courseId = "660d8987dced2306614b3589";
   useEffect(() => {
     async function fetchQuestions() {
       try {
         const response = await api.get("/question/get/all");
         setExistingQuestions(response.data.questions);
-        //const getCourse = await api.get(`/courses/get/${courseId}`);
-        //var modulesFromCourse = getCourse.data?.course?.modules;
-        //console.log(modulesFromCourse);
-        // const modulesArray = [];
-        // const modulePromises = modulesFromCourse.map((moduleId) =>
-        //   api.get(`/module/get/${moduleId}`)
-        // );
-
-        // Promise.all(modulePromises)
-        //   .then((responses) => {
-        //     const modulesArray = responses.map((response) => response.data);
-        //     console.log(modulesArray);
-        //   })
-        //   .catch((error) => {
-        //     console.error("Error fetching modules:", error);
-        //   });
+        const getCourse = await api.get(`/courses/get/${courseId}`);
+        var modulesFromCourse = getCourse.data?.course?.modules;
+        console.log(modulesFromCourse);
+        //const modulesArray = [];
         // setModules(...modulesArray);
 
-        //console.log(modules);
+        const modulePromises = modulesFromCourse.map((moduleId) =>
+          api.get(`/module/get/${moduleId}`)
+        );
+        var modulesArray = [];
+
+        Promise.all(modulePromises)
+          .then((responses) => {
+            const modulesArray = responses.map((response) => response.data);
+            console.log("inside promise" + modulesArray);
+            setModules(modulesArray); // Set modules state here
+          })
+          .catch((error) => {
+            console.error("Error fetching modules:", error);
+          });
+
+        console.log("modulesArray:" + modulesArray);
+        console.log(modules);
         setExistingQuestions(response.data.questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -129,7 +133,8 @@ const QuizAddition = () => {
 
   const handleModuleChange = (event) => {
     const value = event.target.value;
-    // setSelectedModule(value);
+    setSelectedModule(value);
+    console.log(selectedModule);
   };
   const handleCreateNew = (event) => {
     const form = event.currentTarget.form;
@@ -162,19 +167,19 @@ const QuizAddition = () => {
       <form onSubmit={handleSubmit} className="create-quiz-form">
         <div className="align">
           <div className="left-half">
-            {/* <Select
+            <Select
               labelId="module-label"
               id="module-select"
               value={selectedModule}
               label="Module"
               onChange={handleModuleChange}
             >
-              {modules.map((module) => (
+              {modules.map((modules) => (
                 <MenuItem key={module.numeric_id} value={module.title}>
                   {module.title}
                 </MenuItem>
               ))}
-            </Select> */}
+            </Select>
             <TextField
               label="Name"
               className="input-field "
