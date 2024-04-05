@@ -111,6 +111,7 @@ function ModuleAddition() {
           return getDownloadURL(storageRef)
             .then((downloadURL) => {
               console.log("File download URL:", downloadURL);
+              toast.success("File uploaded !")
               return downloadURL;
             });
         })
