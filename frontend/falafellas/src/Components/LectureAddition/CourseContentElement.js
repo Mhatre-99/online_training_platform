@@ -50,6 +50,7 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
     const input = document.createElement('input');
     input.type = 'file';
     input.onchange = handleFileChange;
+    input.accept = 'video/*';
     input.click();
   };
 
@@ -64,7 +65,7 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
             style={{ marginBottom: '20px' }}
             value={title}
             onChange={handleTitleChange} />
-        <Form.Label><b>Add a file</b></Form.Label><br />
+        <Form.Label><b>Add a video file</b></Form.Label><br />
         <Button variant='primary' className='upload-button-module' onClick={handleFileSelect}>Upload a File</Button><br />
         <Form.Label><b>File added: </b> {fileName === "" ? "None" : fileName}</Form.Label> <br />
 
