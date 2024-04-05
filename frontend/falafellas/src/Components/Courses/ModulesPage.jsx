@@ -1,6 +1,8 @@
+//File created by Aakash Nandwani
+
 import React, { useState, useEffect } from 'react';
 import api from "../../baseUrl";
-import './CoursesPage.css';
+import './css/CoursesPage.css';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,11 +17,12 @@ const ModulesPage = () => {
   useEffect(() => {
     const fetchModules = async () => {
       try {
+        // Fetch course data using courseId
         const courseResponse = await api.get(`/courses/get/${courseId}`);
-        const moduleIds = courseResponse.data.course.modules;
+        const moduleIds = courseResponse.data.course.modules;  // Get module IDs from course data
         console.log(moduleIds);
         const moduleRequests = moduleIds.map(moduleId => api.get(`/module/get/${moduleId}`));
-        const moduleResponses = await Promise.all(moduleRequests);
+        const moduleResponses = await Promise.all(moduleRequests);  // Await all module requests
         const modulesData = moduleResponses.map(response => response.data.module);
         setModules(modulesData);
         setCourseTitle(courseResponse.data.course.name);
@@ -36,6 +39,7 @@ const ModulesPage = () => {
     navigate(`/module/${moduleId}`); 
   };
 
+  // Function to shorten module description
   const shortenDescription = (description) => {
     if (description.length > 300) {
       return description.substring(0, 300) + '...';

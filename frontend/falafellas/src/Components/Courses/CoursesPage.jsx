@@ -1,6 +1,8 @@
+//File created by Aakash Nandwani
+
 import React, { useState, useEffect } from 'react';
 import api from "../../baseUrl";
-import './CoursesPage.css'
+import './css/CoursesPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const CoursesPage = () => {
@@ -20,17 +22,18 @@ const CoursesPage = () => {
       });
   }, []);
 
+  // Filter courses based on search query
   const filteredCourses = courses.filter(course =>
     course.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Function to shorten description to maximum 300 characters
   const shortenDescription = (description) => {
     if (description.length > 300) {
       return description.substring(0, 300) + '...';
     }
     return description;
   };
-
 
   return (
     <main className="container mt-5">
@@ -46,6 +49,10 @@ const CoursesPage = () => {
         </div>
       </header>
 
+
+      {filteredCourses.length === 0 ? (
+        <h3 className="text-center">No courses found</h3>
+      ) : (
       <section className="row">
         {filteredCourses.map(course => (
           <article className="col-md-6" key={course._id}>
@@ -70,6 +77,7 @@ const CoursesPage = () => {
           </article>
         ))}
       </section>
+      )}
     </main>
   );
 };
