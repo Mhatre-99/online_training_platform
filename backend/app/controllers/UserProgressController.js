@@ -30,7 +30,7 @@ const addUserProgress = async (req, res) =>{
         });
 
         if (existingUP) {
-            return res.status(409).json({ message: "User progress already exists." });
+            return res.status(200).json({ message: "User progress already exists." });
         }
         const addedUP = await UserProgress.create({
             user_id: userId,
