@@ -38,7 +38,7 @@ const QuizAddition = () => {
   const [existingQuestionsSelected, setExistingQuestionsSelected] =
     useState(false);
   const navigate = useNavigate();
-  var courseId = "660d8987dced2306614b3589";
+  var courseId = location.state.courseId;
 
   useEffect(() => {
     function fetchQuestions() {
@@ -101,7 +101,7 @@ const QuizAddition = () => {
         questions: combinedQuestions,
       });
 
-      api.put(`/module/${selectedModule.id}`, {
+      api.put(`/module/update/${selectedModule._id}`, {
         $push: { quizzes_id: response._id },
       });
 
