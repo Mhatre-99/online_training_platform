@@ -15,13 +15,13 @@ export const registerUserService = async (user) => {
         delete user.password;
         sessionStorage.setItem("token", firebaseUser.accessToken);
         sessionStorage.setItem("id", firebaseUser.uid);
-        
+
          // Call your backend route to add user
          return axios.post('/users/add', { _id: firebaseUser.uid , name, email, phone_number, designation, roles: roles.toLowerCase(), password, birth_date, rewards_earned })
          .then(response => {
            // Redirect to homepage upon successful addition
            //navigate('/'); // Redirect to Course Page
-           window.location.href = `${app_url}/course`;
+           window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`;
          })
          .catch(error => {
            // Handle error, possibly retry adding user
@@ -55,9 +55,9 @@ export const loginUserService = async (user) => {
           const userRole = response.data.user.roles;
           //Redirect based on user role
           if (userRole === 'admin') {
-            window.location.href = `${app_url}/course`; // Redirect to admin homepage
+            window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`; // Redirect to admin homepage //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
           } else if (userRole === 'employee') {
-            window.location.href = `${app_url}/course`; // Redirect to employee homepage
+            window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`; // Redirect to employee homepage //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
           } else {
             console.error('Unknown user role');
             // Handle unknown user role

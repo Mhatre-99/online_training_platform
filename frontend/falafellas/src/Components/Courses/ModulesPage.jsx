@@ -3,12 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import api from "../../baseUrl";
 import './css/CoursesPage.css';
-import { useParams } from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
 const ModulesPage = () => {
   const { courseId } = useParams();
+  const location = useLocation();
+  const userId = location.state && location.state.userId;
   const [modules, setModules] = useState([]);
   const [courseTitle, setCourseTitle] = useState('');
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const ModulesPage = () => {
   }, [courseId]);
 
   const handleClick = (moduleId) => {
-    navigate(`/module/${moduleId}`); 
+    navigate(`/courses/${courseId}/module/${moduleId}`, {state:{userId:userId}});
   };
 
   // Function to shorten module description
