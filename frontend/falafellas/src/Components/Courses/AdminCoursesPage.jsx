@@ -11,7 +11,7 @@ import './CoursesPage.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
-const CoursesPage = (props) => {
+const AdminCoursesPage = (props) => {
   const {user} = props;
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,6 +19,10 @@ const CoursesPage = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -59,6 +63,9 @@ const CoursesPage = (props) => {
             onChange={e => setSearchQuery(e.target.value)}
           />
         </div>
+        <Button variant="primary" className='add-course-button-courses' onClick={handleClickOpen}>
+        + ADD COURSE
+        </Button>
       </header>
 
       <React.Fragment>   
@@ -160,4 +167,4 @@ const CoursesPage = (props) => {
   );
 };
 
-export default CoursesPage;
+export default AdminCoursesPage;

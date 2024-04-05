@@ -9,7 +9,6 @@ import { auth } from "../../../FirebaseService";
 
 function NavbarComp(props) {
   const { user } = props;
-  console.log(user);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const handleToggleClick = () => {
