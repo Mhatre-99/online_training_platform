@@ -72,7 +72,7 @@ export default function ModuleTitle() {
             module_id: moduleId
         }).then(res => {
             let response = res.data;
-            console.log(response)
+            console.log("module response progress ",response)
             if (response.module_progress == null){
                 api.post("/progress/add/user-progress", {
                     userId: userId,
@@ -80,6 +80,7 @@ export default function ModuleTitle() {
                     moduleId: moduleId
                 }).then(res => {
                     const resp = res.data
+                    console.log("adding user",resp)
                     api.post("/progress/get/user-progress",{
                         user_id: userId,
                         module_id: moduleId
