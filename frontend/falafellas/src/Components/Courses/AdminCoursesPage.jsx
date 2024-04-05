@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import api from "../../baseUrl";
-import './CoursesPage.css'
+import './css/CoursesPage.css'
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
