@@ -49,6 +49,7 @@ function CourseContentElement({ selectedModule, updateModuleData }) {
   const handleFileSelect = () => {
     const input = document.createElement('input');
     input.type = 'file';
+    input.accept="video/*";
     input.onchange = handleFileChange;
     input.click();
   };
