@@ -22,6 +22,7 @@ import { auth } from "./FirebaseService";
 import ProtectedRoute from "./ProtectedRoute";
 import CoursesPage from "./Components/Courses/CoursesPage";
 import ModulesPage from "./Components/Courses/ModulesPage";
+import AdminCoursesPage from "./Components/Courses/AdminCoursesPage";
 
 function App() {
   const [userState, setUserState] = useState(null);
@@ -52,7 +53,8 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/course" element={<CoursesPage />} />
+            <Route path="/course" element={<CoursesPage user={userState}/>} />
+            <Route path="/admin-course" element={<AdminCoursesPage/>} />
             <Route
               path="/courses/:courseId/modules"
               element={<ModulesPage />}

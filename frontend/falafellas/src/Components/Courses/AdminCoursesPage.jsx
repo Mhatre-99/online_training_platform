@@ -1,22 +1,16 @@
-//File created by Aakash Nandwani
-
 import React, { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
 import api from "../../baseUrl";
-import './css/CoursesPage.css';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import './CoursesPage.css'
+import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
-const CoursesPage = (props) => {
+const AdminCoursesPage = (props) => {
   const {user} = props;
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get('user_id');
-  console.log("user ",userId);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("userId",userId);
     api.get('/courses/get/all')
       .then(response => {
         setCourses(response.data.courses);
@@ -27,18 +21,17 @@ const CoursesPage = (props) => {
       });
   }, []);
 
-  // Filter courses based on search query
   const filteredCourses = courses.filter(course =>
     course.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Function to shorten description to maximum 300 characters
   const shortenDescription = (description) => {
     if (description.length > 300) {
       return description.substring(0, 300) + '...';
     }
     return description;
   };
+
 
   return (
     <main className="container mt-5">
@@ -52,12 +45,13 @@ const CoursesPage = (props) => {
             onChange={e => setSearchQuery(e.target.value)}
           />
         </div>
+        <Link to="/module/create" style={{ textDecoration: 'none' }}>
+          <Button variant="primary" className='add-course-button-courses'>
+          + ADD COURSE
+          </Button>
+        </Link>
       </header>
 
-
-      {filteredCourses.length === 0 ? (
-        <h3 className="text-center">No courses found</h3>
-      ) : (
       <section className="row">
         {filteredCourses.map(course => (
           <article className="col-md-6" key={course._id}>
@@ -75,16 +69,16 @@ const CoursesPage = (props) => {
                   <p className="card-text mb-0">
                     <b className="font-weight-bold">Deadline:</b> {course.deadline}
                   </p>
-                  <Link to={{pathname: `/courses/${course._id}/modules`, state: { userId: userId }}} className="btn btn-primary modulesButton">View Modules</Link>
+                  <Link to={`/courses/${course._id}/modules`} className="btn btn-primary modulesButton">View Modules</Link>
                 </div>
               </section>
             </section>
           </article>
         ))}
       </section>
-      )}
+      <ToastContainer />
     </main>
   );
 };
 
-export default CoursesPage;
+export default AdminCoursesPage;

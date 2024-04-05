@@ -4,7 +4,9 @@ import { auth } from "./FirebaseService";
 import './Components/Authentication/Login.css';
 
 
-const app_url = 'https://falafellas.netlify.app';
+// const app_url = 'https://falafellas.netlify.app';
+
+const app_url = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://falafellas.netlify.app';
 
 export const registerUserService = async (user) => {
     const { name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = user;
@@ -55,11 +57,12 @@ export const loginUserService = async (user) => {
           const userRole = response.data.user.roles;
           //Redirect based on user role
           if (userRole === 'admin') {
-            window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`; // Redirect to admin homepage //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
+            window.location.href = `${app_url}/admin-course`; // Redirect to admin homepage
           } else if (userRole === 'employee') {
             window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`; // Redirect to employee homepage //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
           } else {
             console.error('Unknown user role');
+            alert("User Role not valid");
             // Handle unknown user role
           }
         })
