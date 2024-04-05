@@ -10,19 +10,24 @@ import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
 
 //Main module component
-export default function ModuleTitle({userId}) {
+export default function ModuleTitle() {
 
     const [moduleData, setModuleData] = useState({});
+    const location = useLocation();
     const [up, setUp] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [videos, setVideos] = useState();
     const [quizzes, setQuizzes] = useState([]);
-    const {id} = useParams()
+    const {courseId,moduleId } = useParams()
     const [video, setVideo] = useState(false);
     const [quiz, setQuiz] = useState(false);
     const [status, setStatus] = useState(false);
-    const location = useLocation();
+    const userId = sessionStorage.getItem('id');
+    console.log("user id from session ", userId)
+    console.log("module id from session ", moduleId)
+    console.log("course id from session ", courseId)
+
     const checkBox = {video: video, quiz: quiz, status: status};
     const navigate = useNavigate();
     const callback = (value) => {
@@ -40,7 +45,7 @@ export default function ModuleTitle({userId}) {
         }
     }
     useEffect(() => {
-        api.get(`/module/get/${id}`).then(res =>{
+        api.get(`/module/get/${moduleId}`).then(res =>{
             const response = res.data;
             setModuleData(response);
             setTitle(response.module.title);
@@ -55,7 +60,7 @@ export default function ModuleTitle({userId}) {
         })
 
 
-    }, [id]);
+    }, [moduleId]);
 
     const [data, setData] = useState([]);
     const mergedData = (videos || []).concat(quizzes || []);
@@ -63,28 +68,28 @@ export default function ModuleTitle({userId}) {
     let moduleP;
     useEffect(() => {
         api.post("/progress/get/user-progress",{
-            user_id: "b3aaf199",
-            module_id: id
+            user_id: userId,
+            module_id: moduleId
         }).then(res => {
             let response = res.data;
             console.log(response)
             if (response.module_progress == null){
                 api.post("/progress/add/user-progress", {
-                    userId: "b3aaf199",
+                    userId: userId,
                     courseId: "1223",
-                    moduleId: id
+                    moduleId: moduleId
                 }).then(res => {
                     const resp = res.data
                     api.post("/progress/get/user-progress",{
-                        user_id: "b3aaf199",
-                        module_id: id
+                        user_id: userId,
+                        module_id: moduleId
                 }).then(res => {
                     response = res.data;
                 })
                 })
             }
             moduleP = response.module_progress;
-            console.log("module p", moduleP.progress);
+            //console.log("module p", moduleP.progress);
             setUp(moduleP.progress);
             let newMergedData = [];
             mergedData.forEach(function(data){
@@ -122,7 +127,7 @@ export default function ModuleTitle({userId}) {
         if(contentType ==="quiz"){
             navigate("/not-found")
         }else {
-            navigate(`/module/${id}/video/${videoId}`, {state: {moduleId: id}})
+            navigate(`/courses/${courseId}/module/${moduleId}/video/${videoId}`, {state: {moduleId: moduleId}})
         }
     }
 
@@ -174,8 +179,8 @@ export default function ModuleTitle({userId}) {
 
             </Container>}
             <Routes>
-                <Route path="/" element={<Videos mdata = {data} videos = {videos} quizzes = {quizzes} checkBox={checkBox} moduleId={{id}}/>}/>
-                <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {id} callbackSidePanel={(videoId, contentType)=>call(videoId, contentType)}/>}/>
+                <Route path="/" element={<Videos mdata = {data} videos = {videos} quizzes = {quizzes} checkBox={checkBox} moduleId={moduleId}/>}/>
+                <Route path="video/:videoId" element={<VideoPlayer content={data} moduleId = {moduleId} callbackSidePanel={(videoId, contentType)=>call(videoId, contentType)}/>}/>
             </Routes>
     </>
     )
