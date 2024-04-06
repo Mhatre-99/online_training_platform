@@ -32,7 +32,9 @@ const QuestionAddition = () => {
   const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const handleSaveAndNext = (event) => {
+  const module = location.state?.module;
+  console.log(module);
+  const handleSaveAndNext = async (event) => {
     try {
       const newQuestion = {
         question: question,
@@ -56,11 +58,15 @@ const QuestionAddition = () => {
           ? [...location.state.questions, newQuestion]
           : [newQuestion],
       };
-
-      api.post("/quiz/add", updatedState);
-      navigate("/associate-module");
+      const response = await api.post("/quiz/add", updatedState);
+      navigate("/course");
       toast.success("Quiz and Questions successfully added", {
         autoClose: 3000,
+      });
+
+      api.put(`/module/update/${module._id}`, {
+        ...module, // Send the entire module object
+        quizzes_id: [...module.quizzes_id, response.data.quiz._id], // Append the new quiz ID
       });
     } catch (error) {
       console.error("Error adding quiz:", error);
@@ -112,6 +118,7 @@ const QuestionAddition = () => {
         marks: defaultPoints,
       };
       const updatedQuestions = [...existingQuestions, newQuestion];
+
       navigate("/create-new-question", {
         state: {
           ...location.state,

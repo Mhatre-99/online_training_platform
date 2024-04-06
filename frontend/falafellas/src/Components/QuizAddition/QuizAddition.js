@@ -7,7 +7,13 @@ Last Updated: 04-04-2024
 */
 
 import React, { useState, useEffect } from "react";
-import { Autocomplete, TextField, Select, MenuItem } from "@mui/material";
+import {
+  Autocomplete,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./QuizAddition.css";
@@ -20,69 +26,76 @@ const QuizAddition = () => {
   const [deadline, setDeadline] = useState("");
   const [timeLimit, setTimeLimit] = useState("");
   const [minimumMarks, setMinimumMarks] = useState("");
-  // const [selectedModule, setSelectedModule] = useState({});
-
+  const [selectedModule, setSelectedModule] = useState({});
+  var modulesArray1 = [];
   const location = useLocation();
   // console.log(location.state?.courseId);
   //const [personName, setPersonName] = useState([]);
   const [existingQuestions, setExistingQuestions] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  // const [modules, setModules] = useState([]);
-
+  const [modules, setModules] = useState([]);
+  //const [modulesArray, setModulesArray] = useState([]);
   const [existingQuestionsSelected, setExistingQuestionsSelected] =
     useState(false);
   const navigate = useNavigate();
-  // var courseId = "660d8987dced2306614b3589";
+  var courseId = location.state?.courseId;
+
   useEffect(() => {
-    async function fetchQuestions() {
-      try {
-        const response = await api.get("/question/get/all");
-        setExistingQuestions(response.data.questions);
-        //const getCourse = await api.get(`/courses/get/${courseId}`);
-        //var modulesFromCourse = getCourse.data?.course?.modules;
-        //console.log(modulesFromCourse);
-        // const modulesArray = [];
-        // const modulePromises = modulesFromCourse.map((moduleId) =>
-        //   api.get(`/module/get/${moduleId}`)
-        // );
+    function fetchQuestions() {
+      api
+        .get("/question/get/all")
+        .then((response) => {
+          setExistingQuestions(response.data.questions);
+          return api.get(`/courses/get/${courseId}`);
+        })
+        .then((getCourse) => {
+          const modulesFromCourse = getCourse.data?.course?.modules;
+          console.log(modulesFromCourse);
 
-        // Promise.all(modulePromises)
-        //   .then((responses) => {
-        //     const modulesArray = responses.map((response) => response.data);
-        //     console.log(modulesArray);
-        //   })
-        //   .catch((error) => {
-        //     console.error("Error fetching modules:", error);
-        //   });
-        // setModules(...modulesArray);
+          const modulePromises = modulesFromCourse.map((moduleId) =>
+            api.get(`/module/get/${moduleId}`)
+          );
 
-        //console.log(modules);
-        setExistingQuestions(response.data.questions);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
+          return Promise.all(modulePromises);
+        })
+        .then((responses) => {
+          const modulesArray = responses.map((response) => response.data);
+          console.log("inside promise" + modulesArray);
+          setModules(modulesArray); // Set modules state here
+        })
+        .catch((error) => {
+          console.error("Error fetching modules:", error);
+        });
     }
     fetchQuestions();
   }, []);
+
+  useEffect(() => {
+    // This will run after `modules` is updated
+    console.log("Modules state has been updated:", modules);
+  }, [modules]);
   const handleChange = (event, value) => {
     console.log("Selected questions:", value);
     setSelectedQuestions(value);
     setExistingQuestionsSelected(value.length > 0);
   };
 
-  const handleSaveAndNext = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const combinedQuestions = [...selectedQuestions];
     const form = event.currentTarget.form;
 
-    if (!form.checkValidity()) {
-      event.stopPropagation();
-      toast.error("Not all fields are filled.", {
-        autoClose: 3000,
-      });
-      return;
-    }
+    // if (!form.checkValidity()) {
+    //   event.stopPropagation();
+    //   toast.error("Not all fields are filled.", {
+    //     autoClose: 3000,
+    //   });
+
+    // return;
+    // }
     try {
-      api.post("/quiz/add", {
+      var response = await api.post("/quiz/add", {
         name,
         description,
         timeLimit,
@@ -90,8 +103,20 @@ const QuizAddition = () => {
         minimumMarks,
         questions: combinedQuestions,
       });
+      if (
+        response.data &&
+        response.data.success &&
+        response.data.quiz &&
+        response.data.quiz._id
+      ) {
+        console.log(response.data.quiz._id);
+        api.put(`/module/update/${selectedModule._id}`, {
+          ...selectedModule, // Send the entire module object
+          quizzes_id: [...selectedModule.quizzes_id, response.data.quiz._id], // Append the new quiz ID
+        });
+      }
 
-      navigate("/associate-module");
+      navigate("/course");
       toast.success("Quiz and Questions added successfully.", {
         autoClose: 3000,
       });
@@ -102,34 +127,35 @@ const QuizAddition = () => {
       });
     }
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await api.post("/quiz/add", {
-        name,
-        description,
-        timeLimit,
-        deadline,
-        minimumMarks,
-      });
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await api.post("/quiz/add", {
+  //       name,
+  //       description,
+  //       timeLimit,
+  //       deadline,
+  //       minimumMarks,
+  //     });
 
-      //const quizId = response.data._id;
+  // const quizId = response.data._id;
 
-      // await Promise.all(
-      //   personName.map(async (question) => {
-      //     await api.post(`/question/${question._id}/addQuiz`, { quizId });
-      //   })
-      // );
+  // await Promise.all(
+  //   personName.map(async (question) => {
+  //     await api.post(`/question/${question._id}/addQuiz`, { quizId });
+  //   })
+  // );
 
-      // navigate("/associate-module");
-    } catch (error) {
-      console.error("Error adding quiz:", error);
-    }
-  };
+  // navigate("/associate-module");
+  //   } catch (error) {
+  //     console.error("Error adding quiz:", error);
+  //   }
+  // };
 
   const handleModuleChange = (event) => {
     const value = event.target.value;
-    // setSelectedModule(value);
+    setSelectedModule(value);
+    console.log(selectedModule._id);
   };
   const handleCreateNew = (event) => {
     const form = event.currentTarget.form;
@@ -152,6 +178,7 @@ const QuizAddition = () => {
         deadline: deadline,
         minimumMarks: minimumMarks,
         questions: selectedQuestions,
+        module: selectedModule,
       },
     });
   };
@@ -162,19 +189,28 @@ const QuizAddition = () => {
       <form onSubmit={handleSubmit} className="create-quiz-form">
         <div className="align">
           <div className="left-half">
-            {/* <Select
-              labelId="module-label"
-              id="module-select"
-              value={selectedModule}
-              label="Module"
-              onChange={handleModuleChange}
-            >
-              {modules.map((module) => (
-                <MenuItem key={module.numeric_id} value={module.title}>
-                  {module.title}
-                </MenuItem>
-              ))}
-            </Select> */}
+            <FormControl className="input-field-dropdown">
+              <InputLabel id="module-label">Module</InputLabel>
+
+              <Select
+                label="Module"
+                labelId="module-label"
+                id="module-select"
+                value={selectedModule.id}
+                onChange={handleModuleChange}
+              >
+                {modules &&
+                  modules.map((item) => (
+                    <MenuItem
+                      key={item.module.id}
+                      value={item.module}
+                      eventKey={item.module.id}
+                    >
+                      {item.module.title}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
             <TextField
               label="Name"
               className="input-field "
@@ -189,7 +225,7 @@ const QuizAddition = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               multiline
-              rows={4}
+              rows={1}
             />
           </div>
           <div className="right-half">
@@ -263,7 +299,6 @@ const QuizAddition = () => {
                 className="submit-button"
                 type="submit"
                 disabled={!existingQuestionsSelected}
-                onClick={handleSaveAndNext}
               >
                 SAVE AND GO TO COURSE
               </button>

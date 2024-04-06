@@ -36,9 +36,7 @@ const getUserById = async (req, res) => {
 const addUser = async (req, res) => {
     const {_id, name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = req.body;
     try {
-        // if (!name || !email) {
-        //     return res.status(400).json({ error: "Name and Email are required" });
-        // }
+        const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
         const newUser = await User.create({
             _id,
@@ -47,7 +45,7 @@ const addUser = async (req, res) => {
             phone_number,
             designation,
             roles,
-            password,
+            password: hashedPassword,
             birth_date,
             rewards_earned
         });

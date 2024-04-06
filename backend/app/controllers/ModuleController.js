@@ -104,7 +104,33 @@ const addModule = async (req, res) =>{
 }
 
 
+//API to update the values of a module
+const updateModule = async (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    try {
+        const module = await Module.findById(id);
+        if (!module) {
+            return res.status(404).json({ error: "Module not found" });
+        }
+
+        // Update each field provided in the request body
+        for (const key in updates) {
+            module[key] = updates[key];
+        }
+
+        const updatedModule = await module.save();
+
+        res.json({ message: "Module updated successfully", updatedModule });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 module.exports = {
     getModuleById,
-    addModule
+    addModule,
+    updateModule
 };
