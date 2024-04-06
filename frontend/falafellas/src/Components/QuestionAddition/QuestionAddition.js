@@ -34,7 +34,7 @@ const QuestionAddition = () => {
   const location = useLocation();
   const module = location.state?.module;
   console.log(module);
-  const handleSaveAndNext = (event) => {
+  const handleSaveAndNext = async (event) => {
     try {
       const newQuestion = {
         question: question,
@@ -58,14 +58,15 @@ const QuestionAddition = () => {
           ? [...location.state.questions, newQuestion]
           : [newQuestion],
       };
-      const response = api.post("/quiz/add", updatedState);
+      const response = await api.post("/quiz/add", updatedState);
       navigate("/course");
       toast.success("Quiz and Questions successfully added", {
         autoClose: 3000,
       });
 
-      api.put(`/module/${module.id}`, {
-        $push: { quizzes_id: response._id },
+      api.put(`/module/update/${module._id}`, {
+        ...module, // Send the entire module object
+        quizzes_id: [...module.quizzes_id, response.data.quiz._id], // Append the new quiz ID
       });
     } catch (error) {
       console.error("Error adding quiz:", error);

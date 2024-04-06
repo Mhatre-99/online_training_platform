@@ -38,7 +38,7 @@ const QuizAddition = () => {
   const [existingQuestionsSelected, setExistingQuestionsSelected] =
     useState(false);
   const navigate = useNavigate();
-  var courseId = location.state.courseId;
+  var courseId = location.state?.courseId;
 
   useEffect(() => {
     function fetchQuestions() {
@@ -80,19 +80,22 @@ const QuizAddition = () => {
     setExistingQuestionsSelected(value.length > 0);
   };
 
-  const handleSaveAndNext = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const combinedQuestions = [...selectedQuestions];
     const form = event.currentTarget.form;
 
-    if (!form.checkValidity()) {
-      event.stopPropagation();
-      toast.error("Not all fields are filled.", {
-        autoClose: 3000,
-      });
-      return;
-    }
+    // if (!form.checkValidity()) {
+    //   event.stopPropagation();
+    //   toast.error("Not all fields are filled.", {
+    //     autoClose: 3000,
+    //   });
+
+    // return;
+    // }
     try {
-      var response = api.post("/quiz/add", {
+      var response = await api.post("/quiz/add", {
         name,
         description,
         timeLimit,
@@ -100,10 +103,18 @@ const QuizAddition = () => {
         minimumMarks,
         questions: combinedQuestions,
       });
-
-      api.put(`/module/update/${selectedModule._id}`, {
-        $push: { quizzes_id: response._id },
-      });
+      if (
+        response.data &&
+        response.data.success &&
+        response.data.quiz &&
+        response.data.quiz._id
+      ) {
+        console.log(response.data.quiz._id);
+        api.put(`/module/update/${selectedModule._id}`, {
+          ...selectedModule, // Send the entire module object
+          quizzes_id: [...selectedModule.quizzes_id, response.data.quiz._id], // Append the new quiz ID
+        });
+      }
 
       navigate("/course");
       toast.success("Quiz and Questions added successfully.", {
@@ -116,30 +127,30 @@ const QuizAddition = () => {
       });
     }
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await api.post("/quiz/add", {
-        name,
-        description,
-        timeLimit,
-        deadline,
-        minimumMarks,
-      });
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await api.post("/quiz/add", {
+  //       name,
+  //       description,
+  //       timeLimit,
+  //       deadline,
+  //       minimumMarks,
+  //     });
 
-      // const quizId = response.data._id;
+  // const quizId = response.data._id;
 
-      // await Promise.all(
-      //   personName.map(async (question) => {
-      //     await api.post(`/question/${question._id}/addQuiz`, { quizId });
-      //   })
-      // );
+  // await Promise.all(
+  //   personName.map(async (question) => {
+  //     await api.post(`/question/${question._id}/addQuiz`, { quizId });
+  //   })
+  // );
 
-      // navigate("/associate-module");
-    } catch (error) {
-      console.error("Error adding quiz:", error);
-    }
-  };
+  // navigate("/associate-module");
+  //   } catch (error) {
+  //     console.error("Error adding quiz:", error);
+  //   }
+  // };
 
   const handleModuleChange = (event) => {
     const value = event.target.value;
@@ -288,7 +299,6 @@ const QuizAddition = () => {
                 className="submit-button"
                 type="submit"
                 disabled={!existingQuestionsSelected}
-                onClick={handleSaveAndNext}
               >
                 SAVE AND GO TO COURSE
               </button>
