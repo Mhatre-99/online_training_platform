@@ -6,7 +6,7 @@ import './Components/Authentication/Login.css';
 
 // const app_url = 'https://falafellas.netlify.app';
 
-const app_url = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://rnd--falafellas.netlify.app';
+const app_url = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://falafellas.netlify.app';
 
 export const registerUserService = async (user) => {
     const { name, email, phone_number, designation, roles, password, birth_date, rewards_earned } = user;
