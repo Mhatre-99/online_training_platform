@@ -38,7 +38,6 @@
   box-sizing: border-box;
 }
 
-<<<<<<< HEAD
 .add-course-button-courses {
   margin-top: 2rem !important;
   margin-bottom: 2rem !important;
@@ -71,7 +70,6 @@
   box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2) !important;
   outline: none !important; /* Removes the outline */
 }
-=======
   .add-course-button-courses {
     margin-top: 2rem !important;
     margin-bottom: 2rem !important;
@@ -105,4 +103,3 @@
     outline: none !important; /* Removes the outline */
   }
   
->>>>>>> 17765ff52e1d55c8a1a9328e6346e2be34269e4f

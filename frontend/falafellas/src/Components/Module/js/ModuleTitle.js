@@ -67,28 +67,17 @@ export default function ModuleTitle() {
     console.log('merged data ', mergedData )
     let moduleP;
     useEffect(() => {
+        api.post("/progress/add/user-progress", {
+            userId: userId,
+            courseId: "1223",
+            moduleId: moduleId
+        }).then(res =>{
         api.post("/progress/get/user-progress",{
             user_id: userId,
             module_id: moduleId
         }).then(res => {
             let response = res.data;
             console.log("module response progress ",response)
-            if (response.module_progress == null){
-                api.post("/progress/add/user-progress", {
-                    userId: userId,
-                    courseId: "1223",
-                    moduleId: moduleId
-                }).then(res => {
-                    const resp = res.data
-                    console.log("adding user",resp)
-                    api.post("/progress/get/user-progress",{
-                        user_id: userId,
-                        module_id: moduleId
-                }).then(res => {
-                    response = res.data;
-                })
-                })
-            }
             moduleP = response.module_progress;
             //console.log("module p", moduleP.progress);
             setUp(moduleP.progress);
@@ -117,6 +106,9 @@ export default function ModuleTitle() {
             console.log("data",data);
         }).catch ( error => {
             console.log("error fetching user progress ",error);
+        })
+        }).catch(error => {
+            console.log("error adding user progress", error)
         })
 
 
