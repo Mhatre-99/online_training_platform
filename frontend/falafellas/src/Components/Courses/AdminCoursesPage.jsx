@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import api from "../../baseUrl";
-<<<<<<< HEAD
 import "../Courses/css/CoursesPage.css";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-=======
 import './css/CoursesPage.css'
-import { Link } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
->>>>>>> 17765ff52e1d55c8a1a9328e6346e2be34269e4f
 
 const AdminCoursesPage = (props) => {
   const { user } = props;
