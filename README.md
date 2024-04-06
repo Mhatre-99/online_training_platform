@@ -1,7 +1,10 @@
 ## CSCI 5709 Grp-05
 
-Group Project link
-[CSCI 5709 Grp-05](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/)
+### Falafellas Learning Hub
+- The "Falafellas Learning Hub" is a dynamic platform designed to provide continuous training and support for Falafellas employees, ensuring they are equipped with the knowledge and skills needed to excel in their roles.
+
+Group Project link: [CSCI 5709 Grp-05](https://git.cs.dal.ca/panchamia/csci-5709-grp-05/)
+Deployed Link: https://falafellas.netlify.app/ 
 
 ## Individiual branch links:
 
@@ -18,13 +21,13 @@ The following are the features of our application
 
 Must Have
 
-- Authentication
-- User Profile & Rewards
-- Course details
-- Course addition
-- User dashboard
-- Quiz addition
-- Contact Page & FAQ
+- Authentication (Shweta Shweta)
+- User Profile & Rewards (Krisha Panchamia)
+- Course details (Samit Mhatre)
+- Course addition (Aditya Pattani)
+- User dashboard (Aakash Nandwani)
+- Quiz addition (Gunjan Vazirani)
+- Contact Page & FAQ 
 - Administrator Reporting
 - Quiz Attempt
 
