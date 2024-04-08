@@ -23,6 +23,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import CoursesPage from "./Components/Courses/CoursesPage";
 import ModulesPage from "./Components/Courses/ModulesPage";
 import AdminCoursesPage from "./Components/Courses/AdminCoursesPage";
+import { getUserRole } from "./UserService";
+import AdminDashboard from "./Components/AdminReporting/AdminDashboard";
+import ReportsDashboard from "./Components/AdminReporting/ReportsDashboard";
 
 function App() {
   const [userState, setUserState] = useState(null);
@@ -38,11 +41,29 @@ function App() {
     return unsubscribe;
   }, []);
 
+  const [userRole, setUserRole] = useState('');
+
+  useEffect(() => {
+    if (userState) {
+      // Fetch user role when the user state changes
+      async function fetchUserRole() {
+        try {
+          const role = await getUserRole(userState); // Assuming getUserRole is a function that fetches user role
+          setUserRole(role);
+        } catch (error) {
+          console.error('Error fetching user role:', error);
+        }
+      }
+
+      fetchUserRole();
+    }
+  }, [userState]);
+
   return (
     <>
       <ToastContainer />
 
-      <NavbarComp user={userState} />
+      <NavbarComp user={userState} userRole={userRole} />
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -53,7 +74,8 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
 
           <Route element={<ProtectedRoute />}>
-            {/* <Route path="/admin-dashboard" element={<AdminDashboard/>} /> */}
+            <Route path="/admin-dashboard" element={<AdminDashboard/>} />
+            <Route path="/admin-reports" element={<ReportsDashboard/>} />
             <Route path="/course" element={<CoursesPage user={userState}/>} />
             <Route path="/admin-course" element={<AdminCoursesPage/>} />
             <Route

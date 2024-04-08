@@ -68,8 +68,7 @@
   font-size: 18px;
 }
 
-.forgot-password,
-.login span {
+.forgot-password span {
   color: white;
   cursor: pointer;
   text-decoration: underline;
