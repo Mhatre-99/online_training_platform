@@ -53,6 +53,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
 
           <Route element={<ProtectedRoute />}>
+            {/* <Route path="/admin-dashboard" element={<AdminDashboard/>} /> */}
             <Route path="/course" element={<CoursesPage user={userState}/>} />
             <Route path="/admin-course" element={<AdminCoursesPage/>} />
             <Route
