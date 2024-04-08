@@ -53,13 +53,13 @@ export const loginUserService = async (user) => {
         // Check user role
         return axios.get(`/users/get/${firebaseUser.uid}`)
         .then(response => {
-          debugger;
+          //debugger;
           const userRole = response.data.user.roles;
           //Redirect based on user role
           if (userRole === 'admin') {
             window.location.href = `${app_url}/admin-course`; // Redirect to admin homepage
           } else if (userRole === 'employee') {
-            window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`; // Redirect to employee homepage //Change URLLLLLLLLLLLLLLLLLLLLLLLLLLL
+            window.location.href = `${app_url}/course?user_id=${firebaseUser.uid}`; // Redirect to employee homepage
           } else {
             console.error('Unknown user role');
             alert("User Role not valid");
@@ -90,4 +90,17 @@ export const forgotPassword = (user) => {
     const errorMessage = error.message;
     console.error(`Error Code ${errorCode}: ${errorMessage}`);
   });
+}
+
+
+export const getUserRole = async( user ) => {
+  try {
+    const response = await axios.get(`/users/get/${user.uid}`);
+    console.log("USer:", user);
+    const userRole = response.data.user.roles;
+    return userRole;
+  } catch (error) {
+    console.error('Error fetching user role:', error);
+    throw error; // Propagate the error to the caller
+  }
 }

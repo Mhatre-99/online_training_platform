@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from "../../../FirebaseService";
 
 function NavbarComp(props) {
-  const { user } = props;
+  const { user, userRole } = props;
+  console.log("User Role:",  userRole);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const handleToggleClick = () => {
@@ -44,15 +45,31 @@ function NavbarComp(props) {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto navbar-elements">
+            {userRole === 'admin' ? (
+              <LinkContainer to="/admin-course">
+                <Nav.Link>Courses</Nav.Link>
+              </LinkContainer>
+            ) : (
               <LinkContainer to="/course">
                 <Nav.Link>Courses</Nav.Link>
               </LinkContainer>
+            )}
               <LinkContainer to="/contact">
                 <Nav.Link>Contact Us</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/faq">
                 <Nav.Link>FAQ</Nav.Link>
               </LinkContainer>
+              {userRole === 'admin' && (
+                <>
+                  <LinkContainer to="/admin-dashboard">
+                    <Nav.Link>Dashboard</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/admin-reports">
+                    <Nav.Link>Reports</Nav.Link>
+                  </LinkContainer>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
 
