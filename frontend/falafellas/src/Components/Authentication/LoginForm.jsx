@@ -29,7 +29,6 @@ function LoginForm() {
 
   const [loading, setLoading] = useState(false); // State to track loading status
   const handleLoginButtonClick = async () => {
-    setLoading(true);
     try {
       // Validate fields before attempting login
       if (!user.email || !user.password) {
@@ -40,6 +39,7 @@ function LoginForm() {
         return;
       }
       // Call the loginUserService method
+      setLoading(true);
       await loginUserService(user);
     } catch (error) {
       console.error('Error logging in:', error);
